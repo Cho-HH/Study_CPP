@@ -1,5 +1,6 @@
 #include "MyString.h"
 #include <stdio.h>
+
 namespace assignment1
 {
     MyString::MyString(const char* s)
@@ -9,27 +10,27 @@ namespace assignment1
         while (*c++ != '\0') {
             len++;
         }
-        this->str = new char[len + 1];
-        sprintf(str, "%s", s);       
+        mStr = new char[len + 1];
+        sprintf(mStr, "%s", s);       
     }
 
     MyString::MyString(const MyString& other)
     {
         size_t len = other.GetLength();
-        this->str = new char[len + 1];
+        mStr = new char[len + 1];
         int i = 0;
-        sprintf(str, "%s", other.GetCString());
+        sprintf(mStr, "%s", other.GetCString());
     }
 
     MyString::~MyString()
     {
-        delete this->str;
-        this->str = nullptr;
+        delete mStr;
+        mStr = nullptr;
     }
 
     unsigned int MyString::GetLength() const
     {
-        const char* ch = this->str;
+        const char* ch = this->mStr;
         size_t len = 0;
         while (*ch++ != '\0') {
             len++;
@@ -40,7 +41,7 @@ namespace assignment1
 
     const char* MyString::GetCString() const
     {
-        return this->str;
+        return mStr;
     }
 
     void MyString::Append(const char* s)
@@ -73,7 +74,7 @@ namespace assignment1
 
     int MyString::IndexOf(const char* s)
     {
-        const char* idx = this->str;
+        const char* idx = this->mStr;
         while (*idx++ != '\0') {
 
         }
@@ -117,8 +118,8 @@ namespace assignment1
 
     void MyString::Reverse()
     {
-        char* s = str;
-        char* n = &(str[this->GetLength() - 1]);
+        char* s = mStr;
+        char* n = &(mStr[this->GetLength() - 1]);
         while (s < n) {
             char tmp = *s;
             *s = *n;
@@ -130,7 +131,7 @@ namespace assignment1
 
     bool MyString::operator==(const MyString& rhs) const
     {
-        const char* s = str;
+        const char* s = mStr;
         const char* n = rhs.GetCString();
         while (*s == '\0') {
             if (*s++ != *n++) {
@@ -147,18 +148,22 @@ namespace assignment1
 
     void MyString::ToLower()
     {
-        char* s = str;       
+        char* s = mStr;       
         while (*s != '\0') {
-            *s |= 0x20;
+            if (65 <= *s && 90 >= *s) {
+                *s |= 0x20;               
+            }     
             s++;
         }
     }
 
     void MyString::ToUpper()
     {
-        char* s = str;
+        char* s = mStr;
         while (*s != '\0') {
-            *s &= ~0x20;
+            if (97 <= *s && 122 >= *s) {
+                *s &= ~0x20;               
+            }     
             s++;
         }
     }

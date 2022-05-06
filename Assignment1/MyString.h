@@ -4,7 +4,7 @@ namespace assignment1
 	class MyString
 	{
 	private :
-		char* str = nullptr;
+		char* mStr;
 	public:
 		MyString(const char* s);
 		MyString(const MyString& other);
