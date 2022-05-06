@@ -29,7 +29,7 @@ namespace assignment1
 		void ToUpper();
 
 	private:
-		size_t GetLength(const char* s) const;
+		size_t getLength(const char* s) const;
 	};
 
 }

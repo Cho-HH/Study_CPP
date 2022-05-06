@@ -19,6 +19,73 @@ int main()
 	str.Reverse();
 	cout << str.GetCString() << endl;*/
 
+	/* PadRight() Ex */
+	cout << "-----------------------" << endl;
+	cout << "PadRight()" << endl;
+	MyString s10("Hello");
+	s10.PadRight(2);  // "Hello"
+	cout << s10.GetCString() << endl;
+	s10.PadRight(8);  // "Hello   "
+	cout << s10.GetLength() << endl;
+	cout << s10.GetCString() << '|' << endl;// 공백 확인 위한 |
+
+	MyString s102("World");
+	s102.PadRight(3, '-');  // "World"
+	cout << s102.GetCString() << endl;
+	s102.PadRight(7, '-');  // "World--"
+	cout << s102.GetCString() << endl;
+
+
+	/* PadLeft() Ex */
+	cout << "-----------------------" << endl;
+	cout << "PadLeft()" << endl;
+	MyString s9("Hello");
+	s9.PadLeft(2);  // "Hello"
+	cout << s9.GetCString() << endl;
+	s9.PadLeft(8);  // "   Hello"
+	cout << s9.GetCString() << endl;
+
+	MyString s92("World");
+	s92.PadLeft(3, '-');  // "World"
+	cout << s92.GetCString() << endl;
+	s92.PadLeft(7, '-');  // "--World"
+	cout << s92.GetCString() << endl;
+
+
+	/* RemoveAt() Ex */
+	cout << "-----------------------" << endl;
+	cout << "RemoveAt()" << endl;
+	MyString s8("Hello");
+	cout << boolalpha << s8.RemoveAt(0) << ", ";   // true,
+	cout << s8.GetCString() << endl;               // ello
+	cout << boolalpha << s8.RemoveAt(2) << ", ";   // true,
+	cout << s8.GetCString() << endl;               // elo
+	cout << boolalpha << s8.RemoveAt(4) << ", ";   // false,
+	cout << s8.GetCString() << endl;               // elo
+
+
+	/* operator+ Ex */
+	cout << "-----------------------" << endl;
+	cout << "operator+" << endl;
+	MyString s41("Hello");
+	MyString s42(" World");
+	MyString s43 = s41 + s42;
+	//s2 = s2 + s1;  소멸자 오류(이번 과제에서는 체크하지 않음)
+	cout << s43.GetCString() << endl;   //Hello World
+	cout << s41.GetCString() << endl;
+	cout << s42.GetCString() << endl;
+
+
+	/* Append() Ex */
+	cout << "-----------------------" << endl;
+	cout << "Append()" << endl;
+	MyString s3("Hello");
+	s3.Append(" World");
+	cout << s3.GetCString() << endl;  // Hello World
+	s3.Append("\n\tWorld\n");
+	cout << s3.GetCString() << endl;
+
+
 	cout << "-----------------------" << endl;
 	cout << "Interleave()" << endl;
 	MyString s7("Hello");
