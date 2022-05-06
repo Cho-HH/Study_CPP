@@ -4,21 +4,14 @@
 namespace assignment1
 {
     MyString::MyString(const char* s)
-    {
-        size_t len = 0;
-        const char* c = s;
-        while (*c++ != '\0') {
-            len++;
-        }
-        mStr = new char[len + 1];
-        sprintf(mStr, "%s", s);       
+    {       
+        mStr = new char[GetLength(s) + 1];
+        sprintf(mStr, "%s", s);
     }
 
     MyString::MyString(const MyString& other)
     {
-        size_t len = other.GetLength();
-        mStr = new char[len + 1];
-        int i = 0;
+        mStr = new char[GetLength(other.GetCString()) + 1];
         sprintf(mStr, "%s", other.GetCString());
     }
 
@@ -30,7 +23,7 @@ namespace assignment1
 
     unsigned int MyString::GetLength() const
     {
-        const char* ch = this->mStr;
+        const char* ch = mStr;
         size_t len = 0;
         while (*ch++ != '\0') {
             len++;
@@ -45,26 +38,7 @@ namespace assignment1
     }
 
     void MyString::Append(const char* s)
-    {
-        /*const char* ch = s;
-        size_t len = 0;
-        while (*ch++ != '\0') {
-            len++;
-        }
-        
-        int newLen = this->GetLength() + len + 1;
-        int thisLen = this->GetLength();
-        char* tmp = new char[newLen];       
-
-        int idx = 0;
-        for (int i = 0; i < thisLen; i++) {
-            this->str[idx++] = tmp[i];
-        }
-        for (int i = 0; i < len; i++) {
-            this->str[idx++] = s[i];
-        }
-        this->str[newLen - 1] = '\0';
-        */
+    {       
     }
 
     MyString MyString::operator+(const MyString& other) const
@@ -88,11 +62,32 @@ namespace assignment1
 
     void MyString::Interleave(const char* s)
     {
-        const char* ch = s;
-        size_t len = 0;
-        while (*ch++ != '\0') {
-            len++;
-        }
+        size_t len = this->GetLength() + GetLength(s);
+        char* tmp = new char[len + 1];
+        const char* c1 = mStr;
+        const char* c2 = s;
+        bool check = true;
+        int i = 0;
+        for (; i < len; i++) {
+            if (check) {
+                tmp[i] = *c1++;
+                check = false;
+            } else {
+                tmp[i] = *c2++;
+                check = true;
+            }
+
+            if (*c2 == '\0') {
+                check = true;
+            }
+            else if (*c1 == '\0') {
+                check = false;
+            }
+           
+        } 
+        tmp[i] = '\0';
+        delete mStr;
+        mStr = tmp;
     }
 
     bool MyString::RemoveAt(unsigned int i)
@@ -148,11 +143,11 @@ namespace assignment1
 
     void MyString::ToLower()
     {
-        char* s = mStr;       
+        char* s = mStr;
         while (*s != '\0') {
             if (65 <= *s && 90 >= *s) {
-                *s |= 0x20;               
-            }     
+                *s |= 0x20;
+            }
             s++;
         }
     }
@@ -162,9 +157,19 @@ namespace assignment1
         char* s = mStr;
         while (*s != '\0') {
             if (97 <= *s && 122 >= *s) {
-                *s &= ~0x20;               
-            }     
+                *s &= ~0x20;
+            }
             s++;
+        }   
+    }
+
+    size_t MyString::GetLength(const char* s) const
+    {
+        size_t len = 0;
+        const char* c = s;
+        while (*c++ != '\0') {
+            len++;
         }
+        return len;
     }
 }

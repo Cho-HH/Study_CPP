@@ -27,5 +27,9 @@ namespace assignment1
 		MyString& operator=(const MyString& rhs);
 		void ToLower();
 		void ToUpper();
+
+	private:
+		size_t GetLength(const char* s) const;
 	};
+
 }
