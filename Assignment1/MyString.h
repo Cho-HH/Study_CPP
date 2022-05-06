@@ -4,7 +4,11 @@ namespace assignment1
 	class MyString
 	{
 	private :
+<<<<<<< HEAD
 		char* str;
+=======
+		const char* str;
+>>>>>>> parent of ac7c2ea (no message)
 	public:
 		MyString(const char* s);
 		MyString(const MyString& other);
