@@ -11,7 +11,7 @@ namespace assignment1
 
 	MyString::MyString(const MyString& other)
 	{
-		mStr = new char[getLength(other.GetCString()) + 1];
+		mStr = new char[other.GetLength() + 1];
 		sprintf(mStr, "%s", other.GetCString());
 	}
 
@@ -25,7 +25,8 @@ namespace assignment1
 	{
 		const char* ch = mStr;
 		size_t len = 0;
-		while (*ch++ != '\0') {
+		while (*ch++ != '\0')
+		{
 			len++;
 		}
 
@@ -44,15 +45,17 @@ namespace assignment1
 		const char* c = mStr;
 		const char* ns = s;
 		size_t i = 0;
-		for (; i < len; i++) {
-			if (*c != '\0') {
+		for (; i < len; i++)
+		{
+			if (*c != '\0')
+			{
 				tmp[i] = *c++;
 				continue;
 			}
 			tmp[i] = *ns++;
 		}
 		tmp[i] = '\0';
-		delete mStr;
+		delete[] mStr;
 		mStr = tmp;
 	}
 
@@ -63,8 +66,10 @@ namespace assignment1
 		const char* c = mStr;
 		const char* nc = other.GetCString();
 		size_t i = 0;
-		for (; i < len; i++) {
-			if (*c != '\0') {
+		for (; i < len; i++)
+		{
+			if (*c != '\0')
+			{
 				tmp[i] = *c++;
 				continue;
 			}
@@ -78,13 +83,17 @@ namespace assignment1
 	{
 		const char* c = mStr;
 		const char* check = s;
-		for (int i = 0; i < this->GetLength(); i++) {
-			if (*c == ' ') {
+		for (int i = 0; i < this->GetLength(); i++)
+		{
+			if (*c == ' ')
+			{
 				check = s;
 			}
 
-			while (*c == ' ' || *c == '\0') {
-				if (*c == *check) {
+			while (*c == ' ' || *c == '\0')
+			{
+				if (*c == *check)
+				{
 					i++;
 					//dasdasdasdas
 				}
@@ -109,8 +118,10 @@ namespace assignment1
 		const char* c2 = s;
 		bool check = true;
 		size_t i = 0;
-		for (; i < len; i++) {
-			if (check) {
+		for (; i < len; i++)
+		{
+			if (check)
+			{
 				tmp[i] = *c1++;
 				check = false;
 			}
@@ -119,16 +130,18 @@ namespace assignment1
 				check = true;
 			}
 
-			if (*c2 == '\0') {
+			if (*c2 == '\0')
+			{
 				check = true;
 			}
-			else if (*c1 == '\0') {
+			else if (*c1 == '\0')
+			{
 				check = false;
 			}
 
 		}
 		tmp[i] = '\0';
-		delete mStr;
+		delete[] mStr;
 		mStr = tmp;
 	}
 
@@ -141,21 +154,24 @@ namespace assignment1
 
 		char* tmp = new char[len];
 		size_t idx = 0;
-		for (size_t j = 0; j < len; j++) {
-			if (j == i) {
+		for (size_t j = 0; j < len; j++)
+		{
+			if (j == i)
+			{
 				continue;
 			}
 			tmp[idx++] = mStr[j];
 		}
 		tmp[idx] = '\0';
-		delete mStr;
+		delete[] mStr;
 		mStr = tmp;
 		return true;
 	}
 
 	void MyString::PadLeft(unsigned int totalLength)
 	{
-		if (totalLength <= this->GetLength()) {
+		if (totalLength <= this->GetLength())
+		{
 			return;
 		}
 
@@ -163,21 +179,24 @@ namespace assignment1
 		int j = totalLength - this->GetLength();
 		int i = 0;
 		int idx = 0;
-		for (; i < totalLength; i++) {
-			if (i < j) {
+		for (; i < totalLength; i++)
+		{
+			if (i < j)
+			{
 				tmp[i] = ' ';
 				continue;
 			}
 			tmp[i] = this->GetCString()[idx++];
 		}
 		tmp[i] = '\0';
-		delete mStr;
+		delete[] mStr;
 		mStr = tmp;
 	}
 
 	void MyString::PadLeft(unsigned int totalLength, const char c)
 	{
-		if (totalLength <= this->GetLength()) {
+		if (totalLength <= this->GetLength())
+		{
 			return;
 		}
 
@@ -185,57 +204,65 @@ namespace assignment1
 		int j = totalLength - this->GetLength();
 		int i = 0;
 		int idx = 0;
-		for (; i < totalLength; i++) {
-			if (i < j) {
+		for (; i < totalLength; i++)
+		{
+			if (i < j)
+			{
 				tmp[i] = c;
 				continue;
 			}
 			tmp[i] = this->GetCString()[idx++];
 		}
 		tmp[i] = '\0';
-		delete mStr;
+		delete[] mStr;
 		mStr = tmp;
 	}
 
 	void MyString::PadRight(unsigned int totalLength)
 	{
-		if (totalLength <= this->GetLength()) {
+		if (totalLength <= this->GetLength())
+		{
 			return;
 		}
 
 		char* tmp = new char[totalLength + 1];
 		int j = this->GetLength();
 		int i = 0;
-		for (; i < totalLength; i++) {
-			if (i < j) {
+		for (; i < totalLength; i++)
+		{
+			if (i < j)
+			{
 				tmp[i] = this->GetCString()[i];
 				continue;
 			}
 			tmp[i] = ' ';
 		}
 		tmp[i] = '\0';
-		delete mStr;
+		delete[] mStr;
 		mStr = tmp;
 	}
 
 	void MyString::PadRight(unsigned int totalLength, const char c)
 	{
-		if (totalLength <= this->GetLength()) {
+		if (totalLength <= this->GetLength())
+		{
 			return;
 		}
 
 		char* tmp = new char[totalLength + 1];
 		int j = this->GetLength();
 		int i = 0;
-		for (; i < totalLength; i++) {
-			if (i < j) {
+		for (; i < totalLength; i++)
+		{
+			if (i < j)
+			{
 				tmp[i] = this->GetCString()[i];
 				continue;
 			}
 			tmp[i] = c;
 		}
 		tmp[i] = '\0';
-		delete mStr;
+		delete[] mStr;
 		mStr = tmp;
 	}
 
@@ -243,7 +270,8 @@ namespace assignment1
 	{
 		char* s = mStr;
 		char* n = &(mStr[this->GetLength() - 1]);
-		while (s < n) {
+		while (s < n)
+		{
 			char tmp = *s;
 			*s = *n;
 			*n = tmp;
@@ -256,24 +284,37 @@ namespace assignment1
 	{
 		const char* s = mStr;
 		const char* n = rhs.GetCString();
-		while (*s == '\0') {
+		while (*s != '\0')
+		{
 			if (*s++ != *n++) {
 				return false;
 			}
 		}
-		return true;
+
+		if (*n == '\0') {
+			return true;
+		}
+		return false;
 	}
 
 	MyString& MyString::operator=(const MyString& rhs)
 	{
+		if (mStr != nullptr) 
+		{
+			delete[] mStr;
+		}		
+		mStr = new char[rhs.GetLength() + 1];	
+		sprintf(mStr, "%s", rhs.GetCString());
 		return *this;
 	}
 
 	void MyString::ToLower()
 	{
 		char* s = mStr;
-		while (*s != '\0') {
-			if (65 <= *s && 90 >= *s) {
+		while (*s != '\0')
+		{
+			if (65 <= *s && 90 >= *s)
+			{
 				*s |= 0x20;
 			}
 			s++;
@@ -283,8 +324,10 @@ namespace assignment1
 	void MyString::ToUpper()
 	{
 		char* s = mStr;
-		while (*s != '\0') {
-			if (97 <= *s && 122 >= *s) {
+		while (*s != '\0')
+		{
+			if (97 <= *s && 122 >= *s)
+			{
 				*s &= ~0x20;
 			}
 			s++;
@@ -295,7 +338,8 @@ namespace assignment1
 	{
 		size_t len = 0;
 		const char* c = s;
-		while (*c++ != '\0') {
+		while (*c++ != '\0')
+		{
 			len++;
 		}
 		return len;
