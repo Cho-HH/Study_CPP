@@ -40,6 +40,9 @@ namespace assignment1
 
 	void MyString::Append(const char* s)
 	{
+		if (*s == '\0') {
+			return;
+		}
 		size_t len = this->GetLength() + getLength(s);
 		char* tmp = new char[len + 1];
 		const char* c = mStr;
@@ -75,6 +78,7 @@ namespace assignment1
 			}
 			tmp[i] = *nc++;
 		}
+		delete[] mStr;
 		tmp[i] = '\0';
 		return MyString(tmp);
 	}
@@ -83,7 +87,7 @@ namespace assignment1
 	{
 		const char* c = mStr;
 		const char* check = s;
-		for (int i = 0; i < this->GetLength(); i++)
+		for (size_t i = 0; i < this->GetLength(); i++)
 		{
 			if (*c == ' ')
 			{
@@ -112,6 +116,10 @@ namespace assignment1
 
 	void MyString::Interleave(const char* s)
 	{
+		if (*s == '\0')
+		{
+			return;
+		}
 		size_t len = this->GetLength() + getLength(s);
 		char* tmp = new char[len + 1];
 		const char* c1 = mStr;
@@ -176,9 +184,9 @@ namespace assignment1
 		}
 
 		char* tmp = new char[totalLength + 1];
-		int j = totalLength - this->GetLength();
-		int i = 0;
-		int idx = 0;
+		size_t j = totalLength - this->GetLength();
+		size_t i = 0;
+		size_t idx = 0;
 		for (; i < totalLength; i++)
 		{
 			if (i < j)
@@ -201,9 +209,9 @@ namespace assignment1
 		}
 
 		char* tmp = new char[totalLength + 1];
-		int j = totalLength - this->GetLength();
-		int i = 0;
-		int idx = 0;
+		size_t j = totalLength - this->GetLength();
+		size_t i = 0;
+		size_t idx = 0;
 		for (; i < totalLength; i++)
 		{
 			if (i < j)
@@ -226,8 +234,8 @@ namespace assignment1
 		}
 
 		char* tmp = new char[totalLength + 1];
-		int j = this->GetLength();
-		int i = 0;
+		size_t j = this->GetLength();
+		size_t i = 0;
 		for (; i < totalLength; i++)
 		{
 			if (i < j)
@@ -250,8 +258,8 @@ namespace assignment1
 		}
 
 		char* tmp = new char[totalLength + 1];
-		int j = this->GetLength();
-		int i = 0;
+		size_t j = this->GetLength();
+		size_t i = 0;
 		for (; i < totalLength; i++)
 		{
 			if (i < j)
@@ -299,10 +307,12 @@ namespace assignment1
 
 	MyString& MyString::operator=(const MyString& rhs)
 	{
-		if (mStr != nullptr) 
+		if (rhs == *this)
 		{
-			delete[] mStr;
-		}		
+			return;
+		}
+	
+		delete[] mStr;
 		mStr = new char[rhs.GetLength() + 1];	
 		sprintf(mStr, "%s", rhs.GetCString());
 		return *this;
