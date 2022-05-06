@@ -4,42 +4,16 @@ namespace assignment1
 {
     MyString::MyString(const char* s)
     {
-        size_t len = 0;
-        const char* c = s;
-        while (*c++ != '\0') {
-            len++;
-        }
-        this->str = new char[len + 1];
-        this->tmpStr = new char[len + 1];
-        int i = 0;
-        for (; i < len; i++) {
-            this->str[i] = s[i];
-            this->tmpStr[i] = s[i];
-        }
-        this->str[i] = '\0';
-        this->tmpStr[i] = '\0';
+        this->str = s;
     }
 
     MyString::MyString(const MyString& other)
     {
-        size_t len = other.GetLength();
-        this->str = new char[len + 1];
-        this->tmpStr = new char[len + 1];
-        int i = 0;
-        for (; i < len; i++) {
-            this->str[i] = other.GetCString()[i];
-            this->tmpStr[i] = other.GetCString()[i];
-        }
-        this->str[i] = '\0';
-        this->tmpStr[i] = '\0';
     }
 
     MyString::~MyString()
     {
-        delete this->str;
-        this->str = nullptr;
-        delete this->tmpStr;
-        this->tmpStr = nullptr;
+
     }
 
     unsigned int MyString::GetLength() const
@@ -65,20 +39,19 @@ namespace assignment1
         while (*ch++ != '\0') {
             len++;
         }
-        
-        int newLen = this->GetLength() + len + 1;
-        int thisLen = this->GetLength();
-        const char* tmp = this->tmpStr;
-        this->str = new char[newLen];
 
+        int newLen = this->GetLength() + len + 1;
+        char* newStr = new char[newLen];
         int idx = 0;
-        for (int i = 0; i < thisLen; i++) {
-            this->str[idx++] = tmp[i];
+        for (int i = 0; i < this->GetLength(); i++) {
+            newStr[idx++] = this->GetCString()[i];
         }
         for (int i = 0; i < len; i++) {
-            this->str[idx++] = s[i];
+            newStr[idx++] = s[i];
         }
-        this->str[newLen - 1] = '\0';       
+        newStr[newLen - 1] = '\0';
+        this->str = newStr;
+        delete newStr;
     }
 
     MyString MyString::operator+(const MyString& other) const
@@ -102,11 +75,6 @@ namespace assignment1
 
     void MyString::Interleave(const char* s)
     {
-        const char* ch = s;
-        size_t len = 0;
-        while (*ch++ != '\0') {
-            len++;
-        }
     }
 
     bool MyString::RemoveAt(unsigned int i)
@@ -132,27 +100,11 @@ namespace assignment1
 
     void MyString::Reverse()
     {
-        char* s = this->str;
-        char* n = &(this->str[this->GetLength() - 1]);
-        while (s < n) {
-            char tmp = *s;
-            *s = *n;
-            *n = tmp;
-            s++;
-            n--;
-        }
     }
 
     bool MyString::operator==(const MyString& rhs) const
     {
-        const char* s = this->str;
-        const char* n = rhs.GetCString();
-        while (*s == '\0') {
-            if (*s++ != *n++) {
-                return false;
-            }
-        }
-        return true;
+        return false;
     }
 
     MyString& MyString::operator=(const MyString& rhs)
@@ -162,19 +114,13 @@ namespace assignment1
 
     void MyString::ToLower()
     {
-        char* s = this->str;       
-        while (*s != '\0') {
-            *s |= 0x20;
-            s++;
+        const char* s = this->str;
+        while (*s++ != '\0') {
+
         }
     }
 
     void MyString::ToUpper()
     {
-        char* s = this->str;
-        while (*s != '\0') {
-            *s &= ~0x20;
-            s++;
-        }
     }
 }
