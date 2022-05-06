@@ -5,7 +5,6 @@ namespace assignment1
 	{
 	private :
 		char* str = nullptr;
-		char* tmpStr = nullptr;
 	public:
 		MyString(const char* s);
 		MyString(const MyString& other);

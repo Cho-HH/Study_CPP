@@ -1,5 +1,5 @@
 #include "MyString.h"
-
+#include <stdio.h>
 namespace assignment1
 {
     MyString::MyString(const char* s)
@@ -10,36 +10,21 @@ namespace assignment1
             len++;
         }
         this->str = new char[len + 1];
-        this->tmpStr = new char[len + 1];
-        int i = 0;
-        for (; i < len; i++) {
-            this->str[i] = s[i];
-            this->tmpStr[i] = s[i];
-        }
-        this->str[i] = '\0';
-        this->tmpStr[i] = '\0';
+        sprintf(str, "%s", s);       
     }
 
     MyString::MyString(const MyString& other)
     {
         size_t len = other.GetLength();
         this->str = new char[len + 1];
-        this->tmpStr = new char[len + 1];
         int i = 0;
-        for (; i < len; i++) {
-            this->str[i] = other.GetCString()[i];
-            this->tmpStr[i] = other.GetCString()[i];
-        }
-        this->str[i] = '\0';
-        this->tmpStr[i] = '\0';
+        sprintf(str, "%s", other.GetCString());
     }
 
     MyString::~MyString()
     {
         delete this->str;
         this->str = nullptr;
-        delete this->tmpStr;
-        this->tmpStr = nullptr;
     }
 
     unsigned int MyString::GetLength() const
@@ -60,7 +45,7 @@ namespace assignment1
 
     void MyString::Append(const char* s)
     {
-        const char* ch = s;
+        /*const char* ch = s;
         size_t len = 0;
         while (*ch++ != '\0') {
             len++;
@@ -68,8 +53,7 @@ namespace assignment1
         
         int newLen = this->GetLength() + len + 1;
         int thisLen = this->GetLength();
-        const char* tmp = this->tmpStr;
-        this->str = new char[newLen];
+        char* tmp = new char[newLen];       
 
         int idx = 0;
         for (int i = 0; i < thisLen; i++) {
@@ -78,7 +62,8 @@ namespace assignment1
         for (int i = 0; i < len; i++) {
             this->str[idx++] = s[i];
         }
-        this->str[newLen - 1] = '\0';       
+        this->str[newLen - 1] = '\0';
+        */
     }
 
     MyString MyString::operator+(const MyString& other) const
@@ -124,8 +109,6 @@ namespace assignment1
 
     void MyString::PadRight(unsigned int totalLength)
     {
-        //dsadasdasd
-        //dasdasdasd
     }
 
     void MyString::PadRight(unsigned int totalLength, const char c)
@@ -134,8 +117,8 @@ namespace assignment1
 
     void MyString::Reverse()
     {
-        char* s = this->str;
-        char* n = &(this->str[this->GetLength() - 1]);
+        char* s = str;
+        char* n = &(str[this->GetLength() - 1]);
         while (s < n) {
             char tmp = *s;
             *s = *n;
@@ -147,7 +130,7 @@ namespace assignment1
 
     bool MyString::operator==(const MyString& rhs) const
     {
-        const char* s = this->str;
+        const char* s = str;
         const char* n = rhs.GetCString();
         while (*s == '\0') {
             if (*s++ != *n++) {
@@ -164,7 +147,7 @@ namespace assignment1
 
     void MyString::ToLower()
     {
-        char* s = this->str;       
+        char* s = str;       
         while (*s != '\0') {
             *s |= 0x20;
             s++;
@@ -173,7 +156,7 @@ namespace assignment1
 
     void MyString::ToUpper()
     {
-        char* s = this->str;
+        char* s = str;
         while (*s != '\0') {
             *s &= ~0x20;
             s++;
