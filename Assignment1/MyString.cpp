@@ -84,8 +84,9 @@ namespace assignment1
 			tmp[i++] = *nc++;
 		}
 		tmp[i] = '\0';		
-		delete[] mStr;
-		return MyString(tmp);
+		MyString newStr = MyString(tmp);
+		delete[] tmp;
+		return newStr;
 	}
 
 	int MyString::IndexOf(const char* s)
