@@ -84,7 +84,6 @@ namespace assignment1
 			tmp[i++] = *nc++;
 		}
 		tmp[i] = '\0';		
-		delete[] mStr;
 		return MyString(tmp);
 	}
 
@@ -175,7 +174,6 @@ namespace assignment1
 			{
 				bCheck = false;
 			}
-
 
 			if (bCheck)
 			{

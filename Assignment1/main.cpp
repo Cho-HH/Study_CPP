@@ -142,6 +142,14 @@ int main()
 	s73.Interleave("a");
 	cout << s73.GetCString() << endl;  // bacdef
 
+	MyString s74("");
+	s74.Interleave("asd");
+	cout << s74.GetCString() << endl;
+
+	MyString s75("asd");
+	s75.Interleave("");
+	cout << s75.GetCString() << endl;
+
 
 	cout << "-----------------------"  << "ToLower()" << endl;
 	MyString s131("HEllo 123K");
