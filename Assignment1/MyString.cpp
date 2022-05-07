@@ -40,7 +40,8 @@ namespace assignment1
 
 	void MyString::Append(const char* s)
 	{
-		if (*s == '\0') {
+		if (*s == '\0') 
+		{
 			return;
 		}
 		size_t len = this->GetLength() + getLength(s);
@@ -64,22 +65,25 @@ namespace assignment1
 
 	MyString MyString::operator+(const MyString& other) const
 	{
+		if (other.GetLength() == 0)
+		{
+			return MyString(this->GetCString());
+		}
+
 		size_t len = this->GetLength() + other.GetLength();
 		char* tmp = new char[len + 1];
 		const char* c = mStr;
 		const char* nc = other.GetCString();
 		size_t i = 0;
-		for (; i < len; i++)
+		while (*c != '\0')
 		{
-			if (*c != '\0')
-			{
-				tmp[i] = *c++;
-				continue;
-			}
-			tmp[i] = *nc++;
+			tmp[i++] = *c++;
 		}
-		delete[] mStr;
-		tmp[i] = '\0';
+		while (*nc != '\0')
+		{
+			tmp[i++] = *nc++;
+		}
+		tmp[i] = '\0';		
 		return MyString(tmp);
 	}
 
@@ -92,19 +96,21 @@ namespace assignment1
 
 		const char* c = nullptr;
 		const char* check = s;
-		for (int i = 0; i < this->GetLength(); i++) {
+		for (size_t i = 0; i < this->GetLength(); i++)
+		{
 			if (mStr[i] == *check)
 			{
 				c = mStr + i;
 				while (*check != '\0') 
 				{
-					if (*c != *check) {
+					if (*c != *check) 
+					{
 						goto outer;
 					}
 					c++;
-   					check++;
- 				}
-				return i;
+					check++;
+				}
+				return (int)i;
 			outer:
 				check = s;
 			}			
@@ -121,19 +127,22 @@ namespace assignment1
 
 		const char* c = nullptr;
 		const char* check = s + getLength(s) - 1;
-		for (int i = this->GetLength() - 1; i >= 0; i--) {
+		for (int i = this->GetLength() - 1; i >= 0; i--)
+		{
 			if (mStr[i] == *check)
 			{
 				c = mStr + i;
 				while (check != s)
 				{
-					if (*c != *check) {
+					if (*c != *check)
+					{
 						goto outer;
 					}
 					c--;
 					check--;
 				}
-				if (*check == *c) {
+				if (*check == *c) 
+				{
 					return i - (getLength(s) - 1);
 				}				
 			outer:
@@ -145,7 +154,7 @@ namespace assignment1
 
 	void MyString::Interleave(const char* s)
 	{
-		if (*s == '\0')
+		if (getLength(s) == 0)
 		{
 			return;
 		}
@@ -153,27 +162,28 @@ namespace assignment1
 		char* tmp = new char[len + 1];
 		const char* c1 = mStr;
 		const char* c2 = s;
-		bool check = true;
+		bool bcheck = true;
 		size_t i = 0;
 		for (; i < len; i++)
 		{
-			if (check)
+			if (bcheck)
 			{
 				tmp[i] = *c1++;
-				check = false;
+				bcheck = false;
 			}
-			else {
+			else
+			{
 				tmp[i] = *c2++;
-				check = true;
+				bcheck = true;
 			}
 
 			if (*c2 == '\0')
 			{
-				check = true;
+				bcheck = true;
 			}
 			else if (*c1 == '\0')
 			{
-				check = false;
+				bcheck = false;
 			}
 
 		}
@@ -185,7 +195,8 @@ namespace assignment1
 	bool MyString::RemoveAt(unsigned int i)
 	{
 		size_t len = this->GetLength();
-		if (i >= len) {
+		if (i >= len) 
+		{
 			return false;
 		}
 
@@ -323,12 +334,14 @@ namespace assignment1
 		const char* n = rhs.GetCString();
 		while (*s != '\0')
 		{
-			if (*s++ != *n++) {
+			if (*s++ != *n++) 
+			{
 				return false;
 			}
 		}
 
-		if (*n == '\0') {
+		if (*n == '\0')
+		{
 			return true;
 		}
 		return false;

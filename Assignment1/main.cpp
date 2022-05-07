@@ -110,6 +110,13 @@ int main()
 	cout << s41.GetCString() << endl;
 	cout << s42.GetCString() << endl;
 
+	MyString s44("Flurry");
+	MyString s45("");
+	MyString s46 = s44 + s45;
+	cout << s44.GetCString() << endl;
+	cout << s45.GetCString() << endl;
+	cout << s46.GetCString() << endl;
+
 
 	/* Append() Ex */
 	cout << "-----------------------" << endl;
