@@ -85,33 +85,62 @@ namespace assignment1
 
 	int MyString::IndexOf(const char* s)
 	{
-		const char* c = mStr;
-		const char* check = s;
-		for (size_t i = 0; i < this->GetLength(); i++)
+		if (getLength(s) == 0)
 		{
-			if (*c == ' ')
-			{
-				check = s;
-			}
-
-			while (*c == ' ' || *c == '\0')
-			{
-				if (*c == *check)
-				{
-					i++;
-					//dasdasdasdas
-				}
-				c++;
-				check++;
-			}
+			return 0;
 		}
 
+		const char* c = nullptr;
+		const char* check = s;
+		for (int i = 0; i < this->GetLength(); i++) {
+			if (mStr[i] == *check)
+			{
+				c = mStr + i;
+				while (*check != '\0') 
+				{
+					if (*c != *check) {
+						goto outer;
+					}
+					c++;
+   					check++;
+ 				}
+				return i;
+			outer:
+				check = s;
+			}			
+		}
 		return -1;
 	}
 
 	int MyString::LastIndexOf(const char* s)
 	{
-		return 0;
+		if (getLength(s) == 0)
+		{
+			return this->GetLength();
+		}
+
+		const char* c = nullptr;
+		const char* check = s + getLength(s) - 1;
+		for (int i = this->GetLength() - 1; i >= 0; i--) {
+			if (mStr[i] == *check)
+			{
+				c = mStr + i;
+				while (check != s)
+				{
+					if (*c != *check) {
+						goto outer;
+					}
+					c--;
+					check--;
+				}
+				if (*check == *c) {
+					return i - (getLength(s) - 1);
+				}				
+			outer:
+				check = s + getLength(s) - 1;
+			}
+		}
+		return -1;
 	}
 
 	void MyString::Interleave(const char* s)
@@ -309,7 +338,7 @@ namespace assignment1
 	{
 		if (rhs == *this)
 		{
-			return;
+			return *this;
 		}
 	
 		delete[] mStr;
