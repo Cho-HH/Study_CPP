@@ -13,9 +13,9 @@ namespace lab2
 		out << setw(12) << right << "oct";
 		out << setw(11) << right << "dec";
 		out << setw(9) << right << "hex" << endl;
-		out << setw(13) << right << " ";
-		out << setw(11) << right << " ";
-		out << setw(8) << endl;
+		out << setw(12) << setfill('-') << " ";
+		out << ' ' << setw(10) << setfill('-');
+		out << ' ' << setw(8) << setfill('-') << endl;
 
 		char str[SIZE] = { 0, };
 		while (true)
