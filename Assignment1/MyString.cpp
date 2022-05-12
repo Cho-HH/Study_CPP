@@ -83,7 +83,7 @@ namespace assignment1
 
 		size_t len = this->GetLength() + other.GetLength();
 		char* tmp = new char[len + 1];
-		 const char* c = mStr;
+		const char* c = mStr;
 		const char* nc = other.GetCString();
 		size_t i = 0;
 		while (*c != '\0')
@@ -404,6 +404,7 @@ namespace assignment1
 			s++;
 		}
 	}
+
 
 	size_t MyString::getLength(const char* s) const
 	{
