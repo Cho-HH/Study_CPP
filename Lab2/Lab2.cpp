@@ -9,6 +9,7 @@ using namespace std;
 namespace lab2
 {
 	const int SIZE = 256;
+	const char delims[] = " \t";
 	void PrintIntegers(std::istream& in, std::ostream& out)
 	{
 		out << setw(12) << "oct";
@@ -19,12 +20,13 @@ namespace lab2
 		out << " " << setw(8) <<  "-" << endl;
 		out << setfill(' ');
 
-		char str[SIZE] = { 0, };
+		char str[SIZE] = { 0, };	
 		while (true)
 		{
 			in.getline(str, SIZE);
-			int num = 0;
-			char* token = strtok(str, " ");
+			int num = 0;			
+			char* token = strtok(str, delims);
+			
 			while (token != nullptr)
 			{
 				if (sscanf(token, "%d", &num) == 1)
@@ -33,7 +35,7 @@ namespace lab2
 					out << setw(11) << right << dec << num;
 					out << setw(9) << right << hex << uppercase << num << endl;
 				}
-				token = strtok(nullptr, " ");
+				token = strtok(nullptr, delims);
 			}
 			
 			if (in.eof())
@@ -50,16 +52,22 @@ namespace lab2
 		float maxNum = -FLT_MIN;
 		while (true)
 		{
-			in.getline(str, SIZE, ' ');
+			in.getline(str, SIZE);
 			float num = 0;
-			if (sscanf(str, "%f", &num) == 1)
+			char* token = strtok(str, delims);
+			while (token != nullptr)
 			{
-				out << "     " << setw(15) << showpos << internal << showpoint << fixed << setprecision(3) << num << endl;
-				if (maxNum < num)
+				if (sscanf(str, "%f", &num) == 1)
 				{
-					maxNum = num;
+					out << "     " << setw(15) << showpos << internal << showpoint << fixed << setprecision(3) << num << endl;
+					if (maxNum < num)
+					{
+						maxNum = num;
+					}
 				}
+				token = strtok(nullptr, delims);
 			}
+			
 			if (in.eof())
 			{
 				break;
