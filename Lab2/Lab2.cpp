@@ -1,7 +1,6 @@
 #include "Lab2.h"
 #include <cstdio>
 #include <iomanip>
-#include <cfloat>
 #include <cstring>
 
 using namespace std;
@@ -49,7 +48,8 @@ namespace lab2
 	void PrintMaxFloat(std::istream& in, std::ostream& out)
 	{
 		char str[SIZE] = { 0, };
-		float maxNum = -FLT_MIN;
+		float maxNum = 0.0f;
+		bool bMax = false;
 		while (true)
 		{
 			in.getline(str, SIZE);
@@ -57,13 +57,22 @@ namespace lab2
 			char* token = strtok(str, delims);
 			while (token != nullptr)
 			{
-				if (sscanf(str, "%f", &num) == 1)
+				if (sscanf(token, "%f", &num) == 1)
 				{
 					out << "     " << setw(15) << showpos << internal << showpoint << fixed << setprecision(3) << num << endl;
-					if (maxNum < num)
+					if (!bMax)
 					{
 						maxNum = num;
+						bMax = true;
 					}
+					else 
+					{
+						if (maxNum < num)
+						{
+							maxNum = num;
+						}
+					}
+					
 				}
 				token = strtok(nullptr, delims);
 			}
@@ -73,7 +82,7 @@ namespace lab2
 				break;
 			}
 			in.clear();
-		}
+ 		}
 		out << setw(5) << left << "max:" << setw(15) << showpos << internal << showpoint << fixed << setprecision(3) << maxNum << endl;
 	}
 }
