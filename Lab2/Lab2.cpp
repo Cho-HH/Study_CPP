@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <iomanip>
 #include <cfloat>
+#include <cstring>
 
 using namespace std;
 
@@ -10,24 +11,31 @@ namespace lab2
 	const int SIZE = 256;
 	void PrintIntegers(std::istream& in, std::ostream& out)
 	{
-		out << setw(12) << right << "oct";
-		out << setw(11) << right << "dec";
-		out << setw(9) << right << "hex" << endl;
-		out << setw(12) << setfill('-') << " ";
-		out << ' ' << setw(10) << setfill('-');
-		out << ' ' << setw(8) << setfill('-') << endl;
+		out << setw(12) << "oct";
+		out << setw(11) << "dec";
+		out << setw(9) << "hex" << endl;
+		out << setfill('-') << setw(12) << "-";
+		out << " " << setw(10) << "-";
+		out << " " << setw(8) <<  "-" << endl;
+		out << setfill(' ');
 
 		char str[SIZE] = { 0, };
 		while (true)
 		{
-			in.getline(str, SIZE, ' ');
+			in.getline(str, SIZE);
 			int num = 0;
-			if (sscanf(str, "%d", &num) == 1)
+			char* token = strtok(str, " ");
+			while (token != nullptr)
 			{
-				out << setw(12) << right << oct << num;
-				out << setw(11) << right << dec << num;
-				out << setw(9) << right << hex << uppercase << num << endl;
+				if (sscanf(token, "%d", &num) == 1)
+				{
+					out << setw(12) << right << oct << num;
+					out << setw(11) << right << dec << num;
+					out << setw(9) << right << hex << uppercase << num << endl;
+				}
+				token = strtok(nullptr, " ");
 			}
+			
 			if (in.eof())
 			{
 				break;
