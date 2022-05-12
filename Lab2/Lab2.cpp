@@ -16,16 +16,16 @@ namespace lab2
 		out << setw(9) << "hex" << endl;
 		out << setfill('-') << setw(12) << "-";
 		out << " " << setw(10) << "-";
-		out << " " << setw(8) <<  "-" << endl;
+		out << " " << setw(8) << "-" << endl;
 		out << setfill(' ');
 
-		char str[SIZE] = { 0, };	
+		char str[SIZE] = { 0, };
 		while (true)
 		{
 			in.getline(str, SIZE);
-			int num = 0;			
+			int num = 0;
 			char* token = strtok(str, DELIMS);
-			
+
 			while (token != nullptr)
 			{
 				if (sscanf(token, "%d", &num) == 1)
@@ -36,7 +36,7 @@ namespace lab2
 				}
 				token = strtok(nullptr, DELIMS);
 			}
-			
+
 			if (in.eof())
 			{
 				break;
@@ -65,24 +65,24 @@ namespace lab2
 						maxNum = num;
 						bMax = true;
 					}
-					else 
+					else
 					{
 						if (maxNum < num)
 						{
 							maxNum = num;
 						}
 					}
-					
+
 				}
 				token = strtok(nullptr, DELIMS);
 			}
-			
+
 			if (in.eof())
 			{
 				break;
 			}
 			in.clear();
- 		}
+		}
 		out << setw(5) << left << "max:" << setw(15) << showpos << internal << showpoint << fixed << setprecision(3) << maxNum << endl;
 	}
 }
