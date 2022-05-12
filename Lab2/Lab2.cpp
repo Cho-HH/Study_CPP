@@ -8,7 +8,7 @@ using namespace std;
 namespace lab2
 {
 	const int SIZE = 256;
-	const char delims[] = " \t";
+	const char DELIMS[] = " \t";
 	void PrintIntegers(std::istream& in, std::ostream& out)
 	{
 		out << setw(12) << "oct";
@@ -24,7 +24,7 @@ namespace lab2
 		{
 			in.getline(str, SIZE);
 			int num = 0;			
-			char* token = strtok(str, delims);
+			char* token = strtok(str, DELIMS);
 			
 			while (token != nullptr)
 			{
@@ -34,7 +34,7 @@ namespace lab2
 					out << setw(11) << right << dec << num;
 					out << setw(9) << right << hex << uppercase << num << endl;
 				}
-				token = strtok(nullptr, delims);
+				token = strtok(nullptr, DELIMS);
 			}
 			
 			if (in.eof())
@@ -54,7 +54,7 @@ namespace lab2
 		{
 			in.getline(str, SIZE);
 			float num = 0;
-			char* token = strtok(str, delims);
+			char* token = strtok(str, DELIMS);
 			while (token != nullptr)
 			{
 				if (sscanf(token, "%f", &num) == 1)
@@ -74,7 +74,7 @@ namespace lab2
 					}
 					
 				}
-				token = strtok(nullptr, delims);
+				token = strtok(nullptr, DELIMS);
 			}
 			
 			if (in.eof())
