@@ -1,18 +1,29 @@
 #include "MyString.h"
-#include <stdio.h>
 
 namespace assignment1
 {
 	MyString::MyString(const char* s)
 	{
 		mStr = new char[getLength(s) + 1];
-		sprintf(mStr, "%s", s);
+		const char* c = s;
+		int i = 0;
+		while (*c != '\0')
+		{
+			mStr[i++] = *c++;
+		}
+		mStr[i] = '\0';
 	}
 
 	MyString::MyString(const MyString& other)
 	{
 		mStr = new char[other.GetLength() + 1];
-		sprintf(mStr, "%s", other.GetCString());
+		const char* c = other.GetCString();
+		int i = 0;
+		while (*c != '\0')
+		{
+			mStr[i++] = *c++;
+		}
+		mStr[i] = '\0';
 	}
 
 	MyString::~MyString()
@@ -72,7 +83,7 @@ namespace assignment1
 
 		size_t len = this->GetLength() + other.GetLength();
 		char* tmp = new char[len + 1];
-		const char* c = mStr;
+		 const char* c = mStr;
 		const char* nc = other.GetCString();
 		size_t i = 0;
 		while (*c != '\0')
@@ -358,7 +369,13 @@ namespace assignment1
 	
 		delete[] mStr;
 		mStr = new char[rhs.GetLength() + 1];	
-		sprintf(mStr, "%s", rhs.GetCString());
+		const char* c = rhs.GetCString();
+		int i = 0;
+		while (*c != '\0')
+		{
+			mStr[i++] = *c++;
+		}
+		mStr[i] = '\0';
 		return *this;
 	}
 
