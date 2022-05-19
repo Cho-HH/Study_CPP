@@ -67,7 +67,7 @@ namespace lab3
 	int TimeSheet::GetTotalTime() const
 	{
 		int total = 0;
-		for (int i = 0; i < mCurEntry; i++)
+		for (size_t i = 0; i < mCurEntry; i++)
 		{
 			total += mEntries[i];
 		}
@@ -82,7 +82,7 @@ namespace lab3
 		}
 
 		int total = 0;
-		for (int i = 0; i < mCurEntry; i++)
+		for (size_t i = 0; i < mCurEntry; i++)
 		{
 			total += mEntries[i];
 		}
@@ -97,9 +97,9 @@ namespace lab3
 			return 0.0f;
 		}
 		float va = 0.0f;
-		for (int i = 0; i < mCurEntry; i++)
+		for (size_t i = 0; i < mCurEntry; i++)
 		{
-			va += pow(mEntries[i] - avr, 2);
+			va += pow(static_cast<float>(mEntries[i]) - avr, 2);
 		}
 		va /= mCurEntry;
 		return sqrt(va);
