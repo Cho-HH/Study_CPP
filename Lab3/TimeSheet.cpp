@@ -30,7 +30,7 @@ namespace lab3
 		mMaxEntries = rhs.mMaxEntries;
 		mName = rhs.mName;
 		mEntries = new unsigned int[mMaxEntries];
-		memcpy(mEntries, rhs.mEntries, mMaxEntries * sizeof(int));
+		memcpy(mEntries, rhs.mEntries, rhs.mMaxEntries * sizeof(int));
 		return *this;
 	}
 
@@ -86,7 +86,7 @@ namespace lab3
 		{
 			total += mEntries[i];
 		}
-		return (float)total / (float)mCurEntry;
+		return static_cast<float>(total) / static_cast<float>(mCurEntry);
 	}
 
 	float TimeSheet::GetStandardDeviation() const
