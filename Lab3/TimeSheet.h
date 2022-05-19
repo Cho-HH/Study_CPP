@@ -9,7 +9,7 @@ namespace lab3
 	{
 	public:
 		TimeSheet(const char* name, unsigned int maxEntries);
-		TimeSheet(const TimeSheet& other);		
+		TimeSheet(const TimeSheet& other);
 		~TimeSheet();
 
 		TimeSheet& operator= (const TimeSheet& rhs);

@@ -30,7 +30,7 @@ namespace lab3
 		mMaxEntries = rhs.mMaxEntries;
 		mName = rhs.mName;
 		mEntries = new unsigned int[mMaxEntries];
-		memcpy(mEntries, rhs.mEntries, rhs.mMaxEntries * sizeof(int));
+		memcpy(mEntries, rhs.mEntries, mMaxEntries * sizeof(int));
 		return *this;
 	}
 
@@ -99,7 +99,7 @@ namespace lab3
 		float va = 0.0f;
 		for (size_t i = 0; i < mCurEntry; i++)
 		{
-			va += pow(static_cast<float>(mEntries[i]) - avr, 2);
+			va += static_cast<float>(pow(static_cast<float>(mEntries[i]) - avr, 2));
 		}
 		va /= mCurEntry;
 		return sqrt(va);
