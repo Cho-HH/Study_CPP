@@ -26,6 +26,16 @@ namespace lab3
 		{
 			return *this;
 		}
+
+		if (mEntries != nullptr)
+		{
+			//m = a
+			//m = s
+			//이런 식으로 하면 기존에 m에 저장되어 있는 포인터는 메모리를 잃어버림
+			delete[] mEntries;
+			mEntries = nullptr;
+		}
+
 		mCurEntry = rhs.mCurEntry;
 		mMaxEntries = rhs.mMaxEntries;
 		mName = rhs.mName;
