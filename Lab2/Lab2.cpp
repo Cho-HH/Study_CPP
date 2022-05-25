@@ -86,8 +86,9 @@ namespace lab2
 		out << setw(5) << left << "max:" << setw(15) << showpos << internal << showpoint << fixed << setprecision(3) << maxNum << endl;
 	}
 
-	void test(std::istream& in, std::ostream& out) 
-	//다른 사람이 한거
+
+	void test(std::istream& in, std::ostream& out)
+		//다른 사람이 한거
 	{
 		out << setw(12) << "oct" << setw(11) << "dec" << setw(9) << "hex" << endl;
 
