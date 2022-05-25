@@ -32,7 +32,7 @@ namespace lab4
 
 	PolyLine& PolyLine::operator=(const PolyLine& rhs)
 	{
-		if (rhs.mPointArr[0] == mPointArr[0])
+		if (&rhs.mPointArr[0] == &mPointArr[0])
 		{
 			return *this;
 		}
