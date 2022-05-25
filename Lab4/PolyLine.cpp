@@ -32,16 +32,16 @@ namespace lab4
 
 	PolyLine& PolyLine::operator=(const PolyLine& rhs)
 	{
-		if (rhs.mPointArr == mPointArr)
+		if (rhs.mPointArr[0] == mPointArr[0])
 		{
 			return *this;
 		}
-		for (int i = 0; i < mPointCnt; i++)
+		for (size_t i = 0; i < mPointCnt; i++)
 		{
 			delete mPointArr[i];
 			mPointArr[i] = nullptr;
 		}
-		for (int i = 0; i < rhs.mPointCnt; i++)
+		for (size_t i = 0; i < rhs.mPointCnt; i++)
 		{
 			mPointArr[i] = new Point(rhs.mPointArr[i]->GetX(), rhs.mPointArr[i]->GetY());
 		}
@@ -51,7 +51,7 @@ namespace lab4
 
 	PolyLine::~PolyLine()
 	{
-		for (int i = 0; i < mPointCnt; i++)
+		for (size_t i = 0; i < mPointCnt; i++)
 		{
 			delete mPointArr[i];
 		}
@@ -113,7 +113,7 @@ namespace lab4
 		float minY = std::numeric_limits<float>::max();
 		float maxX = std::numeric_limits<float>::lowest();
 		float maxY = std::numeric_limits<float>::lowest();
-		for (int i = 0; i < mPointCnt; i++)
+		for (size_t i = 0; i < mPointCnt; i++)
 		{
 			minX = std::min(minX, mPointArr[i]->GetX());
 			minY = std::min(minY, mPointArr[i]->GetY());
