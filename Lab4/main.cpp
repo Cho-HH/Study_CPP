@@ -232,5 +232,12 @@ void TestCaseMain()
 int main()
 {
 	TestCaseMain();
+	PolyLine pl;
+	for (int i = 0; i < 10; i++)
+	{
+		pl.AddPoint(new Point(156, 123));
+	}
+	pl.RemovePoint(7);
+	pl = pl;
 	return 0;
 }

@@ -31,14 +31,18 @@ namespace lab4
 	}
 
 	PolyLine& PolyLine::operator=(const PolyLine& rhs)
-	{		
+	{
+		if (rhs.mPointArr == mPointArr)
+		{
+			return *this;
+		}
 		for (int i = 0; i < mPointCnt; i++)
 		{
 			delete mPointArr[i];
 			mPointArr[i] = nullptr;
-		}		
+		}
 		for (int i = 0; i < rhs.mPointCnt; i++)
-		{			
+		{
 			mPointArr[i] = new Point(rhs.mPointArr[i]->GetX(), rhs.mPointArr[i]->GetY());
 		}
 		mPointCnt = rhs.mPointCnt;
@@ -49,7 +53,7 @@ namespace lab4
 	{
 		for (int i = 0; i < mPointCnt; i++)
 		{
-			delete mPointArr[i];			
+			delete mPointArr[i];
 		}
 	}
 
@@ -65,7 +69,7 @@ namespace lab4
 	}
 
 	bool PolyLine::AddPoint(const Point* point)
-	{	
+	{
 		if (mPointCnt >= 10)
 		{
 			return false;
@@ -84,11 +88,13 @@ namespace lab4
 		if (mPointArr[i] != nullptr)
 		{
 			delete mPointArr[i];
+			mPointArr[i] = nullptr;
 			for (int j = i; j < 9; j++)
 			{
+				const Point *tmp = mPointArr[j];
 				mPointArr[j] = mPointArr[j + 1];
-				mPointArr[j + 1] = nullptr;
-			}			
+				mPointArr[j + 1] = tmp;
+			}
 			mPointCnt--;
 			return true;
 		}
