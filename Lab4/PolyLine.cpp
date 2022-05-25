@@ -91,7 +91,7 @@ namespace lab4
 			mPointArr[i] = nullptr;
 			for (int j = i; j < 9; j++)
 			{
-				const Point *tmp = mPointArr[j];
+				const Point* tmp = mPointArr[j];
 				mPointArr[j] = mPointArr[j + 1];
 				mPointArr[j + 1] = tmp;
 			}
