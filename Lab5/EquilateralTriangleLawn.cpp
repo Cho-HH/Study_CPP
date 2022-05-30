@@ -1,8 +1,8 @@
 #include "EquilateralTriangleLawn.h"
 
 EquilateralTriangleLawn::EquilateralTriangleLawn(unsigned int side)
-	: Lawn(sqrt(3) / 4 * side * side + 0.5)
-	, mArea(sqrt(3) / 4 * side * side + 0.5)
+	: Lawn(static_cast<unsigned int>(sqrt(3) / 4 * side * side + 0.5))
+	, mArea(static_cast<unsigned int>(sqrt(3) / 4 * side * side + 0.5))
 	, mSide(side)
 {
 }
@@ -18,7 +18,7 @@ unsigned int EquilateralTriangleLawn::GetArea() const
 
 unsigned int EquilateralTriangleLawn::GetMinimumFencesCount() const
 {
-	return mSide / 0.25f * 3;
+	return static_cast<unsigned int>(mSide / 0.25f * 3);
 }
 
 unsigned int EquilateralTriangleLawn::GetFencePrice(eFenceType fenceType) const

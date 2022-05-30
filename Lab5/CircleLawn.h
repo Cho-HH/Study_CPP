@@ -1,15 +1,19 @@
 #pragma once
 #include "Lawn.h"
 
-class CircleLawn : public Lawn
+namespace lab5
 {
-public:
-	CircleLawn(unsigned int radius);
-	virtual ~CircleLawn();
+	class CircleLawn : public Lawn
+	{
+	public:
+		CircleLawn(unsigned int radius);
+		virtual ~CircleLawn();
 
-	virtual unsigned int GetArea() const;
+		virtual unsigned int GetArea() const;
 
-private:
-	unsigned int mArea;
-};
+	private:
+		unsigned int mArea;
+	};
+}
+
 

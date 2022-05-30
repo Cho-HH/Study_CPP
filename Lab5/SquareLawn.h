@@ -1,10 +1,14 @@
 #pragma once
 #include "RectangleLawn.h"
 
-class SquareLawn : public RectangleLawn
+namespace lab5
 {
-public:
-	SquareLawn(unsigned int width);
-	virtual ~SquareLawn();
-};
+	class SquareLawn : public RectangleLawn
+	{
+	public:
+		SquareLawn(unsigned int width);
+		virtual ~SquareLawn();
+	};
+}
+
 

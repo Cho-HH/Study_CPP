@@ -26,10 +26,10 @@ namespace lab5
 			price = mArea * 8;
 			break;
 		case eGrassType::PERENNIAL_RYEGRASS:
-			price = mArea * 2.5 + 0.5;
+			price = static_cast<unsigned int>(mArea * 2.5 + 0.5);
 			break;
 		case eGrassType::ST_AUGUSTINE:
-			price = mArea * 4.5 + 0.5;
+			price = static_cast<unsigned int>(mArea * 4.5 + 0.5);
 			break;
 		default:
 			break;

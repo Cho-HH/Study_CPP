@@ -19,8 +19,8 @@ unsigned int RectangleLawn::GetArea() const
 
 unsigned int RectangleLawn::GetMinimumFencesCount() const
 {
-	unsigned int widthCnt = mWidth / 0.25f;
-	unsigned int heightCnt = mHeight / 0.25f;
+	unsigned int widthCnt = static_cast<unsigned int>(mWidth / 0.25f);
+	unsigned int heightCnt = static_cast<unsigned int>(mHeight / 0.25f);
 	return widthCnt * 2 + heightCnt * 2;
 }
 
