@@ -13,10 +13,57 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Concrete">
+      <UniqueIdentifier>{8c60fb22-b30b-4d8d-8962-1dd139488e21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Concrete">
+      <UniqueIdentifier>{5f0f9a68-80bf-46fe-8ed6-17894e1b2779}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Lawn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleLawn.cpp">
+      <Filter>Source Files\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="EquilateralTriangleLawn.cpp">
+      <Filter>Source Files\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="RectangleLawn.cpp">
+      <Filter>Source Files\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="SquareLawn.cpp">
+      <Filter>Source Files\Concrete</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="eFenceType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eGrassType.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Lawn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IFenceable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleLawn.h">
+      <Filter>Header Files\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="RectangleLawn.h">
+      <Filter>Header Files\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareLawn.h">
+      <Filter>Header Files\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="EquilateralTriangleLawn.h">
+      <Filter>Header Files\Concrete</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
