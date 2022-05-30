@@ -40,7 +40,7 @@ namespace lab5
 	unsigned int Lawn::GetMinimumSodRollsCount() const
 	{
 		double tmp = static_cast<double>(mArea) / 0.3f;
-		unsigned int ui_tmp = static_cast<unsigned int>(tmp);
-		return ui_tmp == tmp ? ui_tmp : ui_tmp + 1;
+		unsigned int uiTmp = static_cast<unsigned int>(tmp);
+		return uiTmp == tmp ? uiTmp : uiTmp + 1;
 	}
 }
