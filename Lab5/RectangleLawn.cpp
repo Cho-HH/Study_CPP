@@ -4,7 +4,6 @@ RectangleLawn::RectangleLawn(unsigned int width, unsigned int height)
 	: Lawn(width * height)
 	, mWidth(width)
 	, mHeight(height)
-	, mArea(mWidth * mHeight)
 {
 }
 

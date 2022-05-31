@@ -9,7 +9,6 @@ namespace lab5
 	{
 	public:
 		EquilateralTriangleLawn(unsigned int side);
-		//EquilateralTriangleLawn& operator=(const EquilateralTriangleLawn& rhs);
 		virtual ~EquilateralTriangleLawn();
 
 		virtual unsigned int GetArea() const;
@@ -19,7 +18,6 @@ namespace lab5
 
 	private:
 		unsigned int mSide;
-		unsigned int mArea;
 	};
 }
 

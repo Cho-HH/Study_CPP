@@ -16,7 +16,7 @@ namespace lab5
 		unsigned int GetGrassPrice(eGrassType grassType) const;
 		unsigned int GetMinimumSodRollsCount() const;
 
-	private:
+	protected:
 		unsigned int mArea;
 	};
 }

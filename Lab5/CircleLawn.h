@@ -10,9 +10,6 @@ namespace lab5
 		virtual ~CircleLawn();
 
 		virtual unsigned int GetArea() const;
-
-	private:
-		unsigned int mArea;
 	};
 }
 

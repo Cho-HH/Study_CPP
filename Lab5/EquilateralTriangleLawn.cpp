@@ -2,7 +2,6 @@
 
 EquilateralTriangleLawn::EquilateralTriangleLawn(unsigned int side)
 	: Lawn(static_cast<unsigned int>(sqrt(3) / 4 * side * side + 0.5))
-	, mArea(static_cast<unsigned int>(sqrt(3) / 4 * side * side + 0.5))
 	, mSide(side)
 {
 }

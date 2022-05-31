@@ -18,7 +18,6 @@ namespace lab5
 	private:
 		unsigned int mWidth;
 		unsigned int mHeight;
-		unsigned int mArea;
 	};
 }
 
