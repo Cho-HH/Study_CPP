@@ -66,7 +66,7 @@ namespace assignment2
 		{
 			Vehicle* tmp = *(mVehicles + j);
 			*(mVehicles + j) = *(mVehicles + j + 1);
-			*(mVehicles + j) = tmp;
+			*(mVehicles + j + 1) = tmp;
 		}
 		mCurVehiclesCnt--;
 		return true;

@@ -4,14 +4,14 @@ namespace assignment2
 {
 	Sedan::Sedan()
 		: Vehicle(4)
-		, bTrailer(false)
+		, mbTrailer(false)
 		, mTrailer(nullptr)
 	{
 	}
 
 	Sedan::Sedan(const Sedan& other)
 		: Vehicle(other)
-		, bTrailer(other.bTrailer)
+		, mbTrailer(other.mbTrailer)
 	{
 		mTrailer = new Trailer(other.mTrailer->GetWeight());
 	}
@@ -19,11 +19,11 @@ namespace assignment2
 	void Sedan::operator=(const Sedan& rhs)
 	{
 		Vehicle::operator=(rhs);
-		if (bTrailer)
+		if (mbTrailer)
 		{
 			delete mTrailer;
 		}
-		bTrailer = rhs.bTrailer;
+		mbTrailer = rhs.mbTrailer;
 		mTrailer = new Trailer(rhs.mTrailer->GetWeight());
 	}
 
@@ -37,23 +37,23 @@ namespace assignment2
 
 	bool Sedan::AddTrailer(const Trailer* trailer)
 	{
-		if (bTrailer)
+		if (mbTrailer)
 		{
 			return false;
 		}
 
 		mTrailer = trailer;
-		bTrailer = true;
+		mbTrailer = true;
 		return true;
 	}
 
 	bool Sedan::RemoveTrailer()
 	{
-		if (bTrailer)
+		if (mbTrailer)
 		{
 			delete mTrailer;
 			mTrailer = nullptr;
-			bTrailer = false;
+			mbTrailer = false;
 			return true;
 		}
 		return false;
@@ -71,7 +71,7 @@ namespace assignment2
 
 	unsigned int Sedan::GetDriveSpeed() const
 	{
-		unsigned int trailerWeight = bTrailer ? mTrailer->GetWeight() : 0;
+		unsigned int trailerWeight = mbTrailer ? mTrailer->GetWeight() : 0;
 		unsigned int totalWeight = mPassengersTotalWeight + trailerWeight;
 		unsigned int speed = 0;
 		if (totalWeight <= 80)
@@ -99,7 +99,7 @@ namespace assignment2
 
 	void Sedan::IsMove()
 	{
-		if (bTrailer)
+		if (mbTrailer)
 		{
 			mCurMove % 7 != 0 || mCurMove % 7 != 6 ? mCurMoveDist++ : mCurMoveDist;
 		}

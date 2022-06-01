@@ -37,7 +37,8 @@ namespace assignment2
 	}
 	unsigned int Boatplane::GetSailSpeed() const
 	{
-		return std::max(static_cast<unsigned int>(800 - 1.7 * static_cast<double>(mPassengersTotalWeight) + 0.5), static_cast<unsigned int>(20));
+		int s = static_cast<int>(800 - 1.7 * static_cast<double>(mPassengersTotalWeight) + 0.5);
+		return std::max(s, 20);
 	}
 	void Boatplane::IsMove()
 	{

@@ -25,7 +25,7 @@ namespace assignment2
 		virtual void IsMove();
 
 	private:
-		bool bTrailer;
+		bool mbTrailer;
 		const Trailer* mTrailer;
 	};
 }

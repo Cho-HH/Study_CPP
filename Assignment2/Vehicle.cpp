@@ -89,14 +89,14 @@ namespace assignment2
 
 	bool Vehicle::RemovePassenger(unsigned int i)
 	{
-		if (&mPassengers[i] == nullptr || mCurIdx <= i)
+		if (mCurIdx <= i)
 		{
 			return false;
 		}
 		mPassengersTotalWeight -= mPassengers[i]->GetWeight();
 		delete mPassengers[i];
 		mPassengers[i] = nullptr;
-		for (unsigned int j = i; j < mMaxCount - 1; j++)
+		for (unsigned int j = i; j < mCurIdx - 1; j++)
 		{
 			const Person* tmp = *(mPassengers + j);
 			*(mPassengers + j) = *(mPassengers + j + 1);
@@ -123,6 +123,6 @@ namespace assignment2
 
 	const Person* Vehicle::GetPassenger(unsigned int i) const
 	{
-		return mCurIdx == 0 ? nullptr : mPassengers[i];
+		return i >= mCurIdx || mCurIdx == 0 ? nullptr : mPassengers[i];
 	}
 }

@@ -15,10 +15,16 @@ using namespace assignment2;
 
 int main()
 {
+	Boat qwe(2);
+	qwe.AddPassenger(new Person("QQQ", 1000));
+	assert(qwe.GetSailSpeed() == 20);
 	Person* p = new Person("Bob", 85);
 	assert(p->GetName() == std::string("Bob"));
 	assert(p->GetWeight() == 85);
 
+	Boatplane asds(20);
+	asds.AddPassenger(new Person("QQQ", 1000));
+	assert(asds.GetSailSpeed() == 20);
 	Person* p2 = new Person("James", 75);
 	Person* p3 = new Person("Tina", 52);
 
@@ -39,13 +45,15 @@ int main()
 	c.AddPassenger(new Person("FGG", 451));
 	g = c;
 	g = g;
-
 	assert(a.GetMaxPassengersCount() == 5);
 	assert(a.GetPassengersCount() == 3);
 	assert(a.GetPassenger(1) == p2);
 	assert(a.GetFlySpeed() == 648);
 	assert(a.GetDriveSpeed() == 59);
 	assert(a.GetMaxSpeed() == 648);
+
+	assert(a.RemovePassenger(3) == false);
+	assert(a.RemovePassenger(0) == true);
 
 	Boat b(5);
 	b.AddPassenger(p4);
@@ -97,8 +105,10 @@ int main()
 
 	assert(!bAdded);
 
+	
 	deusExMachina1->RemoveVehicle(9);
 	deusExMachina1->RemoveVehicle(8);
+	deusExMachina1->RemoveVehicle(1);
 	bool bRemoved = deusExMachina1->RemoveVehicle(7);
 	assert(bRemoved);
 
