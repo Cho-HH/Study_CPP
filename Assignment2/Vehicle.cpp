@@ -16,6 +16,55 @@ namespace assignment2
 		}
 	}
 
+	Vehicle::Vehicle(const Vehicle& other)
+		: mMaxCount(other.mMaxCount)
+		, mCurIdx(other.mCurIdx)
+		, mPassengersTotalWeight(other.mPassengersTotalWeight)
+		, mCurMove(other.mCurMove)
+		, mCurMoveDist(other.mCurMoveDist)
+	{
+		mPassengers = new const Person *[mMaxCount];
+		for (unsigned int i = 0; i < mMaxCount; i++)
+		{
+			if (i >= mCurIdx)
+			{
+				*(mPassengers + i) = nullptr;
+				continue;
+			}
+			Person otherPerson = **(other.mPassengers + i);
+			*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());
+		}
+	}
+
+	void Vehicle::operator=(const Vehicle& rhs)
+	{
+		if (mPassengers == rhs.mPassengers)
+		{
+			return;
+		}
+		for (unsigned int i = 0; i < mCurIdx; i++)
+		{
+			delete* (mPassengers + i);
+		}
+		delete mPassengers;
+		mMaxCount = rhs.mMaxCount;
+		mCurIdx = rhs.mCurIdx;
+		mPassengersTotalWeight = rhs.mPassengersTotalWeight;
+		mCurMove = rhs.mCurMove;
+		mCurMoveDist = rhs.mCurMoveDist;
+		mPassengers = new const Person *[mMaxCount];
+		for (unsigned int i = 0; i < mMaxCount; i++)
+		{
+			if (i >= mCurIdx)
+			{
+				*(mPassengers + i) = nullptr;
+				continue;
+			}
+			Person otherPerson = **(rhs.mPassengers + i);
+			*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());
+		}
+	}
+
 	Vehicle::~Vehicle()
 	{
 		for (unsigned int i = 0; i < mCurIdx; i++)

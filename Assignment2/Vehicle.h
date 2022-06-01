@@ -6,10 +6,13 @@
 
 namespace assignment2
 {
+	const double E = 2.71828182845904523536;
 	class Vehicle
 	{
 	public:
 		Vehicle(unsigned int maxPassengersCount);
+		Vehicle(const Vehicle& other);
+		void operator=(const Vehicle& rhs);
 		virtual ~Vehicle();
 
 		virtual unsigned int GetMaxSpeed() const = 0;

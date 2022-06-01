@@ -7,27 +7,14 @@ namespace assignment2
 	{		
 	}
 
-	Boat& Boat::operator=(const Boat& rhs)
+	Boat::Boat(const Boat& other)
+		: Vehicle(other)
 	{
-		if (mPassengers == rhs.mPassengers)
-		{
-			return *this;
-		}
+	}
 
-		for (unsigned int i = 0; i < mCurIdx; i++)
-		{
-			delete* (mPassengers + i);
-			*(mPassengers + i) = nullptr;
-		}
-
-		for (unsigned int i = 0; i < rhs.mCurIdx; i++)
-		{
-			*(mPassengers + i) = new Person(rhs.GetPassenger(i)->GetName().c_str(), rhs.GetPassenger(i)->GetWeight());
-		}
-		mMaxCount = rhs.mMaxCount;
-		mCurIdx = rhs.mCurIdx;
-		mPassengersTotalWeight = rhs.mPassengersTotalWeight;
-		return *this;
+	void Boat::operator=(const Boat& rhs)
+	{
+		Vehicle::operator=(rhs);
 	}
 
 	Boat::~Boat()

@@ -7,6 +7,16 @@ namespace assignment2
 	{
 	}
 
+	UBoat::UBoat(const UBoat& other)
+		: Vehicle(other)
+	{
+	}
+
+	void UBoat::operator=(const UBoat& rhs)
+	{
+		Vehicle::operator=(rhs);
+	}
+
 	UBoat::~UBoat()
 	{
 	}

@@ -9,30 +9,13 @@ namespace assignment2
 	}
 
 	Airplane::Airplane(const Airplane& other)
-		: Vehicle(other.mMaxCount)
+		: Vehicle(other)		
 	{
 	}
 
 	void Airplane::operator=(const Airplane& rhs)
-	{
-		if (mPassengers == rhs.mPassengers)
-		{
-			return;
-		}
-
-		for (unsigned int i = 0; i < mCurIdx; i++)
-		{
-			delete *(mPassengers + i);
-			*(mPassengers + i) = nullptr;
-		}
-
-		for (unsigned int i = 0; i < rhs.mCurIdx; i++)
-		{
-			*(mPassengers + i) = new Person(rhs.GetPassenger(i)->GetName().c_str(), rhs.GetPassenger(i)->GetWeight());
-		}
-		mMaxCount = rhs.mMaxCount;
-		mCurIdx = rhs.mCurIdx;
-		mPassengersTotalWeight = rhs.mPassengersTotalWeight;
+	{		
+		Vehicle::operator=(rhs);
 	}
 
 	Airplane::~Airplane()
@@ -63,13 +46,13 @@ namespace assignment2
 	unsigned int Airplane::GetFlySpeed() const
 	{	
 		double tmp = static_cast<double>(-1 * mPassengersTotalWeight + 800) / 500;
-		return static_cast<unsigned int>(200 * pow(M_E, tmp) + 0.5);
+		return static_cast<unsigned int>(200 * pow(E, tmp) + 0.5);
 	}
 
 	unsigned int Airplane::GetDriveSpeed() const
 	{
 		double tmp = static_cast<double>(-1 * mPassengersTotalWeight + 400) / 70;
-		return static_cast<unsigned int>(4 * pow(M_E, tmp) + 0.5);
+		return static_cast<unsigned int>(4 * pow(E, tmp) + 0.5);
 	}
 
 	void Airplane::IsMove() 

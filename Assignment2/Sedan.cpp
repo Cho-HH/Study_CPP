@@ -9,6 +9,24 @@ namespace assignment2
 	{
 	}
 
+	Sedan::Sedan(const Sedan& other)
+		: Vehicle(other)
+		, bTrailer(other.bTrailer)
+	{
+		mTrailer = new Trailer(other.mTrailer->GetWeight());
+	}
+
+	void Sedan::operator=(const Sedan& rhs)
+	{
+		Vehicle::operator=(rhs);
+		if (bTrailer)
+		{
+			delete mTrailer;
+		}
+		bTrailer = rhs.bTrailer;
+		mTrailer = new Trailer(rhs.mTrailer->GetWeight());
+	}
+
 	Sedan::~Sedan()
 	{
 		if (mTrailer != nullptr)

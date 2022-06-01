@@ -7,6 +7,16 @@ namespace assignment2
 	{
 	}
 
+	Motorcycle::Motorcycle(const Motorcycle& other)
+		: Vehicle(other)
+	{
+	}
+
+	void Motorcycle::operator=(const Motorcycle& rhs)
+	{
+		Vehicle::operator=(rhs);
+	}
+
 	Motorcycle::~Motorcycle()
 	{
 	}
