@@ -28,8 +28,8 @@ namespace assignment2
 
 	unsigned int UBoat::GetDiveSpeed() const
 	{
-		unsigned int tmp = static_cast<unsigned int>(std::log(static_cast<double>(mPassengersTotalWeight + 150) / 150) + 0.5);
-		return 500 * tmp + 30;
+		double tmp = std::log(static_cast<double>(mPassengersTotalWeight + 150) / 150);
+		return static_cast<unsigned int>(500 * tmp + 30 + 0.5);
 	}
 
 	unsigned int UBoat::GetSailSpeed() const
