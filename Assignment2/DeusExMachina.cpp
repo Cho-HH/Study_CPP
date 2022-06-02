@@ -22,6 +22,7 @@ namespace assignment2
 		for (unsigned int i = 0; i < mCurVehiclesCnt; i++)
 		{
 			delete *(mVehicles + i);
+			*(mVehicles + i) = nullptr;
 		}		
 	}
 

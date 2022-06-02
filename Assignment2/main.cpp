@@ -153,6 +153,8 @@ int main()
 
 	//assert(deusExMachina1->GetFurthestTravelled() == boat);
 
+	DeusExMachina* DetestDEM = DeusExMachina::GetInstance();
+	
 	
 	_CrtDumpMemoryLeaks();
 	return 0;
