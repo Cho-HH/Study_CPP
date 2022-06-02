@@ -48,10 +48,10 @@ namespace assignment2
 		return std::max(s, 20);
 	}
 
-	void Boat::IsMove()
+	void Boat::Move()
 	{
-		mCurMove % 3 != 0 ? mCurMoveDist++ : mCurMoveDist;
 		mCurMove++;
+		mCurMove % 3 != 0 ? mCurMoveDist++ : mCurMoveDist;
 	}
 
 	void Boat::TransferByBoatplane()

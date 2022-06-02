@@ -97,8 +97,9 @@ namespace assignment2
 		return speed;
 	}
 
-	void Sedan::IsMove()
+	void Sedan::Move()
 	{
+		mCurMove++;
 		if (mbTrailer)
 		{
 			mCurMove % 7 != 0 || mCurMove % 7 != 6 ? mCurMoveDist++ : mCurMoveDist;
@@ -107,6 +108,5 @@ namespace assignment2
 		{
 			mCurMove % 6 != 0 ? mCurMoveDist++ : mCurMoveDist;
 		}
-		mCurMove++;
 	}
 }

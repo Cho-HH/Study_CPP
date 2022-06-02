@@ -37,9 +37,9 @@ namespace assignment2
 		int s = static_cast<int>((550 - static_cast<double>(mPassengersTotalWeight) / 10) + 0.5);
 		return std::max(s, 200);
 	}
-	void UBoat::IsMove()
+	void UBoat::Move()
 	{
-		mCurMove % 6 == 1 || mCurMove % 6 == 2 ? mCurMoveDist++ : mCurMoveDist;
 		mCurMove++;
+		mCurMove % 6 == 1 || mCurMove % 6 == 2 ? mCurMoveDist++ : mCurMoveDist;
 	}
 }

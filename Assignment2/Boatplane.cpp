@@ -5,11 +5,6 @@ namespace assignment2
 	Boatplane::Boatplane(unsigned int maxPassengersCount)
 		: Vehicle(maxPassengersCount)
 	{
-		unsigned int totalWeight = 0;
-		for (unsigned int i = 0; i < mCurIdx; i++)
-		{
-			totalWeight += (*(mPassengers + i))->GetWeight();
-		}
 	}
 
 	Boatplane::Boatplane(const Boatplane& rhs)
@@ -41,9 +36,9 @@ namespace assignment2
 		int s = static_cast<int>(800 - 1.7 * static_cast<double>(mPassengersTotalWeight) + 0.5);
 		return std::max(s, 20);
 	}
-	void Boatplane::IsMove()
+	void Boatplane::Move()
 	{
-		mCurMove % 4 == 1 ? mCurMoveDist++ : mCurMoveDist;
 		mCurMove++;
+		mCurMove % 4 == 1 ? mCurMoveDist++ : mCurMoveDist;
 	}
 }

@@ -31,9 +31,9 @@ namespace assignment2
 		int s = static_cast<int>(pow(-1 * (static_cast<double>(mPassengersTotalWeight) / 15), 3) + 2 * mPassengersTotalWeight + 400 + 0.5);
 		return std::max(s, 0);
 	}
-	void Motorcycle::IsMove()
+	void Motorcycle::Move()
 	{
-		mCurMove % 6 != 0 ? mCurMoveDist++ : mCurMoveDist;
 		mCurMove++;
+		mCurMove % 6 != 0 ? mCurMoveDist++ : mCurMoveDist;
 	}
 }

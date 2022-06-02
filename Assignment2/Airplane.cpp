@@ -55,10 +55,10 @@ namespace assignment2
 		return static_cast<unsigned int>(4 * pow(E, tmp) + 0.5);
 	}
 
-	void Airplane::IsMove() 
+	void Airplane::Move() 
 	{
-		mCurMove % 4 == 1 ? mCurMoveDist++ : mCurMoveDist;
 		mCurMove++;
+		mCurMove % 4 == 1 ? mCurMoveDist++ : mCurMoveDist;
 	}
 
 	void Airplane::TransferByBoatplane()

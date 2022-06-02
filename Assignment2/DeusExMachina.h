@@ -17,7 +17,6 @@ namespace assignment2
 
 	private:
 		DeusExMachina();
-		static DeusExMachina* mInstance;
 		Vehicle* mVehicles[10];
 		unsigned int mCurVehiclesCnt;
 	};

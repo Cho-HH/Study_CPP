@@ -2,8 +2,6 @@
 
 namespace assignment2
 {
-	DeusExMachina* DeusExMachina::mInstance = nullptr;
-
 	DeusExMachina::DeusExMachina()
 		: mCurVehiclesCnt(0)
 	{
@@ -15,11 +13,8 @@ namespace assignment2
 
 	DeusExMachina* DeusExMachina::GetInstance()
 	{
-		if (mInstance == nullptr)
-		{
-			mInstance = new DeusExMachina();				
-		}
-		return mInstance;
+		static DeusExMachina instance;
+		return &instance;
 	}
 
 	DeusExMachina::~DeusExMachina()
@@ -27,18 +22,14 @@ namespace assignment2
 		for (unsigned int i = 0; i < mCurVehiclesCnt; i++)
 		{
 			delete *(mVehicles + i);
-		}
-		if (mInstance != nullptr)
-		{
-			delete mInstance;
-		}
+		}		
 	}
 
 	void DeusExMachina::Travel() const
 	{
 		for (unsigned int i = 0; i < mCurVehiclesCnt; i++)
 		{
-			(*(mVehicles + i))->IsMove();
+			(*(mVehicles + i))->Move();
 		}
 	}
 

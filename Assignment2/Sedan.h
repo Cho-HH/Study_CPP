@@ -22,7 +22,7 @@ namespace assignment2
 		virtual unsigned int GetMaxSpeed() const;
 		virtual unsigned int GetDriveSpeed() const;
 
-		virtual void IsMove();
+		virtual void Move();
 
 	private:
 		bool mbTrailer;

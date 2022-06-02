@@ -19,7 +19,7 @@ namespace assignment2
 		Boatplane operator+(Airplane& plane);
 		virtual unsigned int GetMaxSpeed() const;
 		virtual unsigned int GetSailSpeed() const;
-		virtual void IsMove();
+		virtual void Move();
 
 		void TransferByBoatplane();
 	};

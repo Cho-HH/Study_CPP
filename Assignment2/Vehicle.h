@@ -16,7 +16,7 @@ namespace assignment2
 		virtual ~Vehicle();
 
 		virtual unsigned int GetMaxSpeed() const = 0;
-		virtual void IsMove() = 0;
+		virtual void Move() = 0;
 
 		bool AddPassenger(const Person* person);
 		bool RemovePassenger(unsigned int i);

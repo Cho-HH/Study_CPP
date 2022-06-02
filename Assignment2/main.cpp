@@ -20,12 +20,28 @@ using namespace assignment2;
 
 int main()
 {
+
+	Airplane testAP(10);
+	testAP.AddPassenger(new Person("1", 100));
+	testAP.AddPassenger(new Person("2", 200));
+	testAP.AddPassenger(new Person("3", 300));
+	testAP.AddPassenger(new Person("4", 400));
+
+	Boat testB(3);
+	testB.AddPassenger(new Person("Boat1", 110));
+	testB.AddPassenger(new Person("Boat2", 220));
+	testB.AddPassenger(new Person("Boat3", 330));
+
+	Boatplane testBP = testAP + testB;
+
 	Boat qwe(2);
 	qwe.AddPassenger(new Person("QQQ", 1000));
 	assert(qwe.GetSailSpeed() == 20);
 	Person* p = new Person("Bob", 85);
 	assert(p->GetName() == std::string("Bob"));
 	assert(p->GetWeight() == 85);
+
+	qwe = qwe;
 
 	Boatplane asds(20);
 	asds.AddPassenger(new Person("QQQ", 1000));
@@ -137,7 +153,8 @@ int main()
 
 	//assert(deusExMachina1->GetFurthestTravelled() == boat);
 
+	
 	_CrtDumpMemoryLeaks();
-
 	return 0;
+	
 }

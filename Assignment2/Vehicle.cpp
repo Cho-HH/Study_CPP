@@ -6,7 +6,7 @@ namespace assignment2
 		: mMaxCount(maxPassengersCount)
 		, mCurIdx(0)
 		, mPassengersTotalWeight(0)
-		, mCurMove(1)
+		, mCurMove(0)
 		, mCurMoveDist(0)
 	{
 		mPassengers = new const Person*[mMaxCount];
