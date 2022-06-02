@@ -84,4 +84,8 @@ namespace assignment2
 		}
 		return furthestDistance == 0 ? mVehicles[0] : mVehicles[furthestIdx];
 	}
+	Vehicle* DeusExMachina::GetVehicle(unsigned int i) const
+	{
+		return mVehicles[i];
+	}
 }

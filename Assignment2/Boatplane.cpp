@@ -25,17 +25,20 @@ namespace assignment2
 	{
 		return GetFlySpeed() >= GetSailSpeed() ? GetFlySpeed() : GetSailSpeed();
 	}
+
 	unsigned int Boatplane::GetFlySpeed() const
 	{
 		double tmp = static_cast<double>(static_cast<int>(-1 * mPassengersTotalWeight) + 500) / 300;
 		tmp = pow(E, tmp);
 		return static_cast<unsigned int>(150 * tmp + 0.5);
 	}
+
 	unsigned int Boatplane::GetSailSpeed() const
 	{
 		int s = static_cast<int>(800 - 1.7 * static_cast<double>(mPassengersTotalWeight) + 0.5);
 		return std::max(s, 20);
 	}
+
 	void Boatplane::Move()
 	{
 		mCurMove++;

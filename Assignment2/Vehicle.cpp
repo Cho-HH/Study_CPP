@@ -31,14 +31,16 @@ namespace assignment2
 				*(mPassengers + i) = nullptr;
 				continue;
 			}
+
 			Person otherPerson = **(other.mPassengers + i);
-			*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());
+			*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());			
 		}
 	}
 
+	
 	void Vehicle::operator=(const Vehicle& rhs)
 	{
-		if (mPassengers == rhs.mPassengers)
+		if (&mPassengers[0] == &rhs.mPassengers[0])
 		{
 			return;
 		}
@@ -78,6 +80,11 @@ namespace assignment2
 
 	bool Vehicle::AddPassenger(const Person* person)
 	{
+		if (person == nullptr)
+		{
+			return false;
+		}
+
 		if (mCurIdx >= mMaxCount)
 		{
 			return false;

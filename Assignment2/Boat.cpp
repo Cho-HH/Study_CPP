@@ -56,10 +56,10 @@ namespace assignment2
 
 	void Boat::TransferByBoatplane()
 	{
-		for (unsigned int i = 0; i < mCurIdx; i++)
+		/*for (unsigned int i = 0; i < mCurIdx; i++)
 		{
 			*(mPassengers + i) = nullptr;
-		}
+		}*/
 		mCurIdx = 0;
 		mPassengersTotalWeight = 0;
 	}
