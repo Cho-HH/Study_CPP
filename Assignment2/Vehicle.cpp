@@ -23,7 +23,7 @@ namespace assignment2
 		, mCurMove(other.mCurMove)
 		, mCurMoveDist(other.mCurMoveDist)
 	{
-		mPassengers = new const Person *[mMaxCount];
+ 		mPassengers = new const Person *[mMaxCount];
 		for (unsigned int i = 0; i < mMaxCount; i++)
 		{
 			if (i >= mCurIdx)
@@ -40,7 +40,7 @@ namespace assignment2
 	
 	void Vehicle::operator=(const Vehicle& rhs)
 	{
-		if (&mPassengers[0] == &rhs.mPassengers[0])
+		if (mPassengers == rhs.mPassengers)
 		{
 			return;
 		}
@@ -48,7 +48,7 @@ namespace assignment2
 		{
 			delete* (mPassengers + i);
 		}
-		delete mPassengers;
+		delete[] mPassengers;
 		mMaxCount = rhs.mMaxCount;
 		mCurIdx = rhs.mCurIdx;
 		mPassengersTotalWeight = rhs.mPassengersTotalWeight;
@@ -74,7 +74,7 @@ namespace assignment2
 			delete *(mPassengers + i);
 			*(mPassengers + i) = nullptr;
 		}
-		delete mPassengers;
+		delete[] mPassengers;
 		mPassengers = nullptr;
 	}
 

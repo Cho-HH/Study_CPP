@@ -1,7 +1,8 @@
 #include <cassert>
 #include <iostream>
 #include <iomanip>
-
+#include <stdlib.h>
+#include <crtdbg.h>
 #include "Vehicle.h"
 #include "Airplane.h"
 #include "Boat.h"
@@ -13,6 +14,11 @@
 #include "DeusExMachina.h"
 #include "Person.h"
 
+#define _CRTDBG_MAP_ALLOC
+#ifdef _DEBUG
+#define DEBUG_NEW new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#define new DEBUG_NEW
+#endif
 
 #define STR(name) #name
 
@@ -21,6 +27,7 @@ using namespace std;
 
 int main()
 {
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	const char* MAX_SPEED_LABLE = "Max Speed: ";
 	const char* CUR_P_LABLE = "Current Person: ";
 	const unsigned int MAX_CAPACITY = 10;
@@ -54,9 +61,9 @@ int main()
 	Airplane dockingTest1(10);
 	Boat dockingTest2(10);
 
-	Person* overlapTest = new Person("Overlap Test", 100);
+	/*Person* overlapTest = new Person("Overlap Test", 100);
 	air->AddPassenger(overlapTest);
-	air->AddPassenger(overlapTest);
+	air->AddPassenger(overlapTest);*/
 	//assert(air->GetPassengersCount() == 1); // 빌드봇은 이런 테스트 안함
 
 
@@ -66,7 +73,7 @@ int main()
 		dockingTest2.AddPassenger(new Person(STR(i), i));
 	}
 
-	const Person* comp1 = dockingTest1.GetPassenger(0);
+	/*const Person* comp1 = dockingTest1.GetPassenger(0);
 	Boatplane bp1 = dockingTest1 + dockingTest2;
 	const Person* comp2 = bp1.GetPassenger(0);
 
@@ -135,7 +142,18 @@ int main()
 		d->Travel();
 	}
 
-	delete d;
+	for (size_t i = 0; i < 7; i++)
+	{
+		delete d->GetVehicle(i);
+	}*/
+
+	//delete d;
+	Airplane* test = new Airplane(10);
+	delete test;
+	
+	
+	return  0;
+	
 }
 //#include <cassert>
 //#include <iostream>

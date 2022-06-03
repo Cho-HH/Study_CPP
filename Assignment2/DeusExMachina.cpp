@@ -23,7 +23,7 @@ namespace assignment2
 		{
 			delete *(mVehicles + i);
 			*(mVehicles + i) = nullptr;
-		}		
+		}
 	}
 
 	void DeusExMachina::Travel() const
