@@ -8,8 +8,9 @@ namespace assignment2
 		, mPassengersTotalWeight(0)
 		, mCurMove(0)
 		, mCurMoveDist(0)
+		, mShallowCopy(false)
 	{
-		mPassengers = new const Person*[mMaxCount];
+		mPassengers = new const Person * [mMaxCount];
 		for (unsigned int i = 0; i < mMaxCount; i++)
 		{
 			*(mPassengers + i) = nullptr;
@@ -22,8 +23,9 @@ namespace assignment2
 		, mPassengersTotalWeight(other.mPassengersTotalWeight)
 		, mCurMove(other.mCurMove)
 		, mCurMoveDist(other.mCurMoveDist)
+		, mShallowCopy(false)
 	{
- 		mPassengers = new const Person *[mMaxCount];
+		mPassengers = new const Person*[mMaxCount];
 		for (unsigned int i = 0; i < mMaxCount; i++)
 		{
 			if (i >= mCurIdx)
@@ -32,12 +34,19 @@ namespace assignment2
 				continue;
 			}
 
-			Person otherPerson = **(other.mPassengers + i);
-			*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());			
+			if (other.mShallowCopy)
+			{
+				*(mPassengers + i) = *(other.mPassengers + i);
+			}
+			else
+			{
+				Person otherPerson = **(other.mPassengers + i);
+				*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());
+			}			
 		}
 	}
 
-	
+
 	void Vehicle::operator=(const Vehicle& rhs)
 	{
 		if (mPassengers == rhs.mPassengers)
@@ -54,7 +63,7 @@ namespace assignment2
 		mPassengersTotalWeight = rhs.mPassengersTotalWeight;
 		mCurMove = rhs.mCurMove;
 		mCurMoveDist = rhs.mCurMoveDist;
-		mPassengers = new const Person *[mMaxCount];
+		mPassengers = new const Person * [mMaxCount];
 		for (unsigned int i = 0; i < mMaxCount; i++)
 		{
 			if (i >= mCurIdx)
@@ -71,7 +80,7 @@ namespace assignment2
 	{
 		for (unsigned int i = 0; i < mCurIdx; i++)
 		{
-			delete *(mPassengers + i);
+			delete* (mPassengers + i);
 			*(mPassengers + i) = nullptr;
 		}
 		delete[] mPassengers;

@@ -44,4 +44,8 @@ namespace assignment2
 		mCurMove++;
 		mCurMove % 4 == 1 ? mCurMoveDist++ : mCurMoveDist;
 	}
+	void Boatplane::SetShallowCopy()
+	{
+		mShallowCopy = true;
+	}
 }

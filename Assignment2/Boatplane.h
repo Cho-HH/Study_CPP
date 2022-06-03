@@ -19,5 +19,7 @@ namespace assignment2
 		virtual unsigned int GetSailSpeed() const;
 
 		virtual void Move();
+
+		void SetShallowCopy();
 	};
 }

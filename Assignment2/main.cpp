@@ -73,13 +73,13 @@ int main()
 		dockingTest2.AddPassenger(new Person(STR(i), i));
 	}
 
-	/*const Person* comp1 = dockingTest1.GetPassenger(0);
+	const Person* comp1 = dockingTest1.GetPassenger(0);
 	Boatplane bp1 = dockingTest1 + dockingTest2;
 	const Person* comp2 = bp1.GetPassenger(0);
 
  	Boatplane bp2 = dockingTest2 + dockingTest1;
 
-	//assert(comp1 == comp2); // 빌드봇은 이런 테스트 안함
+	assert(comp1 == comp2); // 빌드봇은 이런 테스트 안함
 	assert(dockingTest1.GetPassengersCount() == 0);
 	assert(dockingTest2.GetPassengersCount() == 0);
 	assert(bp1.GetPassengersCount() == 10);
@@ -145,7 +145,7 @@ int main()
 	for (size_t i = 0; i < 7; i++)
 	{
 		delete d->GetVehicle(i);
-	}*/
+	}
 
 	//delete d;
 	Airplane* test = new Airplane(10);

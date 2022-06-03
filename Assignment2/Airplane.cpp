@@ -35,6 +35,7 @@ namespace assignment2
 		}
 		TransferByBoatplane();
 		boat.TransferByBoatplane();
+		bp.SetShallowCopy();
 		return bp;
 	}
 
@@ -63,10 +64,10 @@ namespace assignment2
 
 	void Airplane::TransferByBoatplane()
 	{
-		/*for (unsigned int i = 0; i < mCurIdx; i++)
+		for (unsigned int i = 0; i < mCurIdx; i++)
 		{
 			*(mPassengers + i) = nullptr;
-		}*/
+		}
 		mCurIdx = 0;
 		mPassengersTotalWeight = 0;
 	}
