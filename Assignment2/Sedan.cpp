@@ -108,7 +108,7 @@ namespace assignment2
 		mCurMove++;
 		if (mbTrailer)
 		{
-			mCurMove % 7 != 0 || mCurMove % 7 != 6 ? mCurMoveDist++ : mCurMoveDist;
+			mCurMove % 7 != 0 && mCurMove % 7 != 6 ? mCurMoveDist++ : mCurMoveDist;
 		}
 		else
 		{
