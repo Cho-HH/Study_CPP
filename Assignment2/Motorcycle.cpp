@@ -12,9 +12,10 @@ namespace assignment2
 	{
 	}
 
-	void Motorcycle::operator=(const Motorcycle& rhs)
+	Motorcycle& Motorcycle::operator=(const Motorcycle& rhs)
 	{
 		Vehicle::operator=(rhs);
+		return *this;
 	}
 
 	Motorcycle::~Motorcycle()

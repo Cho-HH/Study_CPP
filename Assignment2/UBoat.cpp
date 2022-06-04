@@ -12,9 +12,10 @@ namespace assignment2
 	{
 	}
 
-	void UBoat::operator=(const UBoat& rhs)
+	UBoat& UBoat::operator=(const UBoat& rhs)
 	{
 		Vehicle::operator=(rhs);
+		return *this;
 	}
 
 	UBoat::~UBoat()

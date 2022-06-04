@@ -20,7 +20,7 @@ namespace assignment2
 		}
 		plane.TransferByBoatplane();
 		boat.TransferByBoatplane();
-		SetShallowCopy();
+		//SetShallowCopy();
 	}
 
 	Boatplane::Boatplane(const Boatplane& rhs)
@@ -28,9 +28,10 @@ namespace assignment2
 	{
 	}
 
-	void Boatplane::operator=(const Boatplane& rhs)
+	Boatplane& Boatplane::operator=(const Boatplane& rhs)
 	{
 		Vehicle::operator=(rhs);
+		return *this;
 	}
 
 	Boatplane::~Boatplane()

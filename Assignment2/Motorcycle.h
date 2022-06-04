@@ -9,7 +9,7 @@ namespace assignment2
 	public:
 		Motorcycle();
 		Motorcycle(const Motorcycle& other);
-		void operator=(const Motorcycle& rhs);
+		Motorcycle& operator=(const Motorcycle& rhs);
 		virtual ~Motorcycle();
 
 		virtual unsigned int GetMaxSpeed() const;

@@ -32,14 +32,22 @@ int main()
 	const char* CUR_P_LABLE = "Current Person: ";
 	const unsigned int MAX_CAPACITY = 10;
 
+	Sedan se;
+	Trailer trail(10);
+	se.AddTrailer(&trail);
+	se = se;
+
+
 	Airplane test1(10);
+	test1.AddPassenger(new Person("aa", 13));
+	test1.AddPassenger(new Person("bb", 3));
 	Boat test2(15);
 	Boat test3(20);
 	Boatplane test = test1 + test2;
 	Boatplane test4 = test1 + test3;
 
 	Airplane test44(100);
-	Boatplane test3333 = test44 + test2;
+	Boatplane test3333 = test44  + test2;
 
 	Vehicle* air = new Airplane(MAX_CAPACITY);
 

@@ -47,11 +47,11 @@ namespace assignment2
 	}
 
 
-	void Vehicle::operator=(const Vehicle& rhs)
+	Vehicle& Vehicle::operator=(const Vehicle& rhs)
 	{
-		if (mPassengers == rhs.mPassengers)
+		if (this == &rhs)
 		{
-			return;
+			return *this;
 		}
 		for (unsigned int i = 0; i < mCurIdx; i++)
 		{
@@ -74,6 +74,7 @@ namespace assignment2
 			Person otherPerson = **(rhs.mPassengers + i);
 			*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());
 		}
+		return *this;
 	}
 
 	Vehicle::~Vehicle()

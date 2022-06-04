@@ -10,7 +10,7 @@ namespace assignment2
 	public:
 		UBoat();
 		UBoat(const UBoat& other);
-		void operator=(const UBoat& rhs);
+		UBoat& operator=(const UBoat& rhs);
 		~UBoat();
 
 		virtual unsigned int GetMaxSpeed() const;
