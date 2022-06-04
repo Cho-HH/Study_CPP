@@ -1,7 +1,5 @@
 #pragma once
 #include "Vehicle.h"
-#include "Airplane.h"
-#include "Boat.h"
 #include "IFlyable.h"
 #include "ISailable.h"
 

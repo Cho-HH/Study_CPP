@@ -1,4 +1,6 @@
 #include "Boatplane.h"
+#include "Boat.h"
+#include "Airplane.h"
 
 namespace assignment2
 {
