@@ -33,6 +33,6 @@ namespace assignment2
 		unsigned int mCurMove;
 		unsigned int mCurMoveDist;
 
-		bool mShallowCopy;
+		bool mbShallowCopy;
 	};
 }

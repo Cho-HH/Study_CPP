@@ -8,7 +8,7 @@ namespace assignment2
 		, mPassengersTotalWeight(0)
 		, mCurMove(0)
 		, mCurMoveDist(0)
-		, mShallowCopy(false)
+		, mbShallowCopy(false)
 	{
 		mPassengers = new const Person * [mMaxCount];
 		for (unsigned int i = 0; i < mMaxCount; i++)
@@ -23,7 +23,7 @@ namespace assignment2
 		, mPassengersTotalWeight(other.mPassengersTotalWeight)
 		, mCurMove(other.mCurMove)
 		, mCurMoveDist(other.mCurMoveDist)
-		, mShallowCopy(false)
+		, mbShallowCopy(false)
 	{
 		mPassengers = new const Person*[mMaxCount];
 		for (unsigned int i = 0; i < mMaxCount; i++)
@@ -34,7 +34,7 @@ namespace assignment2
 				continue;
 			}
 
-			if (other.mShallowCopy)
+			if (other.mbShallowCopy)
 			{
 				*(mPassengers + i) = *(other.mPassengers + i);
 			}

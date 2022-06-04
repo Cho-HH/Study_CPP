@@ -1,5 +1,4 @@
 #pragma once
-#include "Boatplane.h"
 #include "IDrivable.h"
 #include "IFlyable.h"
 #include "Vehicle.h"
@@ -7,6 +6,7 @@
 namespace assignment2
 {
 	class Boat;
+	class Boatplane;
 
 	class Airplane : public Vehicle, public IDrivable, public IFlyable
 	{

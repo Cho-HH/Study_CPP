@@ -32,6 +32,15 @@ int main()
 	const char* CUR_P_LABLE = "Current Person: ";
 	const unsigned int MAX_CAPACITY = 10;
 
+	Airplane test1(10);
+	Boat test2(15);
+	Boat test3(20);
+	Boatplane test = test1 + test2;
+	Boatplane test4 = test1 + test3;
+
+	Airplane test44(100);
+	Boatplane test3333 = test44 + test2;
+
 	Vehicle* air = new Airplane(MAX_CAPACITY);
 
 	Person* toAdd;
@@ -86,7 +95,7 @@ int main()
 	assert(bp2.GetPassengersCount() == 0);
 
 	Boatplane copyConstuctorTest(bp1);
-
+	               
 	for (size_t i = 0; i < bp1.GetPassengersCount(); i++)
 	{
 		const Person* p1 = bp1.GetPassenger(i);
@@ -147,9 +156,6 @@ int main()
 		delete d->GetVehicle(i);
 	}
 
-	//delete d;
-	Airplane* test = new Airplane(10);
-	delete test;
 	
 	
 	return  0;

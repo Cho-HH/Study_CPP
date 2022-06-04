@@ -1,4 +1,5 @@
 #include "Boat.h"
+#include "Boatplane.h"
 
 namespace assignment2
 {
@@ -23,19 +24,7 @@ namespace assignment2
 
 	Boatplane Boat::operator+(Airplane& plane)
 	{
-		static Boatplane bp(mMaxCount + plane.GetMaxPassengersCount());
-		for (unsigned int i = 0; i < mCurIdx; i++)
-		{
-			bp.AddPassenger(*(mPassengers + i));
-		}
-		for (unsigned int i = 0; i < plane.GetPassengersCount(); i++)
-		{
-			bp.AddPassenger(plane.GetPassenger(i));
-		}
-		TransferByBoatplane();
-		plane.TransferByBoatplane();
-		bp.SetShallowCopy();
-		return bp;
+		return Boatplane(mMaxCount + plane.GetMaxPassengersCount(), plane, *this);
 	}
 
 	unsigned int Boat::GetMaxSpeed() const
