@@ -33,7 +33,5 @@ namespace assignment2
 		unsigned int mPassengersTotalWeight;
 		unsigned int mCurMove;
 		unsigned int mCurMoveDist;
-
-		bool mbShallowCopy;
 	};
 }

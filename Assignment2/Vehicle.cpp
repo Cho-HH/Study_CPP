@@ -8,7 +8,6 @@ namespace assignment2
 		, mPassengersTotalWeight(0)
 		, mCurMove(0)
 		, mCurMoveDist(0)
-		, mbShallowCopy(false)
 	{
 		mPassengers = new const Person * [mMaxCount];
 		for (unsigned int i = 0; i < mMaxCount; i++)
@@ -23,7 +22,6 @@ namespace assignment2
 		, mPassengersTotalWeight(other.mPassengersTotalWeight)
 		, mCurMove(other.mCurMove)
 		, mCurMoveDist(other.mCurMoveDist)
-		, mbShallowCopy(false)
 	{
 		mPassengers = new const Person*[mMaxCount];
 		for (unsigned int i = 0; i < mMaxCount; i++)
@@ -34,15 +32,8 @@ namespace assignment2
 				continue;
 			}
 
-			if (other.mbShallowCopy)
-			{
-				*(mPassengers + i) = *(other.mPassengers + i);
-			}
-			else
-			{
-				Person otherPerson = **(other.mPassengers + i);
-				*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());
-			}			
+			Person otherPerson = **(other.mPassengers + i);
+			*(mPassengers + i) = new Person(otherPerson.GetName().c_str(), otherPerson.GetWeight());			
 		}
 	}
 

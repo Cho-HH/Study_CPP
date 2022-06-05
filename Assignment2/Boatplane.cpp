@@ -13,7 +13,7 @@ namespace assignment2
 		: Vehicle(maxPassengersCount)
 	{
 		for (unsigned int i = 0; i < plane.GetPassengersCount(); i++)
-		{
+		{			
 			AddPassenger(plane.GetPassenger(i));
 		}
 		for (unsigned int i = 0; i < boat.GetPassengersCount(); i++)
@@ -22,7 +22,6 @@ namespace assignment2
 		}
 		plane.TransferByBoatplane();
 		boat.TransferByBoatplane();
-		//SetShallowCopy();
 	}
 
 	Boatplane::Boatplane(const Boatplane& rhs)
@@ -62,9 +61,5 @@ namespace assignment2
 	{
 		mCurMove++;
 		mCurMove % 4 == 1 ? mCurMoveDist++ : mCurMoveDist;
-	}
-	void Boatplane::SetShallowCopy()
-	{
-		mbShallowCopy = true;
 	}
 }
