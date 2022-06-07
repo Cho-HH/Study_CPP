@@ -94,7 +94,7 @@ namespace lab6
 
 	void SortDescending(std::vector<int>& v)
 	{
-		for (std::vector<int>::iterator iter = v.begin(); iter != v.end() - 1; ++iter)
+		/*for (std::vector<int>::iterator iter = v.begin(); iter != v.end() - 1; ++iter)
 		{
 			std::vector<int>::iterator maxValIter = iter;
 			int maxVal = *iter;
@@ -109,6 +109,6 @@ namespace lab6
 			int tmp = *iter;
 			*iter = maxVal;
 			*maxValIter = tmp;			
-		}
+		}*/
 	}
 }
