@@ -52,6 +52,11 @@ namespace lab6
 
 	float Average(const std::vector<int>& v)
 	{
+		if (v.empty())
+		{
+			return 0.0f;
+		}
+
 		int total = 0;
 		for (std::vector<int>::const_iterator iter = v.begin(); iter != v.end(); ++iter)
 		{
@@ -94,21 +99,39 @@ namespace lab6
 
 	void SortDescending(std::vector<int>& v)
 	{
-		/*for (std::vector<int>::iterator iter = v.begin(); iter != v.end() - 1; ++iter)
+		QuickSortRecursive(v, 0, v.size() - 1);
+	}
+
+	void QuickSortRecursive(std::vector<int>& v, int left, int right)
+	{
+		if (left >= right)
 		{
-			std::vector<int>::iterator maxValIter = iter;
-			int maxVal = *iter;
-			for (std::vector<int>::iterator iter2 = iter + 1; iter2 != v.end(); ++iter2)
+			return;
+		}
+
+		int pivotPos = Partition(v, left, right);
+		QuickSortRecursive(v, left, pivotPos - 1);
+		QuickSortRecursive(v, pivotPos + 1, right);
+	}
+	int Partition(std::vector<int>& v, int left, int right)
+	{
+		int pivot = v[right];
+
+		int i = left;
+		for (int j = left; j < right; j++)
+		{
+			if (v[j] > pivot)
 			{
-				if (maxVal < *iter2)
-				{
-					maxValIter = iter2;
-					maxVal = *iter2;
-				}
+				int tmp = v[i];
+				v[i] = v[j];
+				v[j] = tmp;
+				i++;
 			}
-			int tmp = *iter;
-			*iter = maxVal;
-			*maxValIter = tmp;			
-		}*/
+		}
+
+		int tmp = v[right];
+		v[right] = v[i];
+		v[i] = tmp;
+		return i;
 	}
 }
