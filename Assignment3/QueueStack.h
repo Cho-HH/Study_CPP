@@ -1,18 +1,18 @@
 #pragma once
-#include <queue>
 #include <stack>
+#include <queue>
 #include "SmartSTL.h"
 
 namespace assignment3
 {
 	template<typename T>
-	class QueueStack : public SmartSTL<T>
+	class QueueStack final : public SmartSTL<T>
 	{
 	public:
 		QueueStack(unsigned int maxStackSize);
-		QueueStack(const QueueStack& other) = default;
-		QueueStack& operator=(const QueueStack& rhs) = default;
-		virtual ~QueueStack() = default;
+		QueueStack(const QueueStack<T>& other);
+		QueueStack<T>& operator=(const QueueStack<T>& rhs);
+		virtual ~QueueStack();
 
 		virtual T Peek() override;
 		virtual T GetMax() override;
@@ -21,38 +21,90 @@ namespace assignment3
 		virtual double GetVariance() override;
 		virtual unsigned int GetCount() override;
 
+		unsigned int GetStackCount();
 		void Enqueue(T number);
 		T Dequeue();
 
 	private:
 		unsigned int mMaxStackSize;
 		unsigned int mCurStackSize;
-		queue<stack<T>> mQueueStack;
+		queue<stack<T>>* mQueueStack;
 	};
 
 	template<typename T>
 	inline QueueStack<T>::QueueStack(unsigned int maxStackSize)
-		: mMaxStackSize(maxStackSize)
+		: SmartSTL<T>()
+		, mMaxStackSize(maxStackSize)
 		, mCurStackSize(0)
+		, mQueueStack(new queue<stack<T>>)
 	{
+	}
+
+	template<typename T>
+	inline QueueStack<T>::QueueStack(const QueueStack<T>& other)
+		: SmartSTL<T>(other)
+		, mMaxStackSize(other.mMaxStackSize)
+		, mCurStackSize(other.mCurStackSize)
+		, mQueueStack(new queue<stack<T>>)
+	{
+		*mQueueStack = *(other.mQueueStack);
+	}
+
+	template<typename T>
+	inline QueueStack<T>& QueueStack<T>::operator=(const QueueStack<T>& rhs)
+	{
+		if (this == &rhs)
+		{
+			return *this;
+		}
+		SmartSTL<T>::operator=(rhs);
+		*mQueueStack = *(rhs.mQueueStack);
+		return *this;
+	}
+
+	template<typename T>
+	inline QueueStack<T>::~QueueStack()
+	{
+		delete mQueueStack;
 	}
 
 	template<typename T>
 	inline T QueueStack<T>::Peek()
 	{
-		return mQueueStack.front().top();
+		return mQueueStack->front().top();
 	}
 
 	template<typename T>
 	inline T QueueStack<T>::GetMax()
 	{
-		return T();
+		T maxNum = numeric_limits<T>::lowest();
+		if (mQueueStack->empty())
+		{
+			return maxNum;
+		}
+
+		//queue<stack<T>> tmpQuSt;
+		//while (!mQueueStack->empty())
+		//{
+
+		//	T num = mQueue->front();
+		//	maxNum = maxNum < num ? num : maxNum;
+		//	mQueue->pop();
+		//	tmpQu.push(num);
+		//}
+		//*mQueue = tmpQu;
+		return maxNum;
 	}
 
 	template<typename T>
 	inline T QueueStack<T>::GetMin()
 	{
-		return T();
+		T minNum = numeric_limits<T>::max();
+		if (mQueueStack->empty())
+		{
+			return minNum;
+		}
+		return minNum;
 	}
 
 	template<typename T>
@@ -64,44 +116,50 @@ namespace assignment3
 	template<typename T>
 	inline double QueueStack<T>::GetVariance()
 	{
-		double avr = GetAverage();
-
-		return 0.0;
+		return static_cast<double>(this->mSum2) / static_cast<double>(GetCount()) - pow(GetAverage(), 2);
 	}
 
 	template<typename T>
 	inline unsigned int QueueStack<T>::GetCount()
 	{
-		return mQueueStack.empty() ? 0 : (mQueueStack.size() - 1) * mMaxStackSize + mQueueStack.back().size();
+		return mQueueStack->empty() ? 0 : (mQueueStack->size() - 1) * mMaxStackSize + mQueueStack->back().size();
+	}
+
+	template<typename T>
+	inline unsigned int QueueStack<T>::GetStackCount()
+	{
+		return mQueueStack->size();
 	}
 
 	template<typename T>
 	void QueueStack<T>::Enqueue(T number)
 	{
-		if (mQueueStack.empty() || mCurStackSize >= mMaxStackSize)
+		if (mQueueStack->empty() || mCurStackSize >= mMaxStackSize)
 		{
 			stack<T> st;
 			st.push(number);
-			mQueueStack.push(st);
+			mQueueStack->push(st);
 			mCurStackSize = 1;
 		}
 		else
 		{
-			mQueueStack.back().push(number);
+			mQueueStack->back().push(number);
 			mCurStackSize++;
 		}
+		this->mSum2 += pow(number, 2);
 		this->mSum += number;
 	}
 
 	template<typename T>
-	inline T QueueStack<T>::Dequeue()
+	T QueueStack<T>::Dequeue()
 	{
-		T num = mQueueStack.front().top();
-		mQueueStack.front().pop();
-		if (mQueueStack.front().empty())
+		T num = mQueueStack->front().top();
+		mQueueStack->front().pop();
+		if (mQueueStack->front().empty())
 		{
-			mQueueStack.pop();
+			mQueueStack->pop();
 		}
+		this->mSum2 -= pow(num, 2);
 		this->mSum -= num;
 		return num;
 	}

@@ -31,7 +31,8 @@ namespace assignment3
 
 	template<typename T>
 	inline SmartStack<T>::SmartStack()
-		: mStack(new stack<T>)
+		: SmartSTL<T>()
+		, mStack(new stack<T>)
 		, mMaxNumStack(new stack<T>)
 		, mMinNumStack(new stack<T>)
 	{
@@ -40,12 +41,12 @@ namespace assignment3
 	template<typename T>
 	SmartStack<T>::SmartStack(const SmartStack<T>& other)
 		: SmartSTL<T>(other)
+		, mStack(new stack<T>)
+		, mMaxNumStack(new stack<T>)
+		, mMinNumStack(new stack<T>)
 	{	
-		mStack = new stack<T>;
 		*mStack = *(other.mStack);
-		mMaxNumStack = new stack<T>;
-		*mMaxNumStack = *(other.mStack);
-		mMinNumStack = new stack<T>;
+		*mMaxNumStack = *(other.mMaxNumStack);
 		*mMinNumStack = *(other.mMinNumStack);
 	}
 
@@ -58,15 +59,8 @@ namespace assignment3
 		}
 		SmartSTL<T>::operator=(rhs);
 
-		delete mStack;
-		delete mMinNumStack;
-		delete mMaxNumStack;
-
-		mStack = new stack<T>;
 		*mStack = *(rhs.mStack);
-		mMaxNumStack = new stack<T>;
 		*mMaxNumStack = *(rhs.mStack);
-		mMinNumStack = new stack<T>;
 		*mMinNumStack = *(rhs.mMinNumStack);
 
 		return *this;
@@ -81,7 +75,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	inline void assignment3::SmartStack<T>::Push(T number)
+	void assignment3::SmartStack<T>::Push(T number)
 	{
 		T max = number;
 		T min = number;
@@ -95,7 +89,7 @@ namespace assignment3
 		mStack->push(number);
 		mMaxNumStack->push(max);
 		mMinNumStack->push(min);
-		this->mSum2 += pow(number, 2);
+		this->mSum2 += static_cast<T>(pow(number, 2));
 		this->mSum += number;
 	}
 
@@ -104,6 +98,7 @@ namespace assignment3
 	{
 		T num = mStack->top();
 		this->mSum -= num;
+		this->mSum2 -= static_cast<T>(pow(num, 2));
 		mStack->pop();
 		mMinNumStack->pop();
 		mMaxNumStack->pop();
@@ -119,7 +114,7 @@ namespace assignment3
 	template<typename T>
 	inline T SmartStack<T>::GetMax()
 	{
-		return mStack->empty() ? numeric_limits<T>::min() : mMaxNumStack->top();
+		return mStack->empty() ? numeric_limits<T>::lowest() : mMaxNumStack->top();
 	}
 
 	template<typename T>
@@ -137,8 +132,9 @@ namespace assignment3
 	template<typename T>
 	inline unsigned int SmartStack<T>::GetCount()
 	{
-		return static_cast<unsigned int>(mStack->size());
+		return mStack->size();
 	}
+
 	template<typename T>
 	inline double SmartStack<T>::GetVariance()
 	{
