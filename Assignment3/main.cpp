@@ -131,6 +131,8 @@ void TestSmartStack()
     assert(std::abs(ss2.GetSum() - 0.f) <= EPSILON);
     assert(ss2.GetMax() == -std::numeric_limits<float>::max());
     assert(ss2.GetMin() == std::numeric_limits<float>::max());
+    std::cout << ss2.GetVariance() << endl;
+    assert(std::abs(ss2.GetVariance() - 0.f) <= EPSILON);
 };
 
 void TestSmartQueue()

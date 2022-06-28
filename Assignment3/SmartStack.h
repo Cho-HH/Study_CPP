@@ -102,6 +102,12 @@ namespace assignment3
 		mStack->pop();
 		mMinNumStack->pop();
 		mMaxNumStack->pop();
+
+		if (mStack->empty())
+		{
+			this->mSum = T();
+			this->mSum2 = T();
+		}
 		return num;
 	}
 

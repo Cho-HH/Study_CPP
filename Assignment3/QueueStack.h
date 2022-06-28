@@ -146,7 +146,7 @@ namespace assignment3
 			mQueueStack->back().push(number);
 			mCurStackSize++;
 		}
-		this->mSum2 += pow(number, 2);
+		this->mSum2 += static_cast<T>(pow(number, 2));
 		this->mSum += number;
 	}
 
@@ -159,7 +159,7 @@ namespace assignment3
 		{
 			mQueueStack->pop();
 		}
-		this->mSum2 -= pow(num, 2);
+		this->mSum2 -= static_cast<T>(pow(num, 2));
 		this->mSum -= num;
 		return num;
 	}

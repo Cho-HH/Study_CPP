@@ -1,7 +1,6 @@
 #pragma once
 #include <cmath>
 #include <limits>
-#include <cassert>
 
 using namespace std;
 
@@ -13,7 +12,7 @@ namespace assignment3
 	public:
 		SmartSTL();
 		SmartSTL(const SmartSTL<T>& other);
-		SmartSTL& operator=(const SmartSTL& rhs);
+		SmartSTL<T>& operator=(const SmartSTL<T>& rhs);
 		virtual ~SmartSTL() = default;
 
 		virtual T Peek() = 0;
