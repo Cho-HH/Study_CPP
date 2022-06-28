@@ -1,11 +1,14 @@
 #pragma once
 #include <queue>
-#include "SmartSTL.h"
+#include <cmath>
+#include <limits>
+
+using namespace std;
 
 namespace assignment3
 {
 	template <typename T>
-	class SmartQueue  : public SmartSTL<T>
+	class SmartQueue
 	{
 	public:
 		SmartQueue();
@@ -13,34 +16,38 @@ namespace assignment3
 		SmartQueue<T>& operator=(const SmartQueue<T>& rhs);
 		virtual ~SmartQueue();
 
-		virtual T Peek() override;
-		virtual T GetMax() override;
-		virtual T GetMin() override;
-		virtual double GetAverage() override;
-		virtual double GetVariance() override;
-		virtual unsigned int GetCount() override;
-
+		T Peek();
+		T GetMax();
+		T GetMin();
+		double GetAverage();
+		double GetVariance();
+		unsigned int GetCount();
+		double GetStandardDeviation();
 		void Enqueue(T number);
 		T Dequeue();
+		T GetSum();
 
 	private:
 		queue<T>* mQueue;
+		T mSum;
+		T mSum2;
 	};
 
 
 	template<typename T>
 	inline SmartQueue<T>::SmartQueue()
-		: SmartSTL<T>()
-		, mQueue(new queue<T>)
+		: mQueue(new queue<T>)
+		, mSum()
+		, mSum2()
 	{
 	}
 
 	template<typename T>
 	inline SmartQueue<T>::SmartQueue(const SmartQueue<T>& other)
-		: SmartSTL<T>(other)
-		, mQueue(new queue<T>)
+		: mQueue(new queue<T>(*(other.mQueue)))
+		, mSum()
+		, mSum2()
 	{
-		*mQueue = *(other.mQueue);
 	}
 
 	template<typename T>
@@ -50,7 +57,6 @@ namespace assignment3
 		{
 			return *this;
 		}
-		SmartSTL<T>::operator=(rhs);
 		*mQueue = *(rhs.mQueue);
 		return *this;
 	}
@@ -65,18 +71,24 @@ namespace assignment3
 	inline void SmartQueue<T>::Enqueue(T number)
 	{
 		mQueue->push(number);
-		this->mSum2 += static_cast<T>(pow(number, 2));
-		this->mSum += number;
+		mSum2 += static_cast<T>(pow(number, 2));
+		mSum += number;
 	}
 
 	template<typename T>
 	inline T SmartQueue<T>::Dequeue()
 	{
 		T num = mQueue->front();
-		this->mSum -= num;
-		this->mSum2 -= static_cast<T>(pow(num, 2));
+		mSum -= num;
+		mSum2 -= static_cast<T>(pow(num, 2));
 		mQueue->pop();
 		return num;
+	}
+
+	template<typename T>
+	inline T SmartQueue<T>::GetSum()
+	{
+		return mSum;
 	}
 
 
@@ -131,20 +143,25 @@ namespace assignment3
 	template<typename T>
 	inline double SmartQueue<T>::GetAverage()
 	{
-		return static_cast<double>(this->mSum) / static_cast<double>(mQueue->size());
+		return static_cast<double>(mSum) / static_cast<double>(mQueue->size());
 	}
 
 	template<typename T>
 	double SmartQueue<T>::GetVariance()
 	{
 		//ºÐ»ê
-		return static_cast<double>(this->mSum2) / static_cast<double>(mQueue->size()) - pow(GetAverage(), 2);
+		return static_cast<double>(mSum2) / static_cast<double>(mQueue->size()) - pow(GetAverage(), 2);
 	}
 
 	template<typename T>
 	inline unsigned int SmartQueue<T>::GetCount()
 	{
 		return mQueue->size();
+	}
+	template<typename T>
+	inline double SmartQueue<T>::GetStandardDeviation()
+	{
+		return sqrt(GetVariance());
 	}
 }
 

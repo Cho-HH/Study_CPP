@@ -1,4 +1,4 @@
-// 202109 ass3 test cases by seolbeen
+ //202109 ass3 test cases by seolbeen
 #include <iostream>
 #include <cassert>
 #include <cmath>
@@ -495,10 +495,10 @@ void TestMinMaxWhenEmpty()
 
 int main()
 {
-    TestSmartStack();
+    /*TestSmartStack();
     TestSmartQueue();
     TestQueueStack();
-    TestMinMaxWhenEmpty();
+    TestMinMaxWhenEmpty();*/
     const double EPSILON = 0.0009765625;
 
     SmartStack<double> ss;
@@ -517,8 +517,7 @@ int main()
     assert(ss.GetCount() == 10U);
     assert(ss.Peek() == 9.2);
     assert(ss.GetMax() == 10.2);
-    assert(ss.GetMin() == -12.4);
-    cout << ss.GetSum() << endl;
+    assert(ss.GetMin() == -12.4);  
     assert(abs(ss.GetSum() - 15.82) <= EPSILON);
     assert(abs(ss.GetAverage() - 1.582) <= EPSILON);
     assert(abs(ss.GetVariance() - 39.983) <= EPSILON);

@@ -1,11 +1,14 @@
 #pragma once
 #include <stack>
-#include "SmartSTL.h"
+#include <cmath>
+#include <limits>
+
+using namespace std;
 
 namespace assignment3
 {
 	template <typename T>
-	class SmartStack final : public SmartSTL<T>
+	class SmartStack
 	{
 	public:
 		SmartStack();
@@ -13,41 +16,43 @@ namespace assignment3
 		SmartStack<T>& operator=(const SmartStack<T>& rhs);
 		virtual ~SmartStack();
 
-		virtual T Peek() override;
-		virtual T GetMax() override;
-		virtual T GetMin() override;
-		virtual double GetAverage() override;
-		virtual unsigned int GetCount() override;
-		virtual double GetVariance() override;
-
+		T Peek();
+		T GetMax();
+		T GetMin();
+		double GetAverage();
+		unsigned int GetCount();
+		double GetVariance();
+		double GetStandardDeviation();
 		void Push(T number);
 		T Pop();
+		T GetSum();
 
 	private:
 		stack<T>* mStack;
 		stack<T>* mMaxNumStack;
 		stack<T>* mMinNumStack;
+		T mSum;
+		T mSum2;
 	};
 
 	template<typename T>
 	inline SmartStack<T>::SmartStack()
-		: SmartSTL<T>()
-		, mStack(new stack<T>)
+		: mStack(new stack<T>)
 		, mMaxNumStack(new stack<T>)
 		, mMinNumStack(new stack<T>)
+		, mSum()
+		, mSum2()
 	{
 	}
 
 	template<typename T>
 	SmartStack<T>::SmartStack(const SmartStack<T>& other)
-		: SmartSTL<T>(other)
-		, mStack(new stack<T>)
-		, mMaxNumStack(new stack<T>)
-		, mMinNumStack(new stack<T>)
+		: mStack(new stack<T>(*(other.mStack)))
+		, mMaxNumStack(new stack<T>(*(other.mMaxNumStack)))
+		, mMinNumStack(new stack<T>(*(other.mMinNumStack)))
+		, mSum(other.mSum)
+		, mSum2(other.mSum2)
 	{	
-		*mStack = *(other.mStack);
-		*mMaxNumStack = *(other.mMaxNumStack);
-		*mMinNumStack = *(other.mMinNumStack);
 	}
 
 	template<typename T>
@@ -57,11 +62,12 @@ namespace assignment3
 		{
 			return *this;
 		}
-		SmartSTL<T>::operator=(rhs);
 
 		*mStack = *(rhs.mStack);
 		*mMaxNumStack = *(rhs.mStack);
 		*mMinNumStack = *(rhs.mMinNumStack);
+		mSum = rhs.mSum;
+		mSum2 = rhs.mSum2;
 
 		return *this;
 	}
@@ -89,26 +95,32 @@ namespace assignment3
 		mStack->push(number);
 		mMaxNumStack->push(max);
 		mMinNumStack->push(min);
-		this->mSum2 += static_cast<T>(pow(number, 2));
-		this->mSum += number;
+		mSum2 += static_cast<T>(pow(number, 2));
+		mSum += number;
 	}
 
 	template<typename T>
 	T SmartStack<T>::Pop()
 	{
 		T num = mStack->top();
-		this->mSum -= num;
-		this->mSum2 -= static_cast<T>(pow(num, 2));
+		mSum -= num;
+		mSum2 -= static_cast<T>(pow(num, 2));
 		mStack->pop();
 		mMinNumStack->pop();
 		mMaxNumStack->pop();
 
-		if (mStack->empty())
+		/*if (mStack->empty())
 		{
-			this->mSum = T();
-			this->mSum2 = T();
-		}
+			mSum = T();
+			mSum2 = T();
+		}*/
 		return num;
+	}
+
+	template<typename T>
+	inline T SmartStack<T>::GetSum()
+	{
+		return mSum;
 	}
 
 	template<typename T>
@@ -132,7 +144,7 @@ namespace assignment3
 	template<typename T>
 	inline double SmartStack<T>::GetAverage()
 	{
-		return static_cast<double>(this->mSum) / static_cast<double>(mStack->size());
+		return static_cast<double>(mSum) / static_cast<double>(mStack->size());
 	}
 
 	template<typename T>
@@ -144,6 +156,11 @@ namespace assignment3
 	template<typename T>
 	inline double SmartStack<T>::GetVariance()
 	{
-		return static_cast<double>(this->mSum2) / static_cast<double>(mStack->size()) - pow(GetAverage(), 2);
+		return static_cast<double>(mSum2) / static_cast<double>(mStack->size()) - pow(GetAverage(), 2);
+	}
+	template<typename T>
+	inline double SmartStack<T>::GetStandardDeviation()
+	{
+		return sqrt(GetVariance());
 	}
 }

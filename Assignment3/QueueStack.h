@@ -1,12 +1,11 @@
 #pragma once
 #include <stack>
 #include <queue>
-#include "SmartSTL.h"
 
 namespace assignment3
 {
 	template<typename T>
-	class QueueStack final : public SmartSTL<T>
+	class QueueStack
 	{
 	public:
 		QueueStack(unsigned int maxStackSize);
@@ -14,40 +13,39 @@ namespace assignment3
 		QueueStack<T>& operator=(const QueueStack<T>& rhs);
 		virtual ~QueueStack();
 
-		virtual T Peek() override;
-		virtual T GetMax() override;
-		virtual T GetMin() override;
-		virtual double GetAverage() override;
-		virtual double GetVariance() override;
-		virtual unsigned int GetCount() override;
-
+		T Peek();
+		T GetMax();
+		T GetMin();
+		double GetAverage();
+		unsigned int GetCount();
 		unsigned int GetStackCount();
 		void Enqueue(T number);
 		T Dequeue();
+		T GetSum();
 
 	private:
 		unsigned int mMaxStackSize;
 		unsigned int mCurStackSize;
 		queue<stack<T>>* mQueueStack;
+		T mSum;
 	};
 
 	template<typename T>
 	inline QueueStack<T>::QueueStack(unsigned int maxStackSize)
-		: SmartSTL<T>()
-		, mMaxStackSize(maxStackSize)
+		: mMaxStackSize(maxStackSize)
 		, mCurStackSize(0)
 		, mQueueStack(new queue<stack<T>>)
+		, mSum()
 	{
 	}
 
 	template<typename T>
 	inline QueueStack<T>::QueueStack(const QueueStack<T>& other)
-		: SmartSTL<T>(other)
-		, mMaxStackSize(other.mMaxStackSize)
+		: mMaxStackSize(other.mMaxStackSize)
 		, mCurStackSize(other.mCurStackSize)
-		, mQueueStack(new queue<stack<T>>)
+		, mQueueStack(new queue<stack<T>>(*(other.mQueueStack)))
+		, mSum()
 	{
-		*mQueueStack = *(other.mQueueStack);
 	}
 
 	template<typename T>
@@ -57,10 +55,10 @@ namespace assignment3
 		{
 			return *this;
 		}
-		SmartSTL<T>::operator=(rhs);
 		mMaxStackSize = rhs.mMaxStackSize;
 		mCurStackSize = rhs.mCurStackSize;
 		*mQueueStack = *(rhs.mQueueStack);
+		mSum = rhs.mSum;
 		return *this;
 	}
 
@@ -95,7 +93,7 @@ namespace assignment3
 		//	tmpQu.push(num);
 		//}
 		//*mQueue = tmpQu;
-		return maxNum;
+		return T();
 	}
 
 	template<typename T>
@@ -112,14 +110,9 @@ namespace assignment3
 	template<typename T>
 	inline double QueueStack<T>::GetAverage()
 	{
-		return static_cast<double>(this->mSum) / static_cast<double>(GetCount());
+		return static_cast<double>(mSum) / static_cast<double>(GetCount());
 	}
 
-	template<typename T>
-	inline double QueueStack<T>::GetVariance()
-	{
-		return static_cast<double>(this->mSum2) / static_cast<double>(GetCount()) - pow(GetAverage(), 2);
-	}
 
 	template<typename T>
 	inline unsigned int QueueStack<T>::GetCount()
@@ -164,8 +157,7 @@ namespace assignment3
 			mQueueStack->back().push(number);
 			mCurStackSize++;
 		}
-		this->mSum2 += static_cast<T>(pow(number, 2));
-		this->mSum += number;
+		mSum += number;
 	}
 
 	template<typename T>
@@ -177,9 +169,14 @@ namespace assignment3
 		{
 			mQueueStack->pop();
 		}
-		this->mSum2 -= static_cast<T>(pow(num, 2));
-		this->mSum -= num;
+		mSum -= num;
 		return num;
+	}
+
+	template<typename T>
+	inline T QueueStack<T>::GetSum()
+	{
+		return mSum;
 	}
 }
 
