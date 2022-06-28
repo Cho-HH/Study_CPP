@@ -58,6 +58,8 @@ namespace assignment3
 			return *this;
 		}
 		SmartSTL<T>::operator=(rhs);
+		mMaxStackSize = rhs.mMaxStackSize;
+		mCurStackSize = rhs.mCurStackSize;
 		*mQueueStack = *(rhs.mQueueStack);
 		return *this;
 	}
@@ -122,7 +124,18 @@ namespace assignment3
 	template<typename T>
 	inline unsigned int QueueStack<T>::GetCount()
 	{
-		return mQueueStack->empty() ? 0 : (mQueueStack->size() - 1) * mMaxStackSize + mQueueStack->back().size();
+		if (mQueueStack->empty())
+		{
+			return 0;
+		}
+		else if (mQueueStack->size() == 1)
+		{
+			return mQueueStack->front().size();
+		}
+		else
+		{
+			return mQueueStack->front().size() + (mQueueStack->size() - 2) * mMaxStackSize + mQueueStack->back().size();
+		}
 	}
 
 	template<typename T>
@@ -134,6 +147,11 @@ namespace assignment3
 	template<typename T>
 	void QueueStack<T>::Enqueue(T number)
 	{
+		if (mMaxStackSize == 0)
+		{
+			return;
+		}
+
 		if (mQueueStack->empty() || mCurStackSize >= mMaxStackSize)
 		{
 			stack<T> st;
