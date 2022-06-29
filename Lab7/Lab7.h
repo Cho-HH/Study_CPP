@@ -66,7 +66,8 @@ namespace lab7
 		std::set<T> s;
 		for (auto iter = v1.begin(); iter != v1.end(); iter++)
 		{			
-			if (!s.contains(*iter))
+			;
+			if (s.find(*iter) == s.end())
 			{
 				combined.push_back(*iter);
 			}
@@ -74,7 +75,7 @@ namespace lab7
 		}
 		for (auto iter = v2.begin(); iter != v2.end(); iter++)
 		{
-			if (!s.contains(*iter))
+			if (s.find(*iter) == s.end())
 			{
 				combined.push_back(*iter);
 			}
