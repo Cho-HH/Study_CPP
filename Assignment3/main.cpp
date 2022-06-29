@@ -495,10 +495,10 @@ void TestMinMaxWhenEmpty()
 
 int main()
 {
-    /*TestSmartStack();
+    TestSmartStack();
     TestSmartQueue();
     TestQueueStack();
-    TestMinMaxWhenEmpty();*/
+    TestMinMaxWhenEmpty();
     const double EPSILON = 0.0009765625;
 
     SmartStack<double> ss;
