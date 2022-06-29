@@ -4,6 +4,7 @@
 #include <vector>
 #include <map>
 #include <cmath>
+#include <set>
 
 namespace lab7
 {
@@ -62,14 +63,22 @@ namespace lab7
 	std::vector<T> operator+(const std::vector<T>& v1, const std::vector<T>& v2)
 	{
 		std::vector<T> combined;
-		combined.reserve(v1.size() + v2.size());
+		std::set<T> s;
 		for (auto iter = v1.begin(); iter != v1.end(); iter++)
-		{
-			combined.push_back(*iter);
+		{			
+			if (!s.contains(*iter))
+			{
+				combined.push_back(*iter);
+			}
+			s.insert(*iter);
 		}
 		for (auto iter = v2.begin(); iter != v2.end(); iter++)
 		{
-			combined.push_back(*iter);
+			if (!s.contains(*iter))
+			{
+				combined.push_back(*iter);
+			}
+			s.insert(*iter);
 		}
 		return combined;
 	}
@@ -110,7 +119,7 @@ namespace lab7
 		{
 			if (iter != m.begin())
 			{
-				os << "\n";
+				os << std::endl;
 			}
 			os << "{ " << iter->first << ", " << iter->second << " }";
 		}
