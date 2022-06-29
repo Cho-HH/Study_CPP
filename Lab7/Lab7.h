@@ -66,7 +66,6 @@ namespace lab7
 		std::set<T> s;
 		for (auto iter = v1.begin(); iter != v1.end(); iter++)
 		{			
-			;
 			if (s.find(*iter) == s.end())
 			{
 				combined.push_back(*iter);
@@ -120,7 +119,7 @@ namespace lab7
 		{
 			if (iter != m.begin())
 			{
-				os << std::endl;
+				os << "\n";
 			}
 			os << "{ " << iter->first << ", " << iter->second << " }";
 		}
