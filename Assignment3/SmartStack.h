@@ -109,6 +109,11 @@ namespace assignment3
 		mMinNumStack->pop();
 		mMaxNumStack->pop();
 
+		if (mStack->empty())
+		{
+			mSum = T();
+			mSum2 = T();
+		}
 		return num;
 	}
 
@@ -151,13 +156,12 @@ namespace assignment3
 	template<typename T>
 	inline double SmartStack<T>::GetVariance()
 	{
-		auto num = static_cast<int>(mSum2) / static_cast<int>(mStack->size());
-		return  num - pow(GetAverage(), 2);
+		return  static_cast<double>(mSum2) / static_cast<double>(mStack->size()) - static_cast<double>(pow(GetAverage(), 2));
 	}
 
 	template<typename T>
 	inline double SmartStack<T>::GetStandardDeviation()
 	{
-		return sqrt(GetVariance());
+		return static_cast<double>(sqrt(GetVariance()));
 	}
 }
