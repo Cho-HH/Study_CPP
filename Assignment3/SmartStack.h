@@ -14,7 +14,7 @@ namespace assignment3
 		SmartStack();
 		SmartStack(const SmartStack<T>& other);
 		SmartStack<T>& operator=(const SmartStack<T>& rhs);
-		virtual ~SmartStack();
+		virtual ~SmartStack() = default;
 
 		T Peek();
 		T GetMax();
@@ -28,31 +28,28 @@ namespace assignment3
 		T GetSum();
 
 	private:
-		stack<T>* mStack;
-		stack<T>* mMaxNumStack;
-		stack<T>* mMinNumStack;
+		stack<T> mStack;
+		stack<T> mMaxNumStack;
+		stack<T> mMinNumStack;
 		T mSum;
 		T mSum2;
 	};
 
 	template<typename T>
 	inline SmartStack<T>::SmartStack()
-		: mStack(new stack<T>)
-		, mMaxNumStack(new stack<T>)
-		, mMinNumStack(new stack<T>)
-		, mSum()
+		: mSum()
 		, mSum2()
 	{
 	}
 
 	template<typename T>
-	SmartStack<T>::SmartStack(const SmartStack<T>& other)
-		: mStack(new stack<T>(*(other.mStack)))
-		, mMaxNumStack(new stack<T>(*(other.mMaxNumStack)))
-		, mMinNumStack(new stack<T>(*(other.mMinNumStack)))
+	inline SmartStack<T>::SmartStack(const SmartStack<T>& other)
+		: mStack(other.mStack)
+		, mMaxNumStack(other.mMaxNumStack)
+		, mMinNumStack(other.mMinNumStack)
 		, mSum(other.mSum)
 		, mSum2(other.mSum2)
-	{	
+	{
 	}
 
 	template<typename T>
@@ -63,21 +60,13 @@ namespace assignment3
 			return *this;
 		}
 
-		*mStack = *(rhs.mStack);
-		*mMaxNumStack = *(rhs.mStack);
-		*mMinNumStack = *(rhs.mMinNumStack);
+		mStack = rhs.mStack;
+		mMaxNumStack = rhs.mStack;
+		mMinNumStack = rhs.mMinNumStack;
 		mSum = rhs.mSum;
 		mSum2 = rhs.mSum2;
 
 		return *this;
-	}
-
-	template<typename T>
-	inline SmartStack<T>::~SmartStack()
-	{
-		delete mStack;
-		delete mMaxNumStack;
-		delete mMinNumStack;
 	}
 
 	template<typename T>
@@ -86,15 +75,15 @@ namespace assignment3
 		T max = number;
 		T min = number;
 
-		if (!mStack->empty())
+		if (!mStack.empty())
 		{
-			max = max < mMaxNumStack->top() ? mMaxNumStack->top() : max;
-			min = min > mMinNumStack->top() ? mMinNumStack->top() : min;
+			max = max < mMaxNumStack.top() ? mMaxNumStack.top() : max;
+			min = min > mMinNumStack.top() ? mMinNumStack.top() : min;
 		}
 
-		mStack->push(number);
-		mMaxNumStack->push(max);
-		mMinNumStack->push(min);
+		mStack.push(number);
+		mMaxNumStack.push(max);
+		mMinNumStack.push(min);
 		mSum2 += static_cast<T>(pow(number, 2));
 		mSum += number;
 	}
@@ -102,14 +91,14 @@ namespace assignment3
 	template<typename T>
 	T SmartStack<T>::Pop()
 	{
-		T num = mStack->top();
+		T num = mStack.top();
 		mSum -= num;
 		mSum2 -= static_cast<T>(pow(num, 2));
-		mStack->pop();
-		mMinNumStack->pop();
-		mMaxNumStack->pop();
+		mStack.pop();
+		mMinNumStack.pop();
+		mMaxNumStack.pop();
 
-		if (mStack->empty())
+		if (mStack.empty())
 		{
 			mSum = T();
 			mSum2 = T();
@@ -126,42 +115,42 @@ namespace assignment3
 	template<typename T>
 	inline T SmartStack<T>::Peek()
 	{
-		return mStack->top();
+		return mStack.top();
 	}
 
 	template<typename T>
 	inline T SmartStack<T>::GetMax()
 	{
-		return mStack->empty() ? numeric_limits<T>::lowest() : mMaxNumStack->top();
+		return mStack.empty() ? numeric_limits<T>::lowest() : mMaxNumStack.top();
 	}
 
 	template<typename T>
 	inline T SmartStack<T>::GetMin()
 	{
-		return mStack->empty() ? numeric_limits<T>::max() : mMinNumStack->top();
+		return mStack.empty() ? numeric_limits<T>::max() : mMinNumStack.top();
 	}
 
 	template<typename T>
 	inline double SmartStack<T>::GetAverage()
 	{
-		return static_cast<double>(mSum) / static_cast<double>(mStack->size());
+		return static_cast<double>(mSum) / static_cast<double>(mStack.size());
 	}
 
 	template<typename T>
 	inline unsigned int SmartStack<T>::GetCount()
 	{
-		return mStack->size();
+		return mStack.size();
 	}
 
 	template<typename T>
 	inline double SmartStack<T>::GetVariance()
 	{
-		return  static_cast<double>(mSum2) / static_cast<double>(mStack->size()) - static_cast<double>(pow(GetAverage(), 2));
+		return  static_cast<double>(mSum2) / static_cast<double>(mStack.size()) - pow(GetAverage(), 2);
 	}
 
 	template<typename T>
 	inline double SmartStack<T>::GetStandardDeviation()
 	{
-		return static_cast<double>(sqrt(GetVariance()));
+		return sqrt(GetVariance());
 	}
 }
