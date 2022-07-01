@@ -71,7 +71,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	inline T QueueStack<T>::GetMax()
+	T QueueStack<T>::GetMax()
 	{
 		T maxNum = numeric_limits<T>::lowest();
 		if (mQueueStack.empty())
@@ -105,7 +105,7 @@ namespace assignment3
 	}
 
 	template<typename T>
-	inline T QueueStack<T>::GetMin()
+	T QueueStack<T>::GetMin()
 	{
 		T minNum = numeric_limits<T>::max();
 		if (mQueueStack.empty())
@@ -145,7 +145,7 @@ namespace assignment3
 	}
 
 
-	template<typename T>
+	template<typename T> 
 	inline unsigned int QueueStack<T>::GetCount()
 	{
 		if (mQueueStack.empty())
@@ -194,14 +194,13 @@ namespace assignment3
 	template<typename T>
 	T QueueStack<T>::Dequeue()
 	{
-		T num = mQueueStack.front().top();
-		mSum -= static_cast<double>(num);
+		T num = mQueueStack.front().top();		
 		mQueueStack.front().pop();
 		if (mQueueStack.front().empty())
 		{
 			mQueueStack.pop();
 		}
-
+		mSum -= static_cast<double>(num);
 		if (mQueueStack.empty())
 		{
 			mSum = 0.0;
@@ -216,5 +215,3 @@ namespace assignment3
 		return static_cast<T>(mSum);
 	}
 }
-
-

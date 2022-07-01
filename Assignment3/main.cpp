@@ -439,8 +439,8 @@ void TestQueueStack()
     qs.Enqueue(2);
     qs.Enqueue(3);
 
-    //assert(qs.GetMax() == std::numeric_limits<int>::min());
-    //assert(qs.GetMin() == std::numeric_limits<int>::max());
+    assert(qs.GetMax() == std::numeric_limits<int>::min());
+    assert(qs.GetMin() == std::numeric_limits<int>::max());
     assert(qs.GetSum() == 0);
     assert(qs.GetCount() == 0u);
     assert(qs.GetStackCount() == 0u);
@@ -505,34 +505,86 @@ int main()
     TestMinMaxWhenEmpty();
     const double EPSILON = 0.0009765625;
 
-    SmartStack<double> ss;
+    QueueStack<float> ss(3);
 
-    ss.Push(3.4);
-    ss.Push(1.2);
-    ss.Push(4.6);
-    ss.Push(3.32);
-    ss.Push(10.2);
-    ss.Push(1.1);
-    ss.Push(-5.9);
-    ss.Push(1.1);
-    ss.Push(-12.4);
-    ss.Push(9.2);
+    ss.Enqueue(3.4);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(1.2);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(4.6);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(3.32);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(10.2);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(1.1);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(-5.9);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(1.1);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(-12.4);
+    ss.GetSum();
+    ss.GetAverage();
+    ss.Enqueue(9.2);
+    ss.GetSum();
+    ss.GetAverage();
 
-    assert(ss.GetCount() == 10U);
+    QueueStack<int> ss1(3);
+    ss1.Enqueue(3);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(1);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(4);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(3);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(1);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(1);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(-5);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(1);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(-12);
+    ss1.GetSum();
+    ss1.GetAverage();
+    ss1.Enqueue(9);
+    ss1.GetSum();
+    ss1.GetAverage();
+
+   /* assert(ss.GetCount() == 10U);
     assert(ss.Peek() == 9.2);
     assert(ss.GetMax() == 10.2);
     assert(ss.GetMin() == -12.4);  
     assert(abs(ss.GetSum() - 15.82) <= EPSILON);
     assert(abs(ss.GetAverage() - 1.582) <= EPSILON);
     assert(abs(ss.GetVariance() - 39.983) <= EPSILON);
-    assert(abs(ss.GetStandardDeviation() - 6.323) <= EPSILON);
-    assert(ss.Peek() == 9.2);
+    assert(abs(ss.GetStandardDeviation() - 6.323) <= EPSILON);*/
+   /* assert(ss.Peek() == 9.2);
 
     double popped1 = ss.Pop();
     double popped2 = ss.Pop();
 
     assert(popped1 == 9.2);
-    assert(popped2 == -12.4);
+    assert(popped2 == -12.4);*/
 
 
     return 0;
