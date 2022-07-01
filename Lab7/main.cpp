@@ -5,6 +5,16 @@ using namespace lab7;
 
 int main()
 {
+	std::map<int, int> mm;
+	std::map<int, int> mm2;
+
+	mm.insert(std::pair<int, int>(1, 4));
+	mm.insert(std::pair<int, int>(2, 3));
+
+	mm2.insert( std::pair<int, int>(2, 3));
+	mm2.insert( std::pair<int, int>(1, 5));
+	std::map<int, int> mm3 = mm + mm2;
+
 	std::vector<int> v1;
 	v1.push_back(1);
 	v1.push_back(2);
