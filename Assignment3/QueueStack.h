@@ -14,7 +14,7 @@ namespace assignment3
 		QueueStack(unsigned int maxStackSize);
 		QueueStack(const QueueStack<T>& other);
 		QueueStack<T>& operator=(const QueueStack<T>& rhs);
-		virtual ~QueueStack();
+		virtual ~QueueStack() = default;
 
 		T Peek();
 		T GetMax();
@@ -29,16 +29,15 @@ namespace assignment3
 	private:
 		unsigned int mMaxStackSize;
 		unsigned int mCurStackSize;
-		queue<stack<T>>* mQueueStack;
-		T mSum;
+		queue<stack<T>> mQueueStack;
+		double mSum;
 	};
 
 	template<typename T>
 	inline QueueStack<T>::QueueStack(unsigned int maxStackSize)
 		: mMaxStackSize(maxStackSize)
 		, mCurStackSize(0)
-		, mQueueStack(new queue<stack<T>>)
-		, mSum()
+		, mSum(0.0)
 	{
 	}
 
@@ -46,8 +45,8 @@ namespace assignment3
 	inline QueueStack<T>::QueueStack(const QueueStack<T>& other)
 		: mMaxStackSize(other.mMaxStackSize)
 		, mCurStackSize(other.mCurStackSize)
-		, mQueueStack(new queue<stack<T>>(*(other.mQueueStack)))
-		, mSum()
+		, mQueueStack(other.mQueueStack)
+		, mSum(other.mSum)
 	{
 	}
 
@@ -60,84 +59,113 @@ namespace assignment3
 		}
 		mMaxStackSize = rhs.mMaxStackSize;
 		mCurStackSize = rhs.mCurStackSize;
-		*mQueueStack = *(rhs.mQueueStack);
+		mQueueStack = rhs.mQueueStack;
 		mSum = rhs.mSum;
 		return *this;
 	}
 
 	template<typename T>
-	inline QueueStack<T>::~QueueStack()
-	{
-		delete mQueueStack;
-	}
-
-	template<typename T>
 	inline T QueueStack<T>::Peek()
 	{
-		return mQueueStack->front().top();
+		return mQueueStack.front().top();
 	}
 
 	template<typename T>
 	inline T QueueStack<T>::GetMax()
 	{
 		T maxNum = numeric_limits<T>::lowest();
-		if (mQueueStack->empty())
+		if (mQueueStack.empty())
 		{
 			return maxNum;
 		}
 
-		//queue<stack<T>> tmpQuSt;
-		//while (!mQueueStack->empty())
-		//{
+		queue<stack<T>> tmpQuSt;
+		while (!mQueueStack.empty())
+		{
+			stack<T> tmpSt = mQueueStack.front();
+			stack<T> tmpSt2;
+			while (!tmpSt.empty())
+			{
+				maxNum = maxNum < tmpSt.top() ? tmpSt.top() : maxNum;
+				tmpSt2.push(tmpSt.top());
+				tmpSt.pop();
+			}
+			
+			while (!tmpSt2.empty())
+			{
+				tmpSt.push(tmpSt2.top());
+				tmpSt2.pop();
+			}
+			tmpQuSt.push(tmpSt);
+			mQueueStack.pop();
+		}
 
-		//	T num = mQueue->front();
-		//	maxNum = maxNum < num ? num : maxNum;
-		//	mQueue->pop();
-		//	tmpQu.push(num);
-		//}
-		//*mQueue = tmpQu;
-		return T();
+		mQueueStack = tmpQuSt;
+		return maxNum;
 	}
 
 	template<typename T>
 	inline T QueueStack<T>::GetMin()
 	{
 		T minNum = numeric_limits<T>::max();
-		if (mQueueStack->empty())
+		if (mQueueStack.empty())
 		{
 			return minNum;
 		}
+
+		queue<stack<T>> tmpQuSt;
+		while (!mQueueStack.empty())
+		{
+			stack<T> tmpSt = mQueueStack.front();
+			stack<T> tmpSt2;
+			while (!tmpSt.empty())
+			{
+				minNum = minNum > tmpSt.top() ? tmpSt.top() : minNum;
+				tmpSt2.push(tmpSt.top());
+				tmpSt.pop();
+			}
+
+			while (!tmpSt2.empty())
+			{
+				tmpSt.push(tmpSt2.top());
+				tmpSt2.pop();
+			}
+			tmpQuSt.push(tmpSt);
+			mQueueStack.pop();
+		}
+
+		mQueueStack = tmpQuSt;
 		return minNum;
 	}
 
 	template<typename T>
 	inline double QueueStack<T>::GetAverage()
 	{
-		return static_cast<double>(mSum) / static_cast<double>(GetCount());
+		return mSum / static_cast<double>(GetCount());
 	}
 
 
 	template<typename T>
 	inline unsigned int QueueStack<T>::GetCount()
 	{
-		if (mQueueStack->empty())
+		if (mQueueStack.empty())
 		{
 			return 0;
 		}
-		else if (mQueueStack->size() == 1)
+		else if (mQueueStack.size() == 1)
 		{
-			return mQueueStack->front().size();
+			return mQueueStack.front().size();
 		}
 		else
 		{
-			return mQueueStack->front().size() + (mQueueStack->size() - 2) * mMaxStackSize + mQueueStack->back().size();
+			return mQueueStack.front().size() + (mQueueStack.size() - 2) * mMaxStackSize + mQueueStack.back().size();
 		}
 	}
 
 	template<typename T>
 	inline unsigned int QueueStack<T>::GetStackCount()
 	{
-		return mQueueStack->size();
+		return mQueueStack.size();
 	}
 
 	template<typename T>
@@ -148,38 +176,44 @@ namespace assignment3
 			return;
 		}
 
-		if (mQueueStack->empty() || mCurStackSize >= mMaxStackSize)
+		if (mQueueStack.empty() || mCurStackSize >= mMaxStackSize)
 		{
 			stack<T> st;
 			st.push(number);
-			mQueueStack->push(st);
+			mQueueStack.push(st);
 			mCurStackSize = 1;
 		}
 		else
 		{
-			mQueueStack->back().push(number);
+			mQueueStack.back().push(number);
 			mCurStackSize++;
 		}
-		mSum += number;
+		mSum += static_cast<double>(number);
 	}
 
 	template<typename T>
 	T QueueStack<T>::Dequeue()
 	{
-		T num = mQueueStack->front().top();
-		mQueueStack->front().pop();
-		if (mQueueStack->front().empty())
+		T num = mQueueStack.front().top();
+		mSum -= static_cast<double>(num);
+		mQueueStack.front().pop();
+		if (mQueueStack.front().empty())
 		{
-			mQueueStack->pop();
+			mQueueStack.pop();
 		}
-		mSum -= num;
+
+		if (mQueueStack.empty())
+		{
+			mSum = 0.0;
+		}
+
 		return num;
 	}
 
 	template<typename T>
 	inline T QueueStack<T>::GetSum()
 	{
-		return mSum;
+		return static_cast<T>(mSum);
 	}
 }
 
