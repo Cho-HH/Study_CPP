@@ -31,14 +31,14 @@ namespace assignment3
 		stack<T> mStack;
 		stack<T> mMaxNumStack;
 		stack<T> mMinNumStack;
-		T mSum;
-		T mSum2;
+		double mSum;
+		double mSum2;
 	};
 
 	template<typename T>
 	inline SmartStack<T>::SmartStack()
-		: mSum()
-		, mSum2()
+		: mSum(0)
+		, mSum2(0)
 	{
 	}
 
@@ -84,24 +84,24 @@ namespace assignment3
 		mStack.push(number);
 		mMaxNumStack.push(max);
 		mMinNumStack.push(min);
-		mSum2 += static_cast<T>(pow(number, 2));
-		mSum += number;
+		mSum2 += pow(static_cast<double>(number), 2.0);
+		mSum += static_cast<double>(number);
 	}
 
 	template<typename T>
 	T SmartStack<T>::Pop()
 	{
-		T num = mStack.top();
-		mSum -= num;
-		mSum2 -= static_cast<T>(pow(num, 2));
+		T num = (mStack.top();
+		mSum -= static_cast<double>(num);
+		mSum2 -= pow(static_cast<double>(num), 2.0);
 		mStack.pop();
 		mMinNumStack.pop();
 		mMaxNumStack.pop();
 
 		if (mStack.empty())
 		{
-			mSum = T();
-			mSum2 = T();
+			mSum = 0;
+			mSum2 = 0;
 		}
 		return num;
 	}
@@ -109,7 +109,7 @@ namespace assignment3
 	template<typename T>
 	inline T SmartStack<T>::GetSum()
 	{
-		return mSum;
+		return static_cast<T>(mSum);
 	}
 
 	template<typename T>
@@ -133,7 +133,7 @@ namespace assignment3
 	template<typename T>
 	inline double SmartStack<T>::GetAverage()
 	{
-		return static_cast<double>(mSum) / static_cast<double>(mStack.size());
+		return mSum / static_cast<double>(mStack.size());
 	}
 
 	template<typename T>
@@ -145,7 +145,7 @@ namespace assignment3
 	template<typename T>
 	inline double SmartStack<T>::GetVariance()
 	{
-		return  static_cast<double>(mSum2) / static_cast<double>(mStack.size()) - pow(GetAverage(), 2);
+		return mSum2 / static_cast<double>(mStack.size()) - pow(GetAverage(), 2.0);
 	}
 
 	template<typename T>

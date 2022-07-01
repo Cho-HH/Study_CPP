@@ -14,6 +14,10 @@ void TestSmartStack()
 {
     const double EPSILON = 0.0009765625;
 
+    SmartStack<int> sst;
+    sst.Push(numeric_limits<int>::max());
+    sst.Push(1);
+
     // test constructor
     SmartStack<float> ss;
     assert(ss.GetCount() == 0u);

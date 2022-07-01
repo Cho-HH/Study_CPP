@@ -14,7 +14,7 @@ namespace assignment3
 		SmartQueue();
 		SmartQueue(const SmartQueue<T>& other);
 		SmartQueue<T>& operator=(const SmartQueue<T>& rhs);
-		virtual ~SmartQueue();
+		virtual ~SmartQueue() = default;
 
 		T Peek();
 		T GetMax();
@@ -28,25 +28,24 @@ namespace assignment3
 		T GetSum();
 
 	private:
-		queue<T>* mQueue;
-		T mSum;
-		T mSum2;
+		queue<T> mQueue;
+		double mSum;
+		double mSum2;
 	};
 
 
 	template<typename T>
 	inline SmartQueue<T>::SmartQueue()
-		: mQueue(new queue<T>)
-		, mSum()
-		, mSum2()
+		: mSum(0)
+		, mSum2(0)
 	{
 	}
 
 	template<typename T>
 	inline SmartQueue<T>::SmartQueue(const SmartQueue<T>& other)
-		: mQueue(new queue<T>(*(other.mQueue)))
-		, mSum()
-		, mSum2()
+		: mQueue(other.mQueue)
+		, mSum(0)
+		, mSum2(0)
 	{
 	}
 
@@ -57,38 +56,32 @@ namespace assignment3
 		{
 			return *this;
 		}
-		*mQueue = *(rhs.mQueue);
+		mQueue = rhs.mQueue;
 		return *this;
-	}
-
-	template<typename T>
-	inline SmartQueue<T>::~SmartQueue()
-	{
-		delete mQueue;
 	}
 
 	template<typename T>
 	inline void SmartQueue<T>::Enqueue(T number)
 	{
-		mQueue->push(number);
-		mSum2 += static_cast<T>(pow(number, 2));
-		mSum += number;
+		mQueue.push(number);
+		mSum2 += pow(static_cast<double>(number), 2.0);
+		mSum += static_cast<double>(number);
 	}
 
 	template<typename T>
 	inline T SmartQueue<T>::Dequeue()
 	{
-		T num = mQueue->front();
-		mSum -= num;
-		mSum2 -= static_cast<T>(pow(num, 2));
-		mQueue->pop();
+		T num = mQueue.front();
+		mSum -= static_cast<double>(num);
+		mSum2 -= pow(static_cast<double>(num), 2.0);
+		mQueue.pop();
 		return num;
 	}
 
 	template<typename T>
 	inline T SmartQueue<T>::GetSum()
 	{
-		return mSum;
+		return static_cast<T>(mSum);
 	}
 
 
@@ -102,20 +95,20 @@ namespace assignment3
 	T SmartQueue<T>::GetMax()
 	{
 		T maxNum = numeric_limits<T>::lowest();
-		if (mQueue->empty())
+		if (mQueue.empty())
 		{
 			return maxNum;
 		}
 
 		queue<T> tmpQu;
-		while (!mQueue->empty())
+		while (!mQueue.empty())
 		{
-			T num = mQueue->front();
+			T num = mQueue.front();
 			maxNum = maxNum < num ? num : maxNum;
-			mQueue->pop();
+			mQueue.pop();
 			tmpQu.push(num);
 		}
-		*mQueue = tmpQu;		
+		mQueue = tmpQu;
 		return maxNum;
 	}
 
@@ -123,34 +116,34 @@ namespace assignment3
 	T SmartQueue<T>::GetMin()
 	{
 		T minNum = numeric_limits<T>::max();
-		if (mQueue->empty())
+		if (mQueue.empty())
 		{
 			return minNum;
 		}
 
 		queue<T> tmpQu;
-		while (!mQueue->empty())
+		while (!mQueue.empty())
 		{
-			T num = mQueue->front();
+			T num = mQueue.front();
 			minNum = minNum > num ? num : minNum;
-			mQueue->pop();
+			mQueue.pop();
 			tmpQu.push(num);
 		}
-		*mQueue = tmpQu;
+		mQueue = tmpQu;
 		return minNum;
 	}
 
 	template<typename T>
 	inline double SmartQueue<T>::GetAverage()
 	{
-		return static_cast<double>(mSum) / static_cast<double>(mQueue->size());
+		return mSum / static_cast<double>(mQueue->size());
 	}
 
 	template<typename T>
 	double SmartQueue<T>::GetVariance()
 	{
 		//ºÐ»ê
-		return static_cast<double>(mSum2) / static_cast<double>(mQueue->size()) - pow(GetAverage(), 2);
+		return mSum2 / static_cast<double>(mQueue->size()) - pow(GetAverage(), 2.0);
 	}
 
 	template<typename T>
