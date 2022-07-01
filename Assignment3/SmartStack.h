@@ -37,8 +37,8 @@ namespace assignment3
 
 	template<typename T>
 	inline SmartStack<T>::SmartStack()
-		: mSum(0)
-		, mSum2(0)
+		: mSum(0.0)
+		, mSum2(0.0)
 	{
 	}
 
@@ -91,7 +91,7 @@ namespace assignment3
 	template<typename T>
 	T SmartStack<T>::Pop()
 	{
-		T num = (mStack.top();
+		T num = (mStack.top());
 		mSum -= static_cast<double>(num);
 		mSum2 -= pow(static_cast<double>(num), 2.0);
 		mStack.pop();
@@ -100,8 +100,8 @@ namespace assignment3
 
 		if (mStack.empty())
 		{
-			mSum = 0;
-			mSum2 = 0;
+			mSum = 0.0;
+			mSum2 = 0.0;
 		}
 		return num;
 	}

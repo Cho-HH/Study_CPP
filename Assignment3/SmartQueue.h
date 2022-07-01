@@ -36,16 +36,16 @@ namespace assignment3
 
 	template<typename T>
 	inline SmartQueue<T>::SmartQueue()
-		: mSum(0)
-		, mSum2(0)
+		: mSum(0.0)
+		, mSum2(0.0)
 	{
 	}
 
 	template<typename T>
 	inline SmartQueue<T>::SmartQueue(const SmartQueue<T>& other)
 		: mQueue(other.mQueue)
-		, mSum(0)
-		, mSum2(0)
+		, mSum(other.mSum)
+		, mSum2(other.mSum2)
 	{
 	}
 
@@ -57,6 +57,8 @@ namespace assignment3
 			return *this;
 		}
 		mQueue = rhs.mQueue;
+		mSum = rhs.mSum;
+		mSum2 = rhs.mSum2;
 		return *this;
 	}
 
@@ -75,6 +77,13 @@ namespace assignment3
 		mSum -= static_cast<double>(num);
 		mSum2 -= pow(static_cast<double>(num), 2.0);
 		mQueue.pop();
+
+		if (mQueue.empty())
+		{
+			mSum = 0.0;
+			mSum2 = 0.0;
+		}
+
 		return num;
 	}
 
@@ -88,7 +97,7 @@ namespace assignment3
 	template<typename T>
 	inline T SmartQueue<T>::Peek()
 	{
-		return mQueue->front();
+		return mQueue.front();
 	}
 
 	template<typename T>
@@ -136,20 +145,20 @@ namespace assignment3
 	template<typename T>
 	inline double SmartQueue<T>::GetAverage()
 	{
-		return mSum / static_cast<double>(mQueue->size());
+		return mSum / static_cast<double>(mQueue.size());
 	}
 
 	template<typename T>
 	double SmartQueue<T>::GetVariance()
 	{
 		//ºÐ»ê
-		return mSum2 / static_cast<double>(mQueue->size()) - pow(GetAverage(), 2.0);
+		return mSum2 / static_cast<double>(mQueue.size()) - pow(GetAverage(), 2.0);
 	}
 
 	template<typename T>
 	inline unsigned int SmartQueue<T>::GetCount()
 	{
-		return mQueue->size();
+		return mQueue.size();
 	}
 	template<typename T>
 	inline double SmartQueue<T>::GetStandardDeviation()

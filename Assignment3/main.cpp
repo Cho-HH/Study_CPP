@@ -500,7 +500,7 @@ void TestMinMaxWhenEmpty()
 int main()
 {
     TestSmartStack();
-    //TestSmartQueue();
+    TestSmartQueue();
     //TestQueueStack();
     TestMinMaxWhenEmpty();
     const double EPSILON = 0.0009765625;
