@@ -117,12 +117,15 @@ namespace lab7
 	template <typename K, class V>
 	std::ostream& operator<<(std::ostream& os, const std::map<K, V>& m)
 	{
-		const char16_t utf_str[] = u"\u2936";
+		const char16_t str[] = u"\u2936";
 		mbstate_t state = { 0, };
 		char tmp[64];
 		char* p = tmp;
-		size_t num = c16rtomb(p, utf_str[0], &state);
-		c16rtomb(p + num, utf_str[1], &state);
+		for (int i = 0; i < 2; i++)
+		{
+			int num = c16rtomb(p, str[i], &state);
+			p += num;
+		}
 		for (auto iter = m.begin(); iter != m.end(); iter++)
 		{
 			os << "{ " << iter->first << ", " << iter->second << " }" << tmp << std::endl;
