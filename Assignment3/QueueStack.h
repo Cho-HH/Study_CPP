@@ -28,7 +28,6 @@ namespace assignment3
 
 	private:
 		unsigned int mMaxStackSize;
-		unsigned int mCurStackSize;
 		queue<stack<T>> mQueueStack;
 		double mSum;
 	};
@@ -36,7 +35,6 @@ namespace assignment3
 	template<typename T>
 	inline QueueStack<T>::QueueStack(unsigned int maxStackSize)
 		: mMaxStackSize(maxStackSize)
-		, mCurStackSize(0)
 		, mSum(0.0)
 	{
 	}
@@ -44,7 +42,6 @@ namespace assignment3
 	template<typename T>
 	inline QueueStack<T>::QueueStack(const QueueStack<T>& other)
 		: mMaxStackSize(other.mMaxStackSize)
-		, mCurStackSize(other.mCurStackSize)
 		, mQueueStack(other.mQueueStack)
 		, mSum(other.mSum)
 	{
@@ -58,7 +55,6 @@ namespace assignment3
 			return *this;
 		}
 		mMaxStackSize = rhs.mMaxStackSize;
-		mCurStackSize = rhs.mCurStackSize;
 		mQueueStack = rhs.mQueueStack;
 		mSum = rhs.mSum;
 		return *this;
@@ -176,17 +172,15 @@ namespace assignment3
 			return;
 		}
 
-		if (mQueueStack.empty() || mCurStackSize >= mMaxStackSize)
+		if (mQueueStack.empty() || mQueueStack.back().size() >= mMaxStackSize)
 		{
 			stack<T> st;
 			st.push(number);
 			mQueueStack.push(st);
-			mCurStackSize = 1;
 		}
 		else
 		{
 			mQueueStack.back().push(number);
-			mCurStackSize++;
 		}
 		mSum += static_cast<double>(number);
 	}

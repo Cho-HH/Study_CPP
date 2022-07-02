@@ -539,36 +539,16 @@ int main()
     ss.GetAverage();
 
     QueueStack<int> ss1(3);
-    ss1.Enqueue(3);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(1);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(4);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(3);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(1);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(1);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(-5);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(1);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(-12);
-    ss1.GetSum();
-    ss1.GetAverage();
-    ss1.Enqueue(9);
-    ss1.GetSum();
-    ss1.GetAverage();
+    int i = 0;
+    ss1.Enqueue(i++);
+    ss1.Enqueue(i++);
+    ss1.Enqueue(i++);
+    ss1.Enqueue(i++);
+    ss1.Dequeue();
+    ss1.Dequeue();
+    ss1.Enqueue(i++);
+    ss1.Dequeue();
+
 
    /* assert(ss.GetCount() == 10U);
     assert(ss.Peek() == 9.2);
