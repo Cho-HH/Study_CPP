@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <iostream>
 #include <vector>
@@ -117,11 +117,7 @@ namespace lab7
 	{
 		for (auto iter = m.begin(); iter != m.end(); iter++)
 		{
-			if (iter != m.begin())
-			{
-				os << "\n";
-			}
-			os << "{ " << iter->first << ", " << iter->second << " }";
+			os << "{ " << iter->first << ", " << iter->second << " }" << "\u2936" << std::endl;
 		}
 		return os;
 	}
