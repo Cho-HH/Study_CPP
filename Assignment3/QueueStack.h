@@ -137,7 +137,7 @@ namespace assignment3
 	template<typename T>
 	inline double QueueStack<T>::GetAverage()
 	{
-		return static_cast<double>(mSum) / static_cast<double>(GetCount());
+		return static_cast<double>(GetSum()) / static_cast<double>(GetCount());
 	}
 
 
@@ -206,6 +206,29 @@ namespace assignment3
 	template<typename T>
 	inline T QueueStack<T>::GetSum()
 	{
-		return static_cast<T>(mSum);
+		T num = T();
+		queue<stack<T>> tmpQuSt;
+		while (!mQueueStack.empty())
+		{
+			stack<T> tmpSt = mQueueStack.front();
+			stack<T> tmpSt2;
+			while (!tmpSt.empty())
+			{
+				num += tmpSt.top();
+				tmpSt2.push(tmpSt.top());
+				tmpSt.pop();
+			}
+
+			while (!tmpSt2.empty())
+			{
+				tmpSt.push(tmpSt2.top());
+				tmpSt2.pop();
+			}
+			tmpQuSt.push(tmpSt);
+			mQueueStack.pop();
+		}
+
+		mQueueStack = tmpQuSt;
+		return num;
 	}
 }

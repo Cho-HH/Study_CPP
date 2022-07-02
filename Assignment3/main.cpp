@@ -505,7 +505,7 @@ int main()
     TestMinMaxWhenEmpty();
     const double EPSILON = 0.0009765625;
 
-    QueueStack<float> ss(3);
+    QueueStack<double> ss(3);
 
     ss.Enqueue(3.4);
     ss.GetSum();
@@ -566,6 +566,27 @@ int main()
     assert(popped1 == 9.2);
     assert(popped2 == -12.4);*/
 
+
+    QueueStack<double> ss3(3);
+
+    ss3.Enqueue(3.4);
+    ss3.Enqueue(1.2);
+    ss3.Enqueue(4.6);
+    ss3.Enqueue(3.32);
+    ss3.Enqueue(10.2);
+    ss3.Enqueue(1.1);
+    ss3.Enqueue(-5.9);
+    ss3.Enqueue(1.1);
+    ss3.Enqueue(-12.4);
+    ss3.Enqueue(9.2);
+
+    assert(ss3.GetCount() == 10U);
+    assert(ss3.Peek() == 4.6);
+    assert(ss3.GetMax() == 10.2);
+    assert(ss3.GetMin() == -12.4);
+    assert(ss3.GetSum() == 15.82);
+    assert(ss3.GetAverage() == 1.582);
+    assert(ss3.Peek() == 9.2);
 
     return 0;
 }
