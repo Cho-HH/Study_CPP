@@ -1,5 +1,4 @@
 #include <cassert>
-
 #include "Lab7.h"
 
 using namespace lab7;
