@@ -14,7 +14,7 @@ namespace lab8
 
 		bool Add(const T& t);
 		bool Remove(const T& t);
-		T Get(size_t index) const;
+		const T& Get(size_t index) const;
 		T& operator[](size_t index);
 		int GetIndex(const T& t) const;
 		size_t GetSize() const;
@@ -43,7 +43,7 @@ namespace lab8
 	inline FixedVector<T, N>& FixedVector<T, N>::operator=(const FixedVector<T, N>& rhs)
 	{
 		mCurSize = rhs.mCurSize;
-		memcpy(mArr, rhs.mArr, N);
+		memcpy(mArr, other.mArr, N);
 	}
 
 	template<typename T, size_t N>
@@ -78,7 +78,7 @@ namespace lab8
 	}
 
 	template<typename T, size_t N>
-	inline T FixedVector<T, N>::Get(size_t index) const
+	inline const T& FixedVector<T, N>::Get(size_t index) const
 	{
 		return mArr[index];
 	}
