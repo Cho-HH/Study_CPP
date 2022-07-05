@@ -36,14 +36,14 @@ namespace lab8
 	inline FixedVector<bool, N>::FixedVector(const FixedVector<bool, N>& other)
 		: mCurSize(other.mCurSize)
 	{
-		mArr = other.mArr;
+		memcpy(mArr, other.mArr, N);
 	}
 
 	template<size_t N>
 	inline FixedVector<bool, N>& FixedVector<bool, N>::operator=(const FixedVector<bool, N>& rhs)
 	{
 		mCurSize = rhs.mCurSize;
-		mArr = rhs.mArr;
+		memcpy(mArr, other.mArr, N);
 	}
 	
 	template<size_t N>
