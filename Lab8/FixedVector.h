@@ -8,8 +8,6 @@ namespace lab8
 	{
 	public:
 		FixedVector();
-		FixedVector(const FixedVector<T, N>& other);
-		FixedVector<T, N>& operator=(const FixedVector<T, N>& rhs);
 		virtual ~FixedVector() = default;
 
 		bool Add(const T& t);
@@ -30,20 +28,6 @@ namespace lab8
 		: mCurSize(0)
 		, mArr()
 	{
-	}
-
-	template<typename T, size_t N>
-	inline FixedVector<T, N>::FixedVector(const FixedVector<T, N>& other)
-		: mCurSize(other.mCurSize)
-	{
-		memcpy(mArr, other.mArr, N);
-	}
-
-	template<typename T, size_t N>
-	inline FixedVector<T, N>& FixedVector<T, N>::operator=(const FixedVector<T, N>& rhs)
-	{
-		mCurSize = rhs.mCurSize;
-		memcpy(mArr, rhs.mArr, N);
 	}
 
 	template<typename T, size_t N>

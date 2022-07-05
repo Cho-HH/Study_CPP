@@ -8,6 +8,7 @@ using namespace lab8;
 
 int main()
 {
+	FixedVector<int, 4>
 	int integerArray1[] = { 23, 25, 10, -4, 70 };
 	enum { INTEGER_VECTOR1_SIZE = 4 };
 
