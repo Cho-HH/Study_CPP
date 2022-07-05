@@ -43,7 +43,7 @@ namespace lab8
 	inline FixedVector<T, N>& FixedVector<T, N>::operator=(const FixedVector<T, N>& rhs)
 	{
 		mCurSize = rhs.mCurSize;
-		memcpy(mArr, other.mArr, N);
+		memcpy(mArr, rhs.mArr, N);
 	}
 
 	template<typename T, size_t N>
