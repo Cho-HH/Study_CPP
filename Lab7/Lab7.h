@@ -6,15 +6,22 @@
 #include <cmath>
 #include <set>
 #include <string>
-#include <cuchar>
 
 namespace lab7
 {
+
+	unsigned int GetMin(unsigned int v1, unsigned int v2)
+	{
+		return std::min(v1, v2);
+	}
+
 	template <typename K, class V>
 	std::map<K, V> ConvertVectorsToMap(const std::vector<K>& keys, const std::vector<V>& values)
 	{
 		std::map<K, V> m;
-		unsigned int len = std::min(keys.size(), values.size());
+		//unsigned int len = std::min(keys.size(), values.size());
+		unsigned int len = GetMin(keys.size(), values.size());
+		//GetMin(keys.size(), values.size());
 		auto keysIter = keys.begin();
 		auto valuesIter = values.begin();
 		for (unsigned int i = 0; i < len; i++)
@@ -123,4 +130,5 @@ namespace lab7
 		}
 		return os;
 	}
+
 }
