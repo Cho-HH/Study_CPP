@@ -73,11 +73,7 @@ namespace lab8
 			if (static_cast<bool>(mArr & (1 << i)) == t)
 			{
 				mArr &= ~(1 << i);
-				size_t tmp = mArr >> std::max(i, 1);
-				tmp <<= std::max(i - 1, 0);
-				size_t tmp2 = (mArr << (32 - i - 1));
-				tmp2 >>= (32 - i - 1);
-				mArr = tmp | tmp2;				
+				mArr = (mArr >> std::max(i, 1) << std::max(i - 1, 0)) | (mArr << (32 - i - 1) >> (32 - i - 1));
 				--mCurSize;
 				return true;
 			}
