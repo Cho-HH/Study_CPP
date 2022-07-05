@@ -14,7 +14,7 @@ namespace lab8
 		virtual ~FixedVector() = default;
 
 		bool Add(const bool t);
-		bool Remove(const bool t);
+		bool Remove(const bool bT);
 		bool Get(size_t index) const;
 		bool operator[](size_t index) const;
 		int GetIndex(const bool t) const;
@@ -33,28 +33,28 @@ namespace lab8
 	}
 
 	template<size_t N>
-	inline FixedVector<bool, N>::FixedVector(const FixedVector<bool, N>& other)
-		: mCurSize(other.mCurSize)
+	inline FixedVector<bool, N>::FixedVector(const FixedVector<bool, N>& bOther)
+		: mCurSize(bOther.mCurSize)
 	{
-		memcpy(mArr, other.mArr, N);
+		memcpy(mArr, bOther.mArr, N);
 	}
 
 	template<size_t N>
-	inline FixedVector<bool, N>& FixedVector<bool, N>::operator=(const FixedVector<bool, N>& rhs)
+	inline FixedVector<bool, N>& FixedVector<bool, N>::operator=(const FixedVector<bool, N>& bRhs)
 	{
-		mCurSize = rhs.mCurSize;
-		memcpy(mArr, other.mArr, N);
+		mCurSize = bRhs.mCurSize;
+		memcpy(mArr, bRhs.mArr, N);
 	}
 	
 	template<size_t N>
-	inline bool FixedVector<bool, N>::Add(const bool t)
+	inline bool FixedVector<bool, N>::Add(const bool bT)
 	{
 		if (mCurSize >= N)
 		{
 			return false;
 		}
 
-		if (t)
+		if (bT)
 		{
 			mArr |= (1 << mCurSize++);
 		}
@@ -82,7 +82,7 @@ namespace lab8
 	}
 
 	template<size_t N>
-	inline bool FixedVector<bool ,N>::Get(size_t index) const
+	inline bool FixedVector<bool, N>::Get(size_t index) const
 	{
 		return mArr & (1 << index);
 	}
@@ -94,11 +94,11 @@ namespace lab8
 	}
 
 	template<size_t N>
-	inline int FixedVector<bool, N>::GetIndex(const bool t) const
+	inline int FixedVector<bool, N>::GetIndex(const bool bT) const
 	{
 		for (size_t i = 0; i < mCurSize; i++)
 		{
-			if (static_cast<bool>(mArr & (1 << i)) == t)
+			if (static_cast<bool>(mArr & (1 << i)) == bT)
 			{
 				return i;
 			}
