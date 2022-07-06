@@ -8,6 +8,13 @@ using namespace lab8;
 
 int main()
 {
+	FixedVector<int, 4> v;
+	v.Add(1);
+	v.Add(2);
+	v.Add(3);
+	v.Add(4);
+	//v.Remove(4);
+	v.Remove(2);
 	int integerArray1[] = { 23, 25, 10, -4, 70 };
 	enum { INTEGER_VECTOR1_SIZE = 4 };
 

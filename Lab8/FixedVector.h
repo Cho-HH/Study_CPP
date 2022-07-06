@@ -65,11 +65,12 @@ namespace lab8
 		{
 			if (mArr[i] == t)
 			{
-				mArr[i] = T();
-				for (size_t j = i; j < mCurSize - 1; j++)
+				size_t j;
+				for (j = i; j < mCurSize - 1; j++)
 				{
 					mArr[j] = mArr[j + 1];
 				}
+				mArr[j] = T();
 				--mCurSize;
 				return true;
 			}
