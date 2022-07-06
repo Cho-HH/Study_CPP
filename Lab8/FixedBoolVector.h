@@ -14,7 +14,7 @@ namespace lab8
 		virtual ~FixedVector() = default;
 
 		bool Add(const bool t);
-		bool Remove(const bool bT);
+		bool Remove(const bool t);
 		bool Get(size_t index) const;
 		bool operator[](size_t index) const;
 		int GetIndex(const bool t) const;
@@ -22,45 +22,57 @@ namespace lab8
 		size_t GetCapacity() const;
 	private:
 		size_t mCurSize;
-		size_t mArr;
+		size_t mCurArr;
+		size_t mArr[N / 8 + 1];
 	};
 
 	template<size_t N>
 	FixedVector<bool, N>::FixedVector()
 		: mCurSize(0)
 		, mArr(0)
+		, mCurArr(0)
 	{
 	}
 
 	template<size_t N>
-	FixedVector<bool, N>::FixedVector(const FixedVector<bool, N>& bOther)
+	FixedVector<bool, N>::FixedVector(const FixedVector<bool, N>& other)
 		: mCurSize(bOther.mCurSize)
+		, mCurArr(0)
 	{
-		memcpy(mArr, bOther.mArr, N);
+		for (int i = 0; i < mCurArr; i++)
+		{
+			mArr[i] = other.mArr;
+		}
 	}
 
 	template<size_t N>
-	FixedVector<bool, N>& FixedVector<bool, N>::operator=(const FixedVector<bool, N>& bRhs)
+	FixedVector<bool, N>& FixedVector<bool, N>::operator=(const FixedVector<bool, N>& rhs)
 	{
-		mCurSize = bRhs.mCurSize;
-		memcpy(mArr, bRhs.mArr, N);
+		mArr = { 0, };
+		mCurSize = rhs.mCurSize;
+		mCurArr = rhs.mCurArr;
+		for (int i = 0; i < mCurArr; i++)
+		{
+			mArr[i] = rhs.mArr;
+		}
+		return *this;
 	}
 	
 	template<size_t N>
-	bool FixedVector<bool, N>::Add(const bool bT)
+	bool FixedVector<bool, N>::Add(const bool t)
 	{
 		if (mCurSize >= N)
 		{
 			return false;
 		}
 
-		if (bT)
+		if (t)
 		{
-			mArr |= (1 << mCurSize++);
+			mArr[mCurArr] |= (1 << mCurSize++);
 		}
 		else
 		{
-			mArr &= ~(1 << mCurSize++);
+			mArr[mCurArr] &= ~(1 << mCurSize++);
 		}
 		return true;
 	}

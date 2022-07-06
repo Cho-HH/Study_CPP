@@ -6,15 +6,165 @@
 
 using namespace lab8;
 
+void testFixedBoolVector()
+{
+	FixedVector<bool, 34> fv;
+	assert(!fv.Remove(false));
+	assert(!fv.Remove(true));
+	assert(fv.GetIndex(false) == -1);
+	assert(fv.GetIndex(true) == -1);
+
+	// 명세에 index는 항상 범위 내에 있다했고 빌드봇은 이런 테스트 하지 않음.
+	assert(!fv[0]);
+
+	// false 0~31 [0]
+	for (size_t i = 0; i != 32; ++i)
+	{
+		fv.Add(false);
+	}
+
+	fv.Add(true);
+	fv.Add(true);
+	assert(!fv.Get(31)); assert(fv.Get(31) == fv[31]);
+	assert(fv.Get(32)); assert(fv.Get(32) == fv[32]);
+	assert(fv.Get(33)); assert(fv.Get(33) == fv[33]);
+	assert(fv.GetSize() == 34);
+
+	fv.Remove(false);
+	assert(fv.Get(31));
+	assert(fv.Get(32));
+	assert(fv.GetSize() == 33);
+
+	FixedVector<bool, 64> fv2;
+	for (size_t i = 0; i != 4; ++i)
+	{
+		assert(fv2.Add(true)); assert(fv2.Add(true));
+		assert(fv2.Add(true)); assert(fv2.Add(true));
+		assert(fv2.Add(true)); assert(fv2.Add(true));
+		assert(fv2.Add(true)); assert(fv2.Add(true));
+
+		assert(fv2.Add(false)); assert(fv2.Add(false));
+		assert(fv2.Add(false)); assert(fv2.Add(false));
+		assert(fv2.Add(false)); assert(fv2.Add(false));
+		assert(fv2.Add(false)); assert(fv2.Add(false));
+	}
+	assert(!fv2.Add(true));
+
+	for (size_t i = 0; i != 8; ++i)
+	{
+		assert(fv2.Remove(true));
+	}
+
+	for (size_t i = 0; i != 56; ++i)
+	{
+		if (i < 8)
+		{
+			assert(!fv2.Get(i));
+		}
+		else if (i < 16)
+		{
+			assert(fv2.Get(i));
+		}
+		else if (i < 24)
+		{
+			assert(!fv2.Get(i));
+		}
+		else if (i < 32)
+		{
+			assert(fv2.Get(i));
+		}
+		else if (i < 40)
+		{
+			assert(!fv2.Get(i));
+		}
+		else if (i < 48)
+		{
+			assert(fv2.Get(i));
+		}
+		else if (i < 56)
+		{
+			assert(!fv2.Get(i));
+		}
+	}
+
+	for (size_t i = 0; i != 32; ++i)
+	{
+		assert(fv2.Remove(false));
+	}
+	assert(fv2.GetCapacity() == 64);
+	assert(fv2.GetSize() == 24);
+	assert(fv2.GetIndex(true) == 0);
+	assert(fv2.GetIndex(false) == -1);
+
+	for (size_t i = 0; i != 24; ++i)
+	{
+		assert(fv2.Remove(true));
+	}
+	assert(fv2.GetCapacity() == 64);
+	assert(fv2.GetSize() == 0);
+	assert(fv2.GetIndex(true) == -1);
+
+	assert(!fv2.Remove(true));
+	assert(!fv2.Remove(false));
+
+	assert(fv2.GetIndex(true) == -1);
+	assert(fv2.GetIndex(false) == -1);
+}
+
+
+void testFixedVector()
+{
+	// int
+	FixedVector<int, 5> intVector;
+	assert(intVector.GetCapacity() == 5);
+	assert(intVector.GetSize() == 0);
+	assert(intVector.GetIndex(0) == -1);
+	assert(!intVector.Remove(0));
+	assert(!intVector[0]);
+
+	for (auto i = 0; i != 5; ++i)
+	{
+		assert(intVector.Add(i));
+		assert(intVector.GetCapacity() == 5);
+		assert(intVector.GetSize() == i + 1);
+		assert(intVector.Get(i) == i);
+	}
+
+	assert(intVector.Remove(1));
+	assert(intVector.Get(4) == NULL);
+
+	FixedVector<int*, 5> fv;
+	fv.Add(new int(3));
+	FixedVector<int*, 5> fv2 = fv;
+	assert(*fv2[0] == 3);
+	assert(&fv[0] != &fv2[0]);
+
+	fv2.Add(new int(5));
+	assert(*fv2[1] == 5);
+	assert(*fv[1] == 0);
+	assert(fv.GetSize() == 1);
+
+	FixedVector<int*, 5> fv3;
+	fv3.Add(new int(1));
+	fv3.Add(new int(2));
+	fv3.Add(new int(3));
+
+	FixedVector<int*, 5> fv4;
+	fv4 = fv3;
+	assert(*fv3[0] == *fv4[0]);
+	assert(&fv3[0] != &fv4[0]);
+
+	FixedVector<int*, 5> fv6;
+	fv6.Add(new int(1));
+	int* tmp = new int(2);
+	fv6.Add(tmp);
+	fv6.Add(new int(3));
+	fv6.Add(new int(4));
+	fv6.Remove(tmp);
+}
+
 int main()
 {
-	FixedVector<int, 4> v;
-	v.Add(1);
-	v.Add(2);
-	v.Add(3);
-	v.Add(4);
-	//v.Remove(4);
-	v.Remove(2);
 	int integerArray1[] = { 23, 25, 10, -4, 70 };
 	enum { INTEGER_VECTOR1_SIZE = 4 };
 
@@ -145,6 +295,7 @@ int main()
 	assert(boolVector2.GetIndex(true) == -1);
 	std::cout << "Test FixedBoolVector GetIndex(): PASS" << std::endl;
 
+	testFixedBoolVector();
+	testFixedVector();
 	return 0;
 }
-
