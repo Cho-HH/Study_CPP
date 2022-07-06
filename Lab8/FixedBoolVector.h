@@ -26,28 +26,28 @@ namespace lab8
 	};
 
 	template<size_t N>
-	inline FixedVector<bool, N>::FixedVector()
+	FixedVector<bool, N>::FixedVector()
 		: mCurSize(0)
 		, mArr(0)
 	{
 	}
 
 	template<size_t N>
-	inline FixedVector<bool, N>::FixedVector(const FixedVector<bool, N>& bOther)
+	FixedVector<bool, N>::FixedVector(const FixedVector<bool, N>& bOther)
 		: mCurSize(bOther.mCurSize)
 	{
 		memcpy(mArr, bOther.mArr, N);
 	}
 
 	template<size_t N>
-	inline FixedVector<bool, N>& FixedVector<bool, N>::operator=(const FixedVector<bool, N>& bRhs)
+	FixedVector<bool, N>& FixedVector<bool, N>::operator=(const FixedVector<bool, N>& bRhs)
 	{
 		mCurSize = bRhs.mCurSize;
 		memcpy(mArr, bRhs.mArr, N);
 	}
 	
 	template<size_t N>
-	inline bool FixedVector<bool, N>::Add(const bool bT)
+	bool FixedVector<bool, N>::Add(const bool bT)
 	{
 		if (mCurSize >= N)
 		{
@@ -66,7 +66,7 @@ namespace lab8
 	}
 
 	template<size_t N>
-	inline bool lab8::FixedVector<bool, N>::Remove(const bool t)
+	bool lab8::FixedVector<bool, N>::Remove(const bool t)
 	{
 		for (int i = 0; i < static_cast<int>(mCurSize); i++)
 		{
@@ -82,19 +82,19 @@ namespace lab8
 	}
 
 	template<size_t N>
-	inline bool FixedVector<bool, N>::Get(size_t index) const
+	bool FixedVector<bool, N>::Get(size_t index) const
 	{
 		return mArr & (1 << index);
 	}
 
 	template<size_t N>
-	inline bool FixedVector<bool, N>::operator[](size_t index) const
+	bool FixedVector<bool, N>::operator[](size_t index) const
 	{
 		return mArr & (1 << index);
 	}
 
 	template<size_t N>
-	inline int FixedVector<bool, N>::GetIndex(const bool bT) const
+	int FixedVector<bool, N>::GetIndex(const bool bT) const
 	{
 		for (size_t i = 0; i < mCurSize; i++)
 		{
@@ -107,13 +107,13 @@ namespace lab8
 	}
 
 	template<size_t N>
-	inline size_t FixedVector<bool, N>::GetSize() const
+	size_t FixedVector<bool, N>::GetSize() const
 	{
 		return mCurSize;
 	}
 
 	template<size_t N>
-	inline size_t FixedVector<bool, N>::GetCapacity() const
+	size_t FixedVector<bool, N>::GetCapacity() const
 	{
 		return N;
 	}
