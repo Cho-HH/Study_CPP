@@ -135,7 +135,7 @@ namespace lab8
 		bool Remove(const T* t);
 		const T*& Get(size_t index) const;
 		T*& operator[](size_t index);
-		int GetIndex(const T*& t) const;
+		int GetIndex(const T* t) const;
 		size_t GetSize() const;
 		size_t GetCapacity() const;
 	private:
@@ -237,7 +237,7 @@ namespace lab8
 	}
 
 	template<typename T, size_t N>
-	inline int FixedVector<T*, N>::GetIndex(const T*& t) const
+	inline int FixedVector<T*, N>::GetIndex(const T* t) const
 	{
 		for (size_t i = 0; i < mCurSize; i++)
 		{
