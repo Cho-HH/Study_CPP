@@ -131,8 +131,8 @@ namespace lab8
 		FixedVector<T*, N>& operator=(const FixedVector<T*, N>& rhs);
 		virtual ~FixedVector();
 
-		bool Add(T* t);
-		bool Remove(const T* t);
+		bool Add(T*& t);
+		bool Remove(const T*& t);
 		const T*& Get(size_t index) const;
 		T*& operator[](size_t index);
 		int GetIndex(const T* t) const;
@@ -193,7 +193,7 @@ namespace lab8
 	}
 
 	template<typename T, size_t N>
-	inline bool FixedVector<T*, N>::Add(T* t)
+	inline bool FixedVector<T*, N>::Add(T*& t)
 	{
 		if (mCurSize >= N)
 		{
@@ -204,7 +204,7 @@ namespace lab8
 	}
 
 	template<typename T, size_t N>
-	inline bool FixedVector<T*, N>::Remove(const T* t)
+	inline bool FixedVector<T*, N>::Remove(const T*& t)
 	{
 		for (size_t i = 0; i < mCurSize; i++)
 		{
