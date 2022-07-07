@@ -137,7 +137,7 @@ void testFixedVector()
 	FixedVector<int*, 5> fv;
 	int* n1 = new int(3);
 	fv.Add(n1);
-	//fv.Add(new int(3));
+	fv.Add(new int(3));
 	/*FixedVector<int*, 5> fv2 = fv;
 	assert(*fv2[0] == 3);
 	assert(&fv[0] != &fv2[0]);
