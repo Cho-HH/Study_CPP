@@ -1,5 +1,4 @@
 #pragma once
-#include <algorithm>
 #include <cstddef>
 
 namespace lab8
@@ -23,21 +22,24 @@ namespace lab8
 	private:
 		size_t mCurSize;
 		size_t mCurArr;
-		size_t mArr[N / 8 + 1];
+		size_t mArr[N / 32 + 1];
+		size_t mTmp;
 	};
 
 	template<size_t N>
 	FixedVector<bool, N>::FixedVector()
 		: mCurSize(0)
-		, mArr(0)
+		, mArr{}
 		, mCurArr(0)
+		, mTmp(0)
 	{
 	}
 
 	template<size_t N>
 	FixedVector<bool, N>::FixedVector(const FixedVector<bool, N>& other)
-		: mCurSize(bOther.mCurSize)
+		: mCurSize(other.mCurSize)
 		, mCurArr(0)
+		, mTmp(0)
 	{
 		for (int i = 0; i < mCurArr; i++)
 		{
@@ -51,6 +53,7 @@ namespace lab8
 		mArr = { 0, };
 		mCurSize = rhs.mCurSize;
 		mCurArr = rhs.mCurArr;
+		mTmp = rhs.mTmp;
 		for (int i = 0; i < mCurArr; i++)
 		{
 			mArr[i] = rhs.mArr;
@@ -74,6 +77,11 @@ namespace lab8
 		{
 			mArr[mCurArr] &= ~(1 << mCurSize++);
 		}
+		if (++mTmp >= 32)
+		{
+			mTmp = 0;
+			mCurArr++;
+		}
 		return true;
 	}
 
@@ -82,10 +90,21 @@ namespace lab8
 	{
 		for (int i = 0; i < static_cast<int>(mCurSize); i++)
 		{
-			if (static_cast<bool>(mArr & (1 << i)) == t)
+			if (static_cast<bool>(mArr[i / 32] & (1 << (i % 32))) == t)
 			{
-				mArr &= ~(1 << i);
-				mArr = (mArr >> std::max(i, 1) << std::max(i - 1, 0)) | (mArr << (32 - i - 1) >> (32 - i - 1));
+				int j;
+				for (j = i; j < static_cast<int>(mCurSize) - 1; j++)
+				{
+					if (static_cast<bool>(mArr[(j + 1) / 32] & (1 << ((j + 1) % 32))))
+					{
+						mArr[j / 32] |= (1 << (j % 32));
+					}
+					else
+					{
+						mArr[j / 32] &= ~(1 << (j % 32));
+					}
+				}
+				mArr[j / 32] &= ~(1 << (j % 32));
 				--mCurSize;
 				return true;
 			}
@@ -96,21 +115,21 @@ namespace lab8
 	template<size_t N>
 	bool FixedVector<bool, N>::Get(size_t index) const
 	{
-		return mArr & (1 << index);
+		return static_cast<bool>(mArr[index / 32] & (1 << index % 32));
 	}
 
 	template<size_t N>
 	bool FixedVector<bool, N>::operator[](size_t index) const
 	{
-		return mArr & (1 << index);
+		return static_cast<bool>(mArr[index / 32] & (1 << index % 32));
 	}
 
 	template<size_t N>
-	int FixedVector<bool, N>::GetIndex(const bool bT) const
+	int FixedVector<bool, N>::GetIndex(const bool t) const
 	{
 		for (size_t i = 0; i < mCurSize; i++)
 		{
-			if (static_cast<bool>(mArr & (1 << i)) == bT)
+			if (static_cast<bool>(mArr[i / 32] & (1 << (i % 32))) == t)
 			{
 				return i;
 			}
