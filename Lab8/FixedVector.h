@@ -71,12 +71,11 @@ namespace lab8
 		{
 			if (mArr[i] == t)
 			{
-				size_t j;
-				for (j = i; j < mCurSize - 1; j++)
+				for (size_t j = i; j < mCurSize - 1; j++)
 				{
 					mArr[j] = mArr[j + 1];
 				}
-				mArr[j] = T();
+				//mArr[j] = T();
 				--mCurSize;
 				return true;
 			}
@@ -214,12 +213,12 @@ namespace lab8
 			if (mArr[i] == t)
 			{
 				//delete mArr[i];
-				size_t j;
-				for (j = i; j < mCurSize - 1; j++)
+
+				for (size_t j = i; j < mCurSize - 1; j++)
 				{
 					mArr[j] = mArr[j + 1];
 				}
-				mArr[--mCurSize] = nullptr;
+				//mArr[--mCurSize] = nullptr;
 				return true;
 			}
 		}
