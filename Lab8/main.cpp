@@ -305,7 +305,8 @@ int main()
 	test.Add(o1);
 	test.Add(o2);
 	test.Add(o3);
-	test.Remove(o1);
+	//test.Remove(o1);
+	test.Remove(o3);
 	testFixedBoolVector();
 	testFixedVector();
 	return 0;
