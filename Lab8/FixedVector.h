@@ -146,11 +146,12 @@ namespace lab8
 	template<typename T, size_t N>
 	inline FixedVector<T*, N>::FixedVector()
 		: mCurSize(0)
+		, mArr{}
 	{
-		for (size_t i = 0; i < N; i++)
+		/*for (size_t i = 0; i < N; i++)
 		{
 			mArr[i] = new T();
-		}
+		}*/
 	}
 
 	template<typename T, size_t N>
@@ -168,11 +169,12 @@ namespace lab8
 	{
 		for (size_t i = 0; i < N; i++)
 		{
-			mArr[i] = new T();
+			mArr[i] = nullptr;
 		}
 		
 		for (size_t i = 0; i < mCurSize; i++)
 		{
+			mArr[i] = new T();
 			memcpy(mArr[i], other.mArr[i], sizeof(other.mArr[i]));
 		}
 	}
@@ -182,11 +184,12 @@ namespace lab8
 	{
 		for (size_t i = 0; i < mCurSize; i++)
 		{
-			*mArr[i] = T();
+			mArr[i] = nullptr;
 		}
 		mCurSize = rhs.mCurSize;
 		for (size_t i = 0; i < mCurSize; i++)
 		{
+			mArr[i] = new T();
 			memcpy(mArr[i], rhs.mArr[i], sizeof(rhs.mArr[i]));
 		}
 		return *this;
@@ -210,13 +213,13 @@ namespace lab8
 		{
 			if (mArr[i] == t)
 			{
-				delete mArr[i];
+				//delete mArr[i];
 				size_t j;
 				for (j = i; j < mCurSize - 1; j++)
 				{
 					mArr[j] = mArr[j + 1];
 				}
-				mArr[j] = new T();
+				mArr[j] = nullptr;
 				--mCurSize;
 				return true;
 			}

@@ -136,15 +136,15 @@ void testFixedVector()
 
 	FixedVector<int*, 5> fv;
 	int* n1 = new int(3);
-	fv.Add(n1);
+	//fv.Add(n1);
 	fv.Add(new int(3));
-	/*FixedVector<int*, 5> fv2 = fv;
+	FixedVector<int*, 5> fv2 = fv;
 	assert(*fv2[0] == 3);
 	assert(&fv[0] != &fv2[0]);
 
 	fv2.Add(new int(5));
 	assert(*fv2[1] == 5);
-	assert(*fv[1] == 0);
+	//assert(*fv[1] == 0);
 	assert(fv.GetSize() == 1);
 
 	FixedVector<int*, 5> fv3;
@@ -163,7 +163,7 @@ void testFixedVector()
 	fv6.Add(tmp);
 	fv6.Add(new int(3));
 	fv6.Add(new int(4));
-	fv6.Remove(tmp);*/
+	fv6.Remove(tmp);
 }
 
 int main()
@@ -298,6 +298,14 @@ int main()
 	assert(boolVector2.GetIndex(true) == -1);
 	std::cout << "Test FixedBoolVector GetIndex(): PASS" << std::endl;
 
+	FixedVector<int*, 3> test;
+	int* o1 = new int(1);
+	int* o2 = new int(2);
+	int* o3 = new int(3);
+	test.Add(o1);
+	test.Add(o2);
+	test.Add(o3);
+	test.Remove(o1);
 	testFixedBoolVector();
 	testFixedVector();
 	return 0;
