@@ -219,6 +219,7 @@ namespace lab8
 					mArr[j] = mArr[j + 1];
 				}
 				//mArr[--mCurSize] = nullptr;
+				--mCurSize;
 				return true;
 			}
 		}
