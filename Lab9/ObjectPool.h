@@ -34,8 +34,7 @@ namespace lab9
 	{
 		if (mPool.empty())
 		{
-			std::unique_ptr<T> obj = std::make_unique<T>();
-			mPool.push(std::move(obj));
+			return new T();
 		}
 		std::unique_ptr<T> tmp = std::move(mPool.front());
 		mPool.pop();
