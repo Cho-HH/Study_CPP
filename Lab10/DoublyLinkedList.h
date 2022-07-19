@@ -24,6 +24,7 @@ namespace lab10
 	private:
 		unsigned int mCurLength;
 		std::shared_ptr<Node<T>> mHead;
+		std::shared_ptr<Node<T>> mTail;
 	};
 
 	template<typename T>
@@ -38,15 +39,19 @@ namespace lab10
 		if (mHead == nullptr)
 		{
 			mHead = std::make_shared<Node<T>>(std::move(data));
+			mTail = mHead;
 		}
 		else
 		{
-			std::shared_ptr<Node<T>> CurNode = mHead;
-			while (CurNode->Next != nullptr)
+			auto node = std::make_shared<Node<T>>(std::move(data), mTail);
+			mTail->Next = node;
+			mTail = node;
+			/*std::shared_ptr<Node<T>> curNode = mHead;
+			while (curNode->Next != nullptr)
 			{
-				CurNode = CurNode->Next;
+				curNode = curNode->Next;
 			}
-			CurNode->Next = std::make_shared<Node<T>>(std::move(data), CurNode);
+			curNode->Next = std::make_shared<Node<T>>(std::move(data), curNode);*/
 		}		
 		mCurLength++;
 	}
@@ -54,58 +59,72 @@ namespace lab10
 	template<typename T>
 	void DoublyLinkedList<T>::Insert(std::unique_ptr<T> data, unsigned int index)
 	{
-		std::shared_ptr<Node<T>> CurNode = mHead;
-		for (unsigned int i = 1; i <= index; i++)
+		if (index >= mCurLength)
 		{
-			CurNode = CurNode->Next;
-			if (i >= mCurLength)
-			{
-				break;
-			}
-		}
-
-		if (CurNode == mHead)
-		{
-			auto tmp = std::make_shared<Node<T>>(std::move(data));
-			tmp->Next = mHead;
-			mHead->Previous = tmp;
-			mHead = tmp;
+			auto node = std::make_shared<Node<T>>(std::move(data), mTail);
+			mTail->Next = node;
+			mTail = node;
 		}
 		else
 		{
-			auto tmp = std::make_shared<Node<T>>(std::move(data), CurNode->Previous.lock());
-			tmp->Next = CurNode;
-			CurNode->Previous.lock()->Next = tmp;
-			tmp->Previous = CurNode->Previous;
-			CurNode->Previous = tmp;
+			std::shared_ptr<Node<T>> curNode = mHead;			
+			for (unsigned int i = 1; i <= index; i++)
+			{
+				curNode = curNode->Next;
+			}
 
-		}
+			if (curNode == mHead)
+			{
+				auto tmp = std::make_shared<Node<T>>(std::move(data));
+				tmp->Next = mHead;
+				mHead->Previous = tmp;
+				mHead = tmp;
+			}
+			else
+			{
+				auto tmp = std::make_shared<Node<T>>(std::move(data), curNode->Previous.lock());
+				tmp->Next = curNode;
+				curNode->Previous.lock()->Next = tmp;
+				tmp->Previous = curNode->Previous;
+				curNode->Previous = tmp;
+
+			}
+		}		
 		mCurLength++;
 	}
 
 	template<typename T>
 	bool DoublyLinkedList<T>::Delete(const T& data)
 	{
-		std::shared_ptr<Node<T>> CurNode = mHead;
-		while (CurNode != nullptr)
+		std::shared_ptr<Node<T>> curNode = mHead;
+		while (curNode != nullptr)
 		{
-			if (*(CurNode->Data) == data)
+			if (*(curNode->Data) == data)
 			{
-				if (CurNode == mHead)
+				if (curNode == mHead)
 				{
-					mHead = CurNode->Next;
-					mHead->Previous.reset();
+					mHead = curNode->Next;
+					//mHead->Previous.reset();
+					if (mHead == nullptr)
+					{
+						mTail = nullptr;
+					}
+				}
+				else if (curNode == mTail)
+				{
+					mTail = mTail->Previous.lock();
+					mTail->Next = nullptr;
 				}
 				else
 				{
-					auto Prev = CurNode->Previous.lock();
-					Prev->Next = CurNode->Next;
-					CurNode->Next->Previous = CurNode->Previous;
+					auto Prev = curNode->Previous.lock();
+					Prev->Next = curNode->Next;
+					curNode->Next->Previous = curNode->Previous;					
 				}
 				mCurLength--;
 				return true;
 			}
-			CurNode = CurNode->Next;
+			curNode = curNode->Next;
 		}
 		return false;
 	}
@@ -113,14 +132,14 @@ namespace lab10
 	template<typename T>
 	bool DoublyLinkedList<T>::Search(const T& data) const
 	{
-		std::shared_ptr<Node<T>> CurNode = mHead;
-		while (CurNode != nullptr)
+		std::shared_ptr<Node<T>> curNode = mHead;
+		while (curNode != nullptr)
 		{
-			if (*(CurNode->Data) == data)
+			if (*(curNode->Data) == data)
 			{
 				return true;
 			}
-			CurNode = CurNode->Next;
+			curNode = curNode->Next;
 		}
 		return false;
 	}
@@ -133,12 +152,12 @@ namespace lab10
 			return nullptr;
 		}
 
-		std::shared_ptr<Node<T>> CurNode = mHead;
+		std::shared_ptr<Node<T>> curNode = mHead;
 		for (unsigned int i = 1; i <= index; i++)
 		{
-			CurNode = CurNode->Next;
+			curNode = curNode->Next;
 		}
-		return CurNode;
+		return curNode;
 	}
 
 	template<typename T>
