@@ -24,7 +24,7 @@ namespace assignment4
 		std::shared_ptr<TreeNode<T>> mRootNode;
 		void InsertRecursive(std::shared_ptr<TreeNode<T>>& node, std::unique_ptr<T> data);
 		bool SearchRecursive(const std::shared_ptr<TreeNode<T>>& node, const T& data);
-		bool DeleteRecursive(const std::shared_ptr<TreeNode<T>>& node, const T& data);
+		bool DeleteRecursive(const std::shared_ptr<TreeNode<T>> node, const T& data);
 		static void TraverseInOrderRecursive(std::vector<T>& vec, const std::shared_ptr<TreeNode<T>>& node);
 	};
 
@@ -104,7 +104,7 @@ namespace assignment4
 	}
 
 	template<typename T>
-	inline bool BinarySearchTree<T>::DeleteRecursive(const std::shared_ptr<TreeNode<T>>& node, const T& data)
+	inline bool BinarySearchTree<T>::DeleteRecursive(const std::shared_ptr<TreeNode<T>> node, const T& data)
 	{
 		if (node == nullptr)
 		{
@@ -112,58 +112,62 @@ namespace assignment4
 		}
 
 		if (data == *(node->Data))
-		{
-			std::shared_ptr<TreeNode<T>> parent = node->Parent.lock();
-
+		{		
 			if (mRootNode == node)
 				//삭제하려는 노드가 루트노드
 			{
 				if (node->Right == nullptr && node->Left == nullptr)
+					//노드가 루트노드만 있을 때
 				{
 					mRootNode = nullptr;
 				}
 				else if (node->Right == nullptr && node->Left != nullptr)
+					//노드가 왼쪽만 있을 때
 				{
 
 					mRootNode = node->Left;
-					mRootNode->Parent.reset();
 				}
 				else if (node->Right != nullptr && node->Left == nullptr)
+					//노드가 오른쪽만 있을 때
 				{
 					mRootNode = node->Right;
-					mRootNode->Parent.reset();
 				}
 				else
+					//노드가 양쪽 다 있을 때
 				{
-					std::shared_ptr<TreeNode<T>> tmpNode = node;
+					std::shared_ptr<TreeNode<T>> tmpNode = node->Right;
 					while (tmpNode->Left != nullptr)
 					{
 						tmpNode = tmpNode->Left;
 					}
-					tmpNode = tmpNode->Right != nullptr ? tmpNode->Right : tmpNode;
 
-					//대체노드의 부모의 자식끊기
-					parent = tmpNode->Parent.lock();
-					if (tmpNode == parent->Left)
+					if (tmpNode == mRootNode->Right)
+						//대체노드가 루트노드의 바로 오른쪽 자식
 					{
-						parent->Left = nullptr;
+						tmpNode->Left = mRootNode->Left;
+						mRootNode = tmpNode;
 					}
 					else
 					{
-						parent->Right = nullptr;
+						auto tmpParent = tmpNode->Parent.lock();
+						tmpParent->Left = tmpNode->Right;
+						if (tmpParent->Left != nullptr)
+						{
+							tmpParent->Left->Parent = tmpParent;
+						}
+						tmpNode->Left = mRootNode->Left;
+						tmpNode->Right = mRootNode->Right;
+						tmpNode->Right->Parent = tmpNode;
+						tmpNode->Left->Parent = tmpNode;
+						tmpNode->Parent.reset();
+						mRootNode = tmpNode;
 					}
-
-					mRootNode->Left->Parent = tmpNode;
-					mRootNode->Right->Parent = tmpNode;
-					tmpNode->Parent.reset();
-					tmpNode->Left = mRootNode->Left;
-					tmpNode->Right = mRootNode->Right;
-					mRootNode = tmpNode;
 				}
 			}	
 			else if (node->Left == nullptr && node->Right == nullptr)
 				//삭제하려는 노드가 리프노드
 			{				
+				std::shared_ptr<TreeNode<T>> parent = node->Parent.lock();
 				if (node == parent->Left)
 				{
 					parent->Left = nullptr;
@@ -171,76 +175,92 @@ namespace assignment4
 				else
 				{
 					parent->Right = nullptr;
-				}
-			}
-			else if (node->Left == nullptr && node->Right != nullptr)
-				//삭제하려는 노드의 Left가 nullptr인 경우
-			{
-				if (node == parent->Left)
-				{
-					node->Right->Parent = parent;
-					parent->Left = node->Right;
-				}
-				else
-				{
-					node->Right->Parent = parent;
-					parent->Right = node->Right;
-				}
-			}
-			else if (node->Left != nullptr && node->Right == nullptr)
-				//삭제하려는 노드의 Right가 nullptr인 경우
-			{
-				if (node == parent->Left)
-				{
-					node->Left->Parent = parent;
-					parent->Left = node->Left;					
-				}
-				else
-				{
-					node->Left->Parent = parent;
-					parent->Right = node->Left;					
 				}
 			}
 			else
-				//삭제하려는 노드의 자식이 둘 다 nullptr이 아닌 경우
+				//루트도 아니고 리프도 아님
 			{
-				std::shared_ptr<TreeNode<T>> deleteNode = node;
-				std::shared_ptr<TreeNode<T>> tmpNode = node;
-				while (tmpNode->Left != nullptr)
+				std::shared_ptr<TreeNode<T>> parent = node->Parent.lock();
+				if (node->Left == nullptr && node->Right != nullptr)
+					//삭제하려는 노드의 Left가 nullptr인 경우
 				{
-					tmpNode = tmpNode->Left;
+					if (node == parent->Left)
+					{
+						parent->Left = node->Right;
+						node->Right->Parent = parent;
+					}
+					else
+					{
+						parent->Right = node->Right;
+						node->Right->Parent = parent;
+					}
 				}
-				tmpNode = tmpNode->Right != nullptr ? tmpNode->Right : tmpNode;
-
-				//대체노드의 부모의 자식끊기
-				parent = tmpNode->Parent.lock();
-				if (tmpNode == parent->Left)
+				else if (node->Left != nullptr && node->Right == nullptr)
+					//삭제하려는 노드의 Right가 nullptr인 경우
 				{
-					parent->Left = nullptr;
+					if (node == parent->Left)
+					{
+						parent->Left = node->Left;
+						parent->Left->Parent = parent;
+						//node->Left->Parent = parent;
+					}
+					else
+					{
+						parent->Right = node->Left;
+						parent->Right->Parent = parent;
+						//node->Left->Parent = parent;
+					}
 				}
 				else
+					//삭제하려는 노드의 자식이 둘 다 nullptr이 아닌 경우
 				{
-					parent->Right = nullptr;
-				}
+					//std::shared_ptr<TreeNode<T>> deleteNode = node;
+					std::shared_ptr<TreeNode<T>> tmpNode = node->Right;
+					while (tmpNode->Left != nullptr)
+					{
+						tmpNode = tmpNode->Left;
+					}
+										
+					if (tmpNode == node->Right)
+						//대체노드가 삭제노드의 바로 오른쪽 자식
+					{
+						auto parent = node->Parent.lock();
+						if (node == parent->Left)
+						{
+							parent->Left = tmpNode;
+						}
+						else
+						{
+							parent->Right = tmpNode;
+						}
+						tmpNode->Left = node->Left;
+						tmpNode->Parent = parent;
+						tmpNode->Left->Parent = tmpNode;
+					}
+					else
+					{
+						auto deleteParent = node->Parent.lock();
+						//대체노드의 부모의 자식끊기
+						tmpNode->Parent.lock()->Left = nullptr;
 
-				//대체노드의 부모를 삭제노드의 부모와 연결
-				parent = deleteNode->Parent.lock();
-				if (deleteNode == parent->Left)
-				{
-					tmpNode->Parent = parent;
-					parent->Left = tmpNode;
+						//대체노드의 부모를 삭제노드의 부모와 연결
+						if (node == deleteParent->Left)
+						{
+							deleteParent->Left = tmpNode;
+							tmpNode->Parent = deleteParent;
+						}
+						else
+						{
+							deleteParent->Right = tmpNode;
+							tmpNode->Parent = deleteParent;
+						}
+						//대체노드의 양쪽에 삭제노드의 양쪽 연결
+						tmpNode->Left = node->Left;
+						tmpNode->Right = node->Right;
+						node->Left->Parent = tmpNode;
+						node->Right->Parent = tmpNode;
+					}				
 				}
-				else
-				{
-					tmpNode->Parent = parent;
-					parent->Right = tmpNode;
-				}
-
-				deleteNode->Left->Parent = tmpNode;
-				deleteNode->Right->Parent = tmpNode;
-				//대체노드의 양쪽에 삭제노드의 양쪽 연결
-				tmpNode->Left = deleteNode->Left;
-				tmpNode->Right = deleteNode->Right;
 			}
 			
 			return true;
