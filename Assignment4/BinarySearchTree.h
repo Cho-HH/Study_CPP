@@ -82,7 +82,7 @@ namespace assignment4
 			return false;
 		}
 
- 		if (data == * (node->Data))
+ 		if (data == *(node->Data))
 		{
 			return true;
 		}

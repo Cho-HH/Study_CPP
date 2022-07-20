@@ -15,8 +15,6 @@ namespace assignment4
 		std::shared_ptr<TreeNode<T>> Left;
 		std::shared_ptr<TreeNode<T>> Right;
 		std::weak_ptr<TreeNode<T>> Parent;
-
-		void test() { std::cout << "test" << std::endl; }
 	};
 
 	template<typename T>
