@@ -36,7 +36,7 @@ namespace assignment4
 			mRootNode = std::make_shared<TreeNode<T>>(std::move(data));
 			return;
 		}
-		InsertRecursive(mRootNode, std::move(data));
+		insertRecursive(mRootNode, std::move(data));
 	}
 
 	template<typename T>
@@ -71,7 +71,7 @@ namespace assignment4
 	template<typename T>
 	bool BinarySearchTree<T>::Search(const T& data)
 	{
-		return SearchRecursive(mRootNode, data);
+		return searchRecursive(mRootNode, data);
 	}
 
 	template<typename T>
@@ -87,7 +87,7 @@ namespace assignment4
 			return true;
 		}
 
-		if (data < *(node->Data))
+		if (data <= *(node->Data))
 		{
 			return searchRecursive(node->Left, data);
 		}
@@ -100,7 +100,7 @@ namespace assignment4
 	template<typename T>
 	bool BinarySearchTree<T>::Delete(const T& data)
 	{
-		return DeleteRecursive(mRootNode, data);
+		return deleteRecursive(mRootNode, data);
 	}
 
 	template<typename T>
@@ -124,7 +124,6 @@ namespace assignment4
 				else if (node->Right == nullptr && node->Left != nullptr)
 					//노드가 왼쪽만 있을 때
 				{
-
 					mRootNode = node->Left;
 				}
 				else if (node->Right != nullptr && node->Left == nullptr)
@@ -145,6 +144,7 @@ namespace assignment4
 						//대체노드가 루트노드의 바로 오른쪽 자식
 					{
 						tmpNode->Left = mRootNode->Left;
+						mRootNode->Left->Parent = tmpNode;
 						mRootNode = tmpNode;
 					}
 					else
@@ -266,7 +266,7 @@ namespace assignment4
 			return true;
 		}
 		 
-		if (data < *(node->Data))
+		if (data <= *(node->Data))
 		{
 			return deleteRecursive(node->Left, data);
 		}
@@ -283,7 +283,7 @@ namespace assignment4
 	std::vector<T> BinarySearchTree<T>::TraverseInOrder(const std::shared_ptr<TreeNode<T>> startNode)
 	{
 		std::vector<T> v;
-		TraverseInOrderRecursive(v, startNode);
+		traverseInOrderRecursive(v, startNode);
 		return v;
 	}
 
