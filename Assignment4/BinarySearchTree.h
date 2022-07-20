@@ -82,7 +82,8 @@ namespace assignment4
 			return false;
 		}
 
- 		if (data == *(node->Data))
+		auto nodeData = *(node->Data);
+ 		if (data == nodeData)
 		{
 			return true;
 		}
