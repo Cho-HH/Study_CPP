@@ -254,6 +254,6 @@ void Test_Delete_0hoo()
 	assert(bDelete);
 	assert(traverseResult.size() == 1);
 	assert(traverseResult[0] == 15);
-	//assert(tree.GetRootNode().lock());
+	assert(tree.GetRootNode().lock());
 }
 

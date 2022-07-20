@@ -22,10 +22,10 @@ namespace assignment4
 
 	private:
 		std::shared_ptr<TreeNode<T>> mRootNode;
-		void InsertRecursive(std::shared_ptr<TreeNode<T>>& node, std::unique_ptr<T> data);
-		bool SearchRecursive(const std::shared_ptr<TreeNode<T>>& node, const T& data);
-		bool DeleteRecursive(const std::shared_ptr<TreeNode<T>> node, const T& data);
-		static void TraverseInOrderRecursive(std::vector<T>& vec, const std::shared_ptr<TreeNode<T>>& node);
+		void insertRecursive(std::shared_ptr<TreeNode<T>>& node, std::unique_ptr<T> data);
+		bool searchRecursive(const std::shared_ptr<TreeNode<T>>& node, const T& data);
+		bool deleteRecursive(const std::shared_ptr<TreeNode<T>> node, const T& data);
+		static void traverseInOrderRecursive(std::vector<T>& vec, const std::shared_ptr<TreeNode<T>>& node);
 	};
 
 	template<typename T>
@@ -40,16 +40,16 @@ namespace assignment4
 	}
 
 	template<typename T>
-	void BinarySearchTree<T>::InsertRecursive(std::shared_ptr<TreeNode<T>>& node, std::unique_ptr<T> data)
+	void BinarySearchTree<T>::insertRecursive(std::shared_ptr<TreeNode<T>>& node, std::unique_ptr<T> data)
 	{
-		if (*data < *(node->Data))
+		if (*data <= *(node->Data))
 		{
 			if (node->Left == nullptr)
 			{
 				node->Left = std::make_shared<TreeNode<T>>(node, std::move(data));
 				return;
 			}
-			InsertRecursive(node->Left, std::move(data));
+			insertRecursive(node->Left, std::move(data));
 		}
 		else
 		{
@@ -58,7 +58,7 @@ namespace assignment4
 				node->Right = std::make_shared<TreeNode<T>>(node, std::move(data));
 				return;
 			}
-			InsertRecursive(node->Right, std::move(data));
+			insertRecursive(node->Right, std::move(data));
 		}
 	}
 	
@@ -75,25 +75,25 @@ namespace assignment4
 	}
 
 	template<typename T>
-	bool BinarySearchTree<T>::SearchRecursive(const std::shared_ptr<TreeNode<T>>& node, const T& data)
+	bool BinarySearchTree<T>::searchRecursive(const std::shared_ptr<TreeNode<T>>& node, const T& data)
 	{
 		if (node == nullptr)
 		{
 			return false;
 		}
 
- 		if (data == *(node->Data))
+ 		if (data == * (node->Data))
 		{
 			return true;
 		}
 
 		if (data < *(node->Data))
 		{
-			return SearchRecursive(node->Left, data);
+			return searchRecursive(node->Left, data);
 		}
 		else
 		{
-			return SearchRecursive(node->Right, data);
+			return searchRecursive(node->Right, data);
 		}
 	}
 
@@ -104,7 +104,7 @@ namespace assignment4
 	}
 
 	template<typename T>
-	inline bool BinarySearchTree<T>::DeleteRecursive(const std::shared_ptr<TreeNode<T>> node, const T& data)
+	inline bool BinarySearchTree<T>::deleteRecursive(const std::shared_ptr<TreeNode<T>> node, const T& data)
 	{
 		if (node == nullptr)
 		{
@@ -268,11 +268,11 @@ namespace assignment4
 		 
 		if (data < *(node->Data))
 		{
-			return DeleteRecursive(node->Left, data);
+			return deleteRecursive(node->Left, data);
 		}
 		else
 		{
-			return DeleteRecursive(node->Right, data);
+			return deleteRecursive(node->Right, data);
 		}
 
 		return true;
@@ -288,16 +288,16 @@ namespace assignment4
 	}
 
 	template<typename T>
-	inline void BinarySearchTree<T>::TraverseInOrderRecursive(std::vector<T>& vec, const std::shared_ptr<TreeNode<T>>& node)
+	inline void BinarySearchTree<T>::traverseInOrderRecursive(std::vector<T>& vec, const std::shared_ptr<TreeNode<T>>& node)
 	{
 		if (node == nullptr)
 		{
 			return;
 		}
 
-		TraverseInOrderRecursive(vec, node->Left);
+		traverseInOrderRecursive(vec, node->Left);
 		vec.push_back(*(node->Data));
-		TraverseInOrderRecursive(vec, node->Right);
+		traverseInOrderRecursive(vec, node->Right);
 	}
 	
 }
