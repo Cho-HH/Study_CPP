@@ -49,6 +49,7 @@ namespace lab11
 	template<typename T>
 	inline Storage<T>::Storage(const Storage& other)
 	{
+		mSize = other.mSize;
 		mData = std::make_unique<T[]>(other.mSize);
 		for (unsigned int i = 0; i < other.mSize; i++)
 		{
