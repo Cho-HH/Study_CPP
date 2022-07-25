@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "Node.h"
+//#include "Node.h"
 
 namespace lab10
 {
@@ -46,12 +46,6 @@ namespace lab10
 			auto node = std::make_shared<Node<T>>(std::move(data), mTail);
 			mTail->Next = node;
 			mTail = node;
-			/*std::shared_ptr<Node<T>> curNode = mHead;
-			while (curNode->Next != nullptr)
-			{
-				curNode = curNode->Next;
-			}
-			curNode->Next = std::make_shared<Node<T>>(std::move(data), curNode);*/
 		}		
 		mCurLength++;
 	}
@@ -104,7 +98,6 @@ namespace lab10
 				if (curNode == mHead)
 				{
 					mHead = curNode->Next;
-					//mHead->Previous.reset();
 					if (mHead == nullptr)
 					{
 						mTail = nullptr;
