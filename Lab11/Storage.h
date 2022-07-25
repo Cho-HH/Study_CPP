@@ -61,10 +61,11 @@ namespace lab11
 	{
 		if (this == &other)
 		{
-			return;
+			return *this;
 		}
 
-		mData.reset(std::make_unique<T[]>(other.mSize));
+		mData = std::make_unique<T[]>(other.mSize);
+		//mData.reset(std::make_unique<T[]>(other.mSize));
 		for (unsigned int i = 0; i < other.mSize; i++)
 		{
 			mData[i] = other.mData[i];
@@ -87,7 +88,7 @@ namespace lab11
 	{
 		if (this == &other)
 		{
-			return;
+			return *this;
 		}
 		
 		mData = std::move(other.mData);

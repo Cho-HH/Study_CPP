@@ -26,7 +26,7 @@ int main()
 	}
 
 	Storage<int> tmp = storage2;
-
+	tmp = storage1;
 	// using move constructor
 	Storage<int> storage3(SIZE, 50);
 	const std::unique_ptr<int[]>& data3 = storage3.GetData();
